@@ -139,38 +139,89 @@
         <h3 class="section-subheading text-muted">Description</h3>
       </div>
     </div>
-    
-      <div class="row text-center">
+    <div id="servicebody">
+      <style type="text/css">
+        .axis path,
+        .axis line {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+        .x.axis path{
+          display: none;
+        }
+        body{
+        font: 10px arial;
+         text-align: center;
+        }
+      </style>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script type="text/javascript">
         
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading"><a href="https://betterweekdays.github.io/gates">E-Commerce</a></h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-          </div>
+        var margin = {top:20, right: 30, bottom: 30, left:40};
+        var width = 800-margin.left-margin.right;
+        var height = 400-margin.top-margin.bottom;
+
         
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading"><a href="https://betterweekdays.github.io/gates">Responsive Design</a></h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-          </div>
+        var formatPercent = d3.format("%.0");
+
+         
+        var yScale = d3.scale.linear().range([height,0]);
+        var xScale = d3.scale.ordinal().rangeRoundBands([0,width],0.1,0.2);
+
         
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading"><a href="https://betterweekdays.github.io/gates">Web</a></h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-          </div>
-        
-      </div>
-    
+        var c10 = d3.scale.category10();
+            
+        var svg = d3.select("body")
+              .append("svg")  .attr("width",width+margin.left+margin.right).attr("height",height+margin.top+margin.bottom)
+              .append("g")
+              .attr("transform","translate("+margin.left+","+margin.right+")");
+          
+          d3.tsv("http://simplysanad.com/d3js/words.tsv", function(data){
+          
+          yScale.domain([0,d3.max(data, function(d){ return d.frequency; })]);
+          xScale.domain(data.map(function(d){ return d.letter; }));
+          
+          var xAxis = d3.svg.axis()
+                    .scale(xScale)
+                    .orient("bottom");
+          var yAxis = d3.svg.axis()
+                    .scale(yScale)
+                    .orient("left")
+                    .tickFormat(formatPercent);
+          
+          var bars = svg.selectAll("rect")
+                        .data(data)
+                        .enter()
+                        .append("rect")
+                        .attr("class","bar")
+                        .attr("width", xScale.rangeBand())
+                        .attr("fill","steelblue")
+                        .attr("fill", function(d,i){
+                          return c10(Math.random()*10*i);
+                        })
+                        .attr("y", function(d){
+                          return yScale(d.frequency);
+                        })
+                        .attr("x", function(d){
+                          return xScale(d.letter);
+                        })
+                       .attr("height", function(d){
+                          return height-yScale(d.frequency);
+                       });
+
+         
+         svg.append("g")
+         .attr("transform","translate(0,"+height+")")
+         .call(xAxis)
+         .attr("class","x axis");
+          
+          svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+        });
+      </script>
+    </div>
   </div>
 </section>
 
