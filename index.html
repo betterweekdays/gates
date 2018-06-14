@@ -155,32 +155,76 @@
          text-align: center;
         }
       </style>
+      <h3 class="section-heading"> Dominant Values </h3>
       <script src="https://d3js.org/d3.v5.min.js"></script>
       <script type="text/javascript">
-        var data_values = [5,10,30,8,45,24,16,55,60,45,32,18,11,3];
+
+        var data_values = [8,24,16,55,60,45,32,18,11];
+
+        
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var margin = {top:20, bottom:40, left:40, right:20};
+
+        var width = 450-margin.left-margin.right;
+        var height = 800-margin.top-margin.bottom;
         var svg = d3.select("#servicesbody")
                     .append("svg")
-                    .attr("width","450px")
-                    .attr("height","400px");
+                    .attr("width", width+margin.left+margin.right)
+                    .attr("height", height+margin.top+margin.bottom);
+                    
+
+        
+        var xScale = d3.scaleBand()
+                        .domain(["A","B","C","D","E","F","G","H","I"])
+                        .range([0, 270]);
+        var xAxis = d3.axisBottom().scale(xScale);
+        var yScale = d3.scaleLinear()
+                        .domain([0, d3.max(data_values)])
+                        .range([height, 0]);
+        var yAxis = d3.axisLeft().scale(yScale);
+
         var bars = svg.selectAll("rect")
                       .data(data_values)
                       .enter()
                       .append("rect")
                       .attr("width","25px")
                       .attr("height", function(d){
-                                        return d*5; });
-        bars.attr("fill", "steelblue");
+                                        return d*10; });
+        bars.attr("fill", "steelblue")
+            .attr("fill", function(d,i){
+                            return color(Math.random()*10*i)
+            });
         bars.attr("x", function(d,i){
-                          return i*30; });
-        bars.attr("y", function(d){
-                          return 400-d*5; });
-
-        var max = d3.max(data_values);
-        var min = d3.min(data_values);
+                          return i*30+margin.left; })
+            .attr("y", function(d){
+                          return height-d*10; });
 
         
-        bars.filter(function(d){ return d==max; }).attr("fill", "green");
-        bars.filter(function(d){ return d==min; }).attr("fill", "yellow");
+        svg.append("g")
+            .attr("transform", "translate("+margin.left+", "+height+")")
+            .call(xAxis);
+        
+        
+        
+
+        
+        svg.append("g")
+            .attr("id", "label");
+        var label = svg.select("#label")
+                        .selectAll("text")
+                        .data(data_values)
+                        .enter()
+                        .append("text")
+                        .text(function(d){
+                          return d;
+                        })
+                        .attr("y", function(d){
+                          return height-d*10-5;
+                        })
+                        .attr("x", function(d, i){
+                          return i*30+margin.left+7;
+                        });
         </script>
     </div>
   </div>
