@@ -1,0 +1,24 @@
+{"data":[
+    {"cip":"167252",
+    "label":"Business Administration and Management, General",
+    "count":"179",
+    "Key Strengths":[
+        {"name":"Accomplishment-oriented","count":96,"percent":53.63,"position":1},
+        {"name":"Kind-hearted","count":95,"percent":53.07,"position":2},
+        {"name":"Change-oriented","count":86,"percent":48.04,"position":3},
+        {"name":"test1","count":86,"percent":48.04,"position":4},
+        {"name":"test2","count":86,"percent":40,"position":5},
+        {"name":"test3","count":86,"percent":35,"position":6},
+        {"name":"test4","count":86,"percent":30,"position":7},
+        {"name":"test5","count":86,"percent":10,"position":8},
+        {"name":"test6","count":86,"percent":4,"position":9}],
+    "Role Positions":[
+        {"name":"Hospital Aide","count":19,"percent":10.61,"position":1},
+        {"name":"Pastoral Counselor","count":15,"percent":8.38,"position":2},
+        {"name":"Public Defender","count":15,"percent":8.38,"position":3}],
+    "Organization Types":[
+        {"name":"Public Interest Law Firms","count":21,"percent":11.73,"position":1},
+        {"name":"Religious Organizations","count":20,"percent":11.17,"position":2},
+        {"name":"Nature Conservancies","count":16,"percent":8.94,"position":3}
+    ]}
+]}
