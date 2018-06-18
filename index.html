@@ -214,14 +214,15 @@
                                 }
       });
 
+      console.log("outside");
       
+      d3.json("/data/testdata.json").then(function(imdata) {
+        console.log("inside");
+        
 
-      d3.json("/data/testdata.json", function(error, data) {
-        if (error) throw error;
-
-        console.log(data);
-        var data = data.data["Key Strengths"];
-        console.log(data);
+        
+        
+        var data = imdata["0"]["Key Strengths"];
 
         
         
