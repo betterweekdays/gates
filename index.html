@@ -214,15 +214,26 @@
                                 }
       });
 
-      console.log("outside");
+      var description = [
+        {"name":"Accomplishment-oriented","dx":"This should be description for accomplishment-oriented"},
+        {"name":"Kind-hearted","dx":"des1"},
+        {"name":"Change-oriented","dx":"des2"},
+        {"name":"test1","dx":"des"},
+        {"name":"test2","dx":"des"},
+        {"name":"test3","dx":"des"},
+        {"name":"test4","dx":"des"},
+        {"name":"test5","dx":"des"},
+        {"name":"test6","dx":"des"}];
+
+      
       
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        console.log("inside");
+        
         
 
         
         
-        var data = imdata["0"]["Key Strengths"];
+        var data = imdata.data["0"]["Key Strengths"];
 
         
         
@@ -245,17 +256,6 @@
         
         
         
-
-        var description = [
-          {"name":"Accomplishment-oriented","dx":"This should be description for accomplishment-oriented"},
-          {"name":"Kind-hearted","dx":"des1"},
-          {"name":"Change-oriented","dx":"des2"},
-          {"name":"test1","dx":"des"},
-          {"name":"test2","dx":"des"},
-          {"name":"test3","dx":"des"},
-          {"name":"test4","dx":"des"},
-          {"name":"test5","dx":"des"},
-          {"name":"test6","dx":"des"}];
 
         
         
