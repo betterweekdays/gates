@@ -212,8 +212,6 @@
         {"name":"test6","dx":"des"}];
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        if (error) console.log(error);
-
         var data = imdata.data["0"]["Key Strengths"];
         barchart(svg, data);
       })
@@ -344,88 +342,139 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading">3.Roles</h2>
-        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+        <h2 class="section-heading">3. Roles</h2>
+        <h3 class="section-subheading text-muted">Description of what the role section of the assessment tells</h3>
+        <h3 class="section-heading">Job Functions</h3>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <ul class="timeline">
+    <div id="jfbody"></div>
+    <style type="text/css">
+      .pie {
+      margin: 20px;
+      }
 
-          
-            <li >
-              <div class="timeline-image">
-                
-                <img class="img-circle img-responsive" src="https://betterweekdays.github.io/gates/img/about/1.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>2009-2011</h4>
-                  <h4 class="subheading">Our Humble Beginnings</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-          
-            <li class="timeline-inverted" >
-              <div class="timeline-image">
-                
-                <img class="img-circle img-responsive" src="https://betterweekdays.github.io/gates/img/about/2.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>March 2011</h4>
-                  <h4 class="subheading">An Agency is Born</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-          
-            <li >
-              <div class="timeline-image">
-                
-                <img class="img-circle img-responsive" src="https://betterweekdays.github.io/gates/img/about/3.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>December 2012</h4>
-                  <h4 class="subheading">Our Humble Beginnings</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-          
-            <li class="timeline-inverted" >
-              <div class="timeline-image">
-                
-                <img class="img-circle img-responsive" src="https://betterweekdays.github.io/gates/img/about/4.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>July 2014</h4>
-                  <h4 class="subheading">Phase Two Expansion</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-          
+      .pie text {
+      font-family: "Verdana";
+      fill: #888;
+      }
 
-          <li class="timeline-inverted">
-            <div class="timeline-image">
-              <h4>Be part<br>of our<br>story!</h4>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+      .pie .name-text{
+      font-size: 1.5em;
+      font-weight: bold;
+      }
+
+      .pie .value-text{
+      font-size: 1em;
+      }
+
+      .pie .description-text{
+      font-size: 1em;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript">
+      var text = "";
+
+      var width = 400;
+      var height = 400;
+      var thickness = 60;
+      
+
+      var radius = Math.min(width, height) / 2;
+      var jfcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
+
+      var jfsvg = d3.select("#jfbody")
+                    .append('svg')
+                    .attr('class', 'pie')
+                    .attr('width', width)
+                    .attr('height', height);
+
+      var jfg = jfsvg.append('g')
+                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
+
+      var jfarc = d3.arc()
+                  .innerRadius(radius - thickness)
+                  .outerRadius(radius);
+
+      var description = [
+        {"name":"Accomplishment-oriented","dx":"This should be description for accomplishment-oriented"},
+        {"name":"Kind-hearted","dx":"des1"},
+        {"name":"Change-oriented","dx":"des2"},
+        {"name":"test1","dx":"des"},
+        {"name":"test2","dx":"des"},
+        {"name":"test3","dx":"des"},
+        {"name":"test4","dx":"des"},
+        {"name":"test5","dx":"des"},
+        {"name":"test6","dx":"des"}];
+
+      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
+        var jfdata = imdata.data["0"]["Key Strengths"];
+        donutchart(jfg, jfarc, jfdata, jfcolor);
+      })
+
+      function donutchart(g, arc, data, color){
+        var pie = d3.pie()
+                    .value(function(d) { return d.percent; })
+                    .sort(null);
+
+        var path = g.selectAll('path')
+                    .data(pie(data))
+                    .enter()
+                    .append("g")
+                    .on("mouseover", function(d,i) {
+                                        let g = d3.select(this)
+                                                  .style("cursor", "pointer")
+                                                  .style("fill", "#fed136")
+                                                  .append("g")
+                                                  .attr("class", "text-group");
+
+                                        g.append("text")
+                                          .attr("class", "name-text")
+                                          .text(d.data.name)
+                                          .attr('text-anchor', 'middle')
+                                          .attr('dy', '-1.2em');
+
+                                        g.append("text")
+                                          .attr("class", "value-text")
+                                          .text(d.data.percent+"%")
+                                          .attr('text-anchor', 'middle')
+                                          .attr('dy', '.6em');
+
+                                        g.append("text")
+                                          .attr("class", "description-text")
+                                          .text(description[i].dx)
+                                          .attr('text-anchor', 'middle')
+                                          .attr('dy', '1.8em');
+                                    })
+                  .on("mouseout", function(d) {
+                                      d3.select(this)
+                                        .style("cursor", "none")
+                                        .style("fill", color(this._current))
+                                        .select(".text-group").remove();
+                                  })
+                  .append('path')
+                  .attr('d', arc)
+                  .attr('fill', (d,i) => color(i))
+                  .on("mouseover", function(d) {
+                      d3.select(this)
+                        .style("cursor", "pointer")
+                        .style("fill", "#fed136");
+                    })
+                  .on("mouseout", function(d) {
+                      d3.select(this)
+                        .style("cursor", "none")
+                        .style("fill", color(this._current));
+                    })
+                  .each(function(d, i) { this._current = i; });
+
+
+        g.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('dy', '.35em')
+          .text(text);
+      }
+      </script>
   </div>
 </section>
 
