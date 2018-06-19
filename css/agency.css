@@ -7,6 +7,8 @@
  /*
  parts added or edited by me:
  body - text-align
+ section#contact
+ section#contact .section-heading
  */
 
 body {
@@ -753,15 +755,15 @@ aside .heading {
 }
 
 section#contact {
-    background-color: #222;
-    background-image: url(../img/map-image.png);
+    /* background-color: #222;
+    background-image: url(../img/map-image.png); */
     background-position: center;
     background-repeat: no-repeat;
 }
 
-section#contact .section-heading {
+/* section#contact .section-heading {
     color: #fff;
-}
+} */
 
 section#contact .form-group {
     margin-bottom: 25px;
