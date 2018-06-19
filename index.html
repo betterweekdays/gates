@@ -135,16 +135,16 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading">1. Dominant Values</h2>
-        <h3 class="section-subheading text-muted">Description</h3>
-        <h3 class="section-heading"> Dominant Values </h3>
+        <h2 class="section-heading">1. Overview</h2>
+        <h3 class="section-subheading text-muted">Description of the meaning of the overview section of the assessment</h3>
+        <h3 class="section-heading">Dominant Values</h3>
       </div>
     </div>
     <div id="servicesbody">
       <div id="tooltip" class="hidden">
-        <p><strong><span id="title">XXX</span></strong></p>
+        <p><strong><span id="title">dominant value</span></strong></p>
         <p><span id="value">100</span>%</p>
-        <p><span id="text">xxx</span></p>
+        <p><span id="text">explanation of the dominant value</span></p>
       </div>
     </div>
     <style type="text/css">
@@ -188,31 +188,17 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript">
-
       
       
 
       
-
+      
       
       
       var svg = d3.select("#servicesbody")
                   .append("svg")
                   .attr("width", 900)
                   .attr("height", 550);
-                  
-
-      
-      var grid = d3.range(25).map(function(i){
-                                    return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
-      });
-      var tickVals = grid.map(function(d, i){
-                                if (i>0){
-                                  return i*10;
-                                } else if (i==0){
-                                  return "100";
-                                }
-      });
 
       var description = [
         {"name":"Accomplishment-oriented","dx":"This should be description for accomplishment-oriented"},
@@ -225,41 +211,25 @@
         {"name":"test5","dx":"des"},
         {"name":"test6","dx":"des"}];
 
-      
-      
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        
-        
+        if (error) console.log(error);
 
-        
-        
         var data = imdata.data["0"]["Key Strengths"];
+        barchart(svg, data);
+      })
 
+      function barchart(svg, data){
         
-        
-      
-
-      
-      
-      
-
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-
+        var grid = d3.range(25).map(function(i){
+                                      return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
+        });
+        var tickVals = grid.map(function(d, i){
+                                  if (i>0){
+                                    return i*10;
+                                  } else if (i==0){
+                                    return "100";
+                                  }
+        });
         var xScale = d3.scaleLinear()
                         .domain([0, d3.max(data, function(d) { return d.percent; })+10])
                         .range([0, 722]);
@@ -273,7 +243,6 @@
                       .scale(yScale)
                       .tickSize(2)
                       .tickFormat(function(d, i){
-                                    
                                     return data[i].name;
                       })
                       .tickValues(d3.range(9));
@@ -289,15 +258,6 @@
                       .call(yAxis);
 
         
-        
-        
-        
-        
-        
-        
-        
-        
-
         var bars = svg.append("g")
                       .attr("transform", "translate(150, 0)")
                       .attr("id","bars")
@@ -318,29 +278,17 @@
                       .attr("y", function(d,i){
                           return yScale(i)+12; })
                       .on("mouseover", function(d,i){
-                                          
-                                          
-                                          
-                                          
-
-                                          
-
                                           var tt = d3.select("#tooltip")
                                                       .style("left", xScale(d.percent)+300+"px")
                                                       .style("top", 1350+yScale(i)+"px");
-
                                           tt.select("#value")
                                             .text(d.percent);
-
                                           tt.select("#title")
                                             .text(d.name);
-
                                           tt.select("#text")
                                             .text(description[i].dx);
 
                                           d3.select("#tooltip").classed("hidden", false);
-                                          
-                                          
                       })
                       .on("mouseout", function(){
                                         d3.select("#tooltip").classed("hidden", true);
@@ -363,7 +311,7 @@
                         .attr("x", function(d){
                           return xScale(d.percent)+10;
                         });
-      })
+      }
       </script>
   </div>
 </section>
