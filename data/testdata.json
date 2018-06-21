@@ -55,7 +55,7 @@
     "Role Positions":[
         {"name":"Hospital Aide","count":19,"percent":10.61,"position":1},
         {"name":"Pastoral Counselor","count":15,"percent":8.38,"position":2},
-        {"name":"Public Defender","count":15,"percent":8.38,"position":3}
+        {"name":"Public Defender","count":15,"percent":8.38,"position":3},
         {"name":"Apple","count":19,"percent":7.61,"position":4},
         {"name":"Banana","count":15,"percent":5.38,"position":5},
         {"name":"Cherrt","count":15,"percent":5.38,"position":6},
