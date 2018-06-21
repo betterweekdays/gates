@@ -201,20 +201,20 @@
                   .attr("height", 550);
 
       var dvdescription = [
-        {"name":"Accomplishment-oriented","dx":"This should be description for accomplishment-oriented"},
-        {"name":"Kind-hearted","dx":"des1"},
-        {"name":"Change-oriented","dx":"des2"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
+        {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
+        {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
+        {"name":"Entrepreneurial Challenge","dx":"Description for Entrepreneurial Challenge"},
+        {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
+        {"name":"Production Efficiency","dx":"Description for Production Efficiency"},
+        {"name":"Artistic Creativity","dx":"Description for Artistic Creativity"},
+        {"name":"Human Development","dx":"Description for Human Development"},
+        {"name":"Societal Change","dx":"Description for Societal Change"},
+        {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
 
       var dvoffset = 0;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var dvdata = imdata.data["0"]["Key Strengths"];
+        var dvdata = imdata.data["0"]["Dominant Values"];
         barchart(dvoffset, dvdescription, dvsvg, dvdata);
       })
 
@@ -286,7 +286,13 @@
                                           tt.select("#title")
                                             .text(d.name);
                                           tt.select("#text")
-                                            .text(description[i].dx);
+                                            .text(function() {
+                                                    for (a = 0; a < description.length; a++) {
+                                                      if (description[a].name == d.name){
+                                                        return description[a].dx;
+                                                      }
+                                                    }
+                                                    return "No pre-set description found"; });
 
                                           d3.select("#tooltip").classed("hidden", false);
                       })
@@ -393,7 +399,7 @@
       var caoffset = 1700;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var cadata = imdata.data["0"]["Key Strengths"];
+        var cadata = imdata.data["0"]["Caution Areas"];
         barchart(caoffset, cadescription, casvg, cadata);
       })
       </script>
@@ -485,7 +491,7 @@
         {"name":"test6","dx":"des"}];
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var jfdata = imdata.data["0"]["Key Strengths"];
+        var jfdata = imdata.data["0"]["Job Functions"];
         donutchart(jfdescription, jfg, jfarc, jfdata, jfcolor);
       })
 
@@ -516,7 +522,7 @@
         {"name":"test6","dx":"des"}];
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var mrdata = imdata.data["0"]["Key Strengths"];
+        var mrdata = imdata.data["0"]["Model Roles"];
         donutchart(mrdescription, mrg, mrarc, mrdata, mrcolor);
       })
 
@@ -547,7 +553,7 @@
         {"name":"test6","dx":"des"}];
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var rpdata = imdata.data["0"]["Key Strengths"];
+        var rpdata = imdata.data["0"]["Role Positions"];
         donutchart(rpdescription, rpg, rparc, rpdata, rpcolor);
       })
 
@@ -581,7 +587,13 @@
 
                                         g.append("text")
                                           .attr("class", "description-text")
-                                          .text(description[i].dx)
+                                          .text(function() {
+                                                  for (a = 0; a < description.length; a++) {
+                                                    if (description[a].name == d.name){
+                                                      return description[a].dx;
+                                                    }
+                                                  }
+                                                  return "No pre-set description found"; })
                                           .attr('text-anchor', 'middle')
                                           .attr('dy', '1.8em');
                                     })
@@ -682,7 +694,7 @@
       var ocoffset = 4700;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var ocdata = imdata.data["0"]["Key Strengths"];
+        var ocdata = imdata.data["0"]["Organization Culture"];
         barchart(ocoffset, ocdescription, ocsvg, ocdata);
       })
 
@@ -705,7 +717,7 @@
       var inoffset = 5300;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var indata = imdata.data["0"]["Key Strengths"];
+        var indata = imdata.data["0"]["Industry Types"];
         barchart(inoffset, indescription, insvg, indata);
       })
 
@@ -728,7 +740,7 @@
       var ogoffset = 5900;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var ogdata = imdata.data["0"]["Key Strengths"];
+        var ogdata = imdata.data["0"]["Organization Types"];
         barchart(ogoffset, ogdescription, ogsvg, ogdata);
       })
       </script>
@@ -787,7 +799,7 @@
         {"name":"test6","dx":"des"}];
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var asdata = imdata.data["0"]["Key Strengths"];
+        var asdata = imdata.data["0"]["Areas of Study"];
         donutchart(asdescription, asg, asarc, asdata, ascolor);
       })
       </script>
