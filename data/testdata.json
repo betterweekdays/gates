@@ -58,7 +58,7 @@
         {"name":"Public Defender","count":15,"percent":8.38,"position":3}
         {"name":"Apple","count":19,"percent":7.61,"position":4},
         {"name":"Banana","count":15,"percent":5.38,"position":5},
-        {"name":"Cherrt","count":15,"percent":5.38,"position":6}
+        {"name":"Cherrt","count":15,"percent":5.38,"position":6},
         {"name":"Dragon Fruit","count":19,"percent":4.61,"position":7},
         {"name":"Entawak","count":15,"percent":2.38,"position":8},
         {"name":"Fig","count":15,"percent":2.38,"position":39}],
@@ -86,12 +86,12 @@
         {"name":"Public Interest Law Firms","count":21,"percent":11.73,"position":1},
         {"name":"Religious Organizations","count":20,"percent":11.17,"position":2},
         {"name":"Nature Conservancies","count":16,"percent":8.94,"position":3},
-        {"name":"Apple","count":21,"percent":7.73,"position":1},
-        {"name":"Baidu","count":20,"percent":6.17,"position":2},
-        {"name":"Capital Land","count":16,"percent":5.94,"position":3},
-        {"name":"Deloitte","count":21,"percent":4.73,"position":1},
-        {"name":"Evercore","count":20,"percent":4.17,"position":2},
-        {"name":"Facebook","count":16,"percent":3.94,"position":3}],
+        {"name":"Apple","count":21,"percent":7.73,"position":4},
+        {"name":"Baidu","count":20,"percent":6.17,"position":5},
+        {"name":"Capital Land","count":16,"percent":5.94,"position":6},
+        {"name":"Deloitte","count":21,"percent":4.73,"position":7},
+        {"name":"Evercore","count":20,"percent":4.17,"position":8},
+        {"name":"Facebook","count":16,"percent":3.94,"position":9}],
     "Areas of Study":[
         {"name":"Anthropology","count":100,"percent":73.63,"position":1},
         {"name":"Psychology","count":100,"percent":61.00,"position":2},
