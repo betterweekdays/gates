@@ -425,7 +425,13 @@
         <h3 class="section-heading">Model Roles</h3>
       </div>
     </div>
-    <div id="mrbody"></div>
+    <div id="mrbody">
+      <div id="tooltip" class="hidden">
+        <p><strong><span id="title">model roles</span></strong></p>
+        <p><span id="value">100</span>%</p>
+        <p><span id="text">explanation of the model role</span></p>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-12 text-center">
         <h3 class="section-heading">Roles & Positions</h3>
@@ -495,35 +501,27 @@
         donutchart(jfdescription, jfg, jfarc, jfdata, jfcolor);
       })
 
-      var mrcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
-
       var mrsvg = d3.select("#mrbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
-
-      var mrg = mrsvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
-
-      var mrarc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
+                  .append("svg")
+                  .attr("width", 900)
+                  .attr("height", 550);
 
       var mrdescription = [
-        {"name":"Accomplishment-oriented","dx":"model roles"},
-        {"name":"Kind-hearted","dx":"model roles"},
-        {"name":"Change-oriented","dx":"model roles"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
+        {"name":"Alice","dx":"Description for Alice"},
+        {"name":"Ben","dx":"Description for Ben"},
+        {"name":"Cici","dx":"Description for Cici"},
+        {"name":"Dave","dx":"Description for Dave"},
+        {"name":"Eva","dx":"Description for Eva"},
+        {"name":"Frank","dx":"Description for Frank"},
+        {"name":"Gigi","dx":"Description for Gigi"},
+        {"name":"Helen","dx":"Description for Helen"},
+        {"name":"Iris","dx":"Description for Iris"}];
+
+      var mroffset = 3250;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
         var mrdata = imdata.data["0"]["Model Roles"];
-        donutchart(mrdescription, mrg, mrarc, mrdata, mrcolor);
+        barchart(mroffset, mrdescription, mrsvg, mrdata);
       })
 
       var rpcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
@@ -641,95 +639,109 @@
         <h3 class="section-heading">Organization Culture</h3>
       </div>
     </div>
-    <div id="ocbody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">organization culture</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the organization culture</span></p>
-      </div>
-    </div>
+    <div id="ocbody"></div>
     <div class="row">
       <div class="col-lg-12 text-center">
         <h3 class="section-heading">Industries</h3>
       </div>
     </div>
-    <div id="inbody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">industries</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the industry</span></p>
-      </div>
-    </div>
+    <div id="inbody"></div>
     <div class="row">
       <div class="col-lg-12 text-center">
         <h3 class="section-heading">Organizations</h3>
       </div>
     </div>
-    <div id="ogbody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">organizations</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the organization</span></p>
-      </div>
-    </div>
+    <div id="ogbody"></div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript">
+      var text = "";
+      var width = 400;
+      var height = 400;
+      var thickness = 60;
+      var radius = Math.min(width, height) / 2;
+
+      var occolor = d3.scaleOrdinal(d3.schemeBlues[9]);
+
       var ocsvg = d3.select("#ocbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
+                    .append('svg')
+                    .attr('class', 'pie')
+                    .attr('width', width)
+                    .attr('height', height);
+
+      var ocg = ocsvg.append('g')
+                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
+
+      var ocarc = d3.arc()
+                  .innerRadius(radius - thickness)
+                  .outerRadius(radius);
 
       var ocdescription = [
-        {"name":"Accomplishment-oriented","dx":"organization culture"},
-        {"name":"Kind-hearted","dx":"organization culture"},
-        {"name":"Change-oriented","dx":"organization culture"},
+        {"name":"Accomplishment-oriented","dx":"OC"},
+        {"name":"Kind-hearted","dx":"OCC"},
+        {"name":"Change-oriented","dx":"OCCC"},
         {"name":"test1","dx":"des"},
         {"name":"test2","dx":"des"},
         {"name":"test3","dx":"des"},
         {"name":"test4","dx":"des"},
         {"name":"test5","dx":"des"},
         {"name":"test6","dx":"des"}];
-
-      var ocoffset = 4700;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
         var ocdata = imdata.data["0"]["Organization Culture"];
-        barchart(ocoffset, ocdescription, ocsvg, ocdata);
+        donutchart(ocdescription, ocg, ocarc, ocdata, occolor);
       })
 
+      var incolor = d3.scaleOrdinal(d3.schemeBlues[9]);
+
       var insvg = d3.select("#inbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
+                    .append('svg')
+                    .attr('class', 'pie')
+                    .attr('width', width)
+                    .attr('height', height);
+
+      var ing = insvg.append('g')
+                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
+
+      var inarc = d3.arc()
+                  .innerRadius(radius - thickness)
+                  .outerRadius(radius);
 
       var indescription = [
-        {"name":"Accomplishment-oriented","dx":"industry"},
-        {"name":"Kind-hearted","dx":"industry"},
-        {"name":"Change-oriented","dx":"industry"},
+        {"name":"Accomplishment-oriented","dx":"IN"},
+        {"name":"Kind-hearted","dx":"INN"},
+        {"name":"Change-oriented","dx":"INNN"},
         {"name":"test1","dx":"des"},
         {"name":"test2","dx":"des"},
         {"name":"test3","dx":"des"},
         {"name":"test4","dx":"des"},
         {"name":"test5","dx":"des"},
         {"name":"test6","dx":"des"}];
-
-      var inoffset = 5300;
 
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
         var indata = imdata.data["0"]["Industry Types"];
-        barchart(inoffset, indescription, insvg, indata);
+        donutchart(indescription, ing, inarc, indata, incolor);
       })
 
+      var ogcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
+
       var ogsvg = d3.select("#ogbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
+                    .append('svg')
+                    .attr('class', 'pie')
+                    .attr('width', width)
+                    .attr('height', height);
+
+      var ogg = ogsvg.append('g')
+                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
+
+      var ogarc = d3.arc()
+                  .innerRadius(radius - thickness)
+                  .outerRadius(radius);
 
       var ogdescription = [
-        {"name":"Accomplishment-oriented","dx":"organization"},
-        {"name":"Kind-hearted","dx":"organization"},
-        {"name":"Change-oriented","dx":"organization"},
+        {"name":"Accomplishment-oriented","dx":"OG"},
+        {"name":"Kind-hearted","dx":"OGG"},
+        {"name":"Change-oriented","dx":"OGGG"},
         {"name":"test1","dx":"des"},
         {"name":"test2","dx":"des"},
         {"name":"test3","dx":"des"},
@@ -737,11 +749,9 @@
         {"name":"test5","dx":"des"},
         {"name":"test6","dx":"des"}];
 
-      var ogoffset = 5900;
-
       d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
         var ogdata = imdata.data["0"]["Organization Types"];
-        barchart(ogoffset, ogdescription, ogsvg, ogdata);
+        donutchart(ogdescription, ogg, ogarc, ogdata, ogcolor);
       })
       </script>
   </div>
