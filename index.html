@@ -118,15 +118,66 @@
 <header>
   <section id="hero">
     <div class="container">
-      <div class="intro-text">
-        <div class="intro-lead-in">Soft Skills &amp; Values Assessment</div>
-        <div class="intro-heading">xxx</div>
-        <a href="#services" class="page-scroll btn btn-xl">xxx</a>
+      <style type="text/css">
+        h1 {
+          font-size: 26px;
+          font-weight: 600;
+          color: #2c3e5099;
+          text-rendering: optimizelegibility;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+        }
+
+        #app2 {
+          max-width: 30em;
+          margin: 1em auto;
+        }
+      </style>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+      <script src="https://unpkg.com/vue-select@latest"></script>
+      <div class="container">
+        <div class="intro-text">
+          <div id="app">
+            <p>&lt;% message %></p>
+            <button v-on:click="reverseMessage">Reverse Message</button>
+          </div>
+          <div id="app2">
+            <h1>Vue Select - Using v-model</h1>
+            <v-select v-model="selected" :options="options"></v-select>
+          </div>
+        </div>
       </div>
+      <script>
+        var app = new Vue({
+          el: '#app',
+          delimiters: ["<%","%>"],
+          data: {
+            message: 'Hello Vue.js!'
+          },
+          methods: {
+            reverseMessage: function(){
+              this.message = this.message.split('').reverse().join('')
+            }
+          }
+        })
+
+        Vue.component('v-select', VueSelect.VueSelect)
+
+        new Vue({
+          el: '#app2',
+          data: {
+            options: [
+              {id: 1, label: 'foo'},
+              {id: 3, label: 'bar'},
+              {id: 2, label: 'baz'},
+            ],
+            selected: {id: 3, label: 'bar'},
+          }
+        })
+      </script>
     </div>
   </section>
 </header>
-
 
 
     
