@@ -171,22 +171,22 @@
       <script>
         Vue.component('v-select', VueSelect.VueSelect)
 
-        var school = null;
+        var school = 'SLU';
         var schoolVue = new Vue({
           el: '#school',
           data: {
-            selected: ['Any'],
-            options: ['WashU', 'SLU', 'Any']
+            selected: ['SLU'],
+            options: ['WashU', 'SLU']
           },
           delimiters: ["<%", "%>"],
           watch: {
             selected: function (newQuestion, oldQuestion) {
-              window.school = this.selected;
-              
+              window.school = this.selected[0];
+              console.log(window.school)
             }
           }
         })
-        window.school = schoolVue.selected
+        
 
         new Vue({
           el: '#program',
@@ -257,6 +257,44 @@
     
       <!-- Services -->
 <section id="services">
+  <style type="text/css">
+    #xaxis .domain {
+      fill: none;
+      stroke: #000;
+    }
+    #xaxis text, #yaxis text{
+      font-size: 12px;
+    }
+    #bars {
+      fill: #00a8ff;
+    }
+    rect:hover{
+      fill:#fed136;
+    }
+    #tooltip{
+      position:absolute;
+      width:200px;
+      height:auto;
+      padding:10px;
+      background-color: white;
+      -webkit-border-radius:10px;
+      -moz-border-radius:10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+    #tooltip.hidden{
+      display: none;
+    }
+    #tooltip p{
+      margin:0;
+      font-family:Futura;
+      font-size:16px;
+      line-height:20px;
+    }
+  </style>
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -265,51 +303,19 @@
         <h3 class="section-heading">Dominant Values</h3>
       </div>
     </div>
-    <div id="dvbody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">dominant value</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the dominant value</span></p>
+    <div id="dv">
+      <h1>School</h1>
+      <v-select multiple v-model="selected" :options="options"></v-select>
+      <p> print something else here </p>
+      <p> Selected: &lt;% selected %></p>
+      <div id="dvbody">
+        <div id="tooltip" class="hidden">
+          <p><strong><span id="title">dominant value</span></strong></p>
+          <p><span id="value">100</span>%</p>
+          <p><span id="text">explanation of the dominant value</span></p>
+        </div>
       </div>
     </div>
-    <style type="text/css">
-      #xaxis .domain {
-        fill: none;
-        stroke: #000;
-      }
-      #xaxis text, #yaxis text{
-        font-size: 12px;
-      }
-      #bars {
-        fill: #00a8ff;
-      }
-      rect:hover{
-        fill:#fed136;
-      }
-      #tooltip{
-        position:absolute;
-        width:200px;
-        height:auto;
-        padding:10px;
-        background-color: white;
-        -webkit-border-radius:10px;
-        -moz-border-radius:10px;
-        border-radius: 10px;
-        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        pointer-events: none;
-      }
-      #tooltip.hidden{
-        display: none;
-      }
-      #tooltip p{
-        margin:0;
-        font-family:Futura;
-        font-size:16px;
-        line-height:20px;
-      }
-    </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript">
@@ -339,10 +345,39 @@
 
       var dvoffset = 0;
 
-      var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
-      d3.json(dvlink).then(function(imdata) {
-        var dvdata = imdata.data["0"]["Dominant Values"];
-        barchart(dvoffset, dvdescription, dvsvg, dvdata);
+      new Vue({
+        el: "#dv",
+        data: function() {
+          return{
+            json: null,
+            selected: ['SLU'],
+            options: ['WashU', 'SLU']
+          };
+        },
+        delimiters: ["<%", "%>"],
+        watch: {
+          selected: function (newQuestion, oldQuestion) {
+            window.school = this.selected[0];
+            console.log(window.school)
+          }
+        },
+        mounted: function(){
+          var that = this;
+          
+          var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
+          if (school == null) dvlink="https://betterweekdays.github.io/gates/data/testdata.json"
+
+          
+          d3.json(dvlink).then(function(imdata) {
+            that.csv=imdata;
+          })
+        },
+        computed: {
+          root: function() {
+            var dvdata = this.csv.data["0"]["Dominant Values"];
+            barchart(dvoffset, dvdescription, dvsvg, dvdata);
+          }
+        }
       })
 
       function barchart(offset, description, svg, data){
