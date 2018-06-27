@@ -120,7 +120,7 @@
     <div class="container">
       <style type="text/css">
         h1 {
-          font-size: 26px;
+          font-size: 22px;
           font-weight: 600;
           color: #2c3e5099;
           text-rendering: optimizelegibility;
@@ -128,7 +128,7 @@
           -moz-text-size-adjust: none;
         }
 
-        #app2 {
+        #school, #gender, #program, #race, #income, #firstgen {
           max-width: 30em;
           margin: 1em auto;
         }
@@ -137,41 +137,115 @@
       <script src="https://unpkg.com/vue-select@latest"></script>
       <div class="container">
         <div class="intro-text">
-          <div id="app">
-            <p>&lt;% message %></p>
-            <button v-on:click="reverseMessage">Reverse Message</button>
+          <div class="section-heading text-muted">Soft Skills & Values Assessment</div>
+          <div class="section-subheading text-muted">A description of the assessment purpose here</div>
+          <div id="school">
+            <h1>School</h1>
+            <v-select multiple v-model="selected" :options="options"></v-select>
+            <p> print something else here </p>
+            <p> Selected: &lt;% selected %></p>
           </div>
-          <div id="app2">
-            <h1>Vue Select - Using v-model</h1>
+          <div id="program">
+            <h1>Program of Study</h1>
+            <v-select multiple v-model="selected" :options="options"></v-select>
+          </div>
+          <div id="race">
+            <h1>Race</h1>
+            <v-select multiple v-model="selected" :options="options"></v-select>
+          </div>
+          <div id="gender">
+            <h1>Gender</h1>
             <v-select v-model="selected" :options="options"></v-select>
           </div>
+          <div id="income">
+            <h1>Income Status</h1>
+            <v-select v-model="selected" :options="options"></v-select>
+          </div>
+          <div id="firstgen">
+            <h1>First Generation Status</h1>
+            <v-select v-model="selected" :options="options"></v-select>
+          </div>
+          <br>
         </div>
       </div>
       <script>
-        var app = new Vue({
-          el: '#app',
-          delimiters: ["<%","%>"],
+        Vue.component('v-select', VueSelect.VueSelect)
+
+        var school = null;
+        var schoolVue = new Vue({
+          el: '#school',
           data: {
-            message: 'Hello Vue.js!'
+            selected: ['Any'],
+            options: ['WashU', 'SLU', 'Any']
           },
-          methods: {
-            reverseMessage: function(){
-              this.message = this.message.split('').reverse().join('')
+          delimiters: ["<%", "%>"],
+          watch: {
+            selected: function (newQuestion, oldQuestion) {
+              window.school = this.selected;
+              
             }
           }
         })
-
-        Vue.component('v-select', VueSelect.VueSelect)
+        window.school = schoolVue.selected
 
         new Vue({
-          el: '#app2',
+          el: '#program',
+          data: {
+            selected: ['Any'],
+            options: [
+              {id:1, label:'Computer Science'},
+              {id:2, label:'Business Administration'},
+              {id:2, label:'Marketing'},
+              {id:3, label:'Any'}
+            ]
+          }
+        })
+
+        new Vue({
+          el: '#race',
+          data: {
+            selected: ['Any'],
+            options: [
+              {id:1, label:'Hispanic'},
+              {id:2, label:'White'},
+              {id:3, label:'Any'}
+            ]
+          }
+        })
+
+        new Vue({
+          el: '#gender',
           data: {
             options: [
-              {id: 1, label: 'foo'},
-              {id: 3, label: 'bar'},
-              {id: 2, label: 'baz'},
+              {id: 1, label: 'Male'},
+              {id: 2, label: 'Female'},
+              {id: 3, label: 'Any'},
             ],
-            selected: {id: 3, label: 'bar'},
+            selected: 'Any',
+          }
+        })
+
+        new Vue({
+          el: '#income',
+          data: {
+            options: [
+              {id: 1, label: 'Low income'},
+              {id: 2, label: 'Not low income'},
+              {id: 3, label: 'Any'},
+            ],
+            selected: 'Any',
+          }
+        })
+
+        new Vue({
+          el: '#firstgen',
+          data: {
+            options: [
+              {id: 1, label: 'First generation'},
+              {id: 2, label: 'Not first generation'},
+              {id: 3, label: 'Any'},
+            ],
+            selected: 'Any',
           }
         })
       </script>
@@ -246,6 +320,7 @@
       
       
       
+
       var dvsvg = d3.select("#dvbody")
                   .append("svg")
                   .attr("width", 900)
@@ -264,7 +339,8 @@
 
       var dvoffset = 0;
 
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
+      var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
+      d3.json(dvlink).then(function(imdata) {
         var dvdata = imdata.data["0"]["Dominant Values"];
         barchart(dvoffset, dvdescription, dvsvg, dvdata);
       })
