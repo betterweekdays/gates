@@ -300,203 +300,207 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">1. Overview</h2>
         <h3 class="section-subheading text-muted">Description of the meaning of the overview section of the assessment</h3>
-        <h3 class="section-heading">Dominant Values</h3>
       </div>
     </div>
-
-
-
 
     <div id="test-div">
-      <test-component
-        v-for="input in inputs"
-        v-bind:item="input"
-        v-bind:key="input.id"></test-component>
-    </div>
-
-
-
-
-    <div id="dv">
-      <h1>Test Selection</h1>
-      <v-select multiple v-model="selected" :options="options"></v-select>
-      <p> print something else here </p>
-      <p> Selected: &lt;% selected %></p>
-      <div id="dvbody">
-        <div id="tooltip" class="hidden">
-          <p><strong><span id="title">dominant value</span></strong></p>
-          <p><span id="value">100</span>%</p>
-          <p><span id="text">explanation of the dominant value</span></p>
-        </div>
+      <div class="col-lg-12 text-center">
+        <h3 class="section-heading">Dominant Values</h3>
+      </div>
+      <single-selection
+        v-for="inp in input"
+        v-bind:item="inp">
+      </single-selection>
+      <div id="dv">
+        <bar-chart
+          v-for="dva in dvalue"
+          v-bind:dv="dva">
+        </bar-chart>
       </div>
     </div>
+
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript">
+
       Vue.component('v-select', VueSelect.VueSelect)
 
-
-
-
-
-      Vue.component('test-component', {
+      Vue.component('single-selection', {
         props: ['item'],
         delimiters: ["<%", "%>"],
+        methods:{
+          testFunction: function(name){
+            return name+"-filtered"
+          }
+        },
         template:`
-          <div class="test-component">
-            <h1><% item.title %></h1>
-            <p><% item.content %></p>
-            <input type='submit' v-bind:value='item.buttonText'/>
+          <div class="single-selection">
+            <p>Select a <% item.title %></h1>
+            <v-select v-model="item.selected" :options="item.options"></v-select>
+            <p> The school you have selected: <% item.selected %></p>
+            <p>Below is the data from your school:</p>
+            <p>JavaScript Helper Method:<% testFunction(item.title) %></p>
           </div>
             `
+      })
+
+      Vue.component('bar-chart',{
+        props:['dv'],
+        delimiters: ["<%", "%>"],
+        methods:{
+          barchart: function(){
+            console.log("Inside barchart function")
+            var svg = d3.select("#dv")
+                        .append("svg")
+                        .attr("width", 900)
+                        .attr("height", 550);
+            console.log(svg)
+
+            var description = [
+              {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
+              {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
+              {"name":"Entrepreneurial Challenge","dx":"Description for Entrepreneurial Challenge"},
+              {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
+              {"name":"Production Efficiency","dx":"Description for Production Efficiency"},
+              {"name":"Artistic Creativity","dx":"Description for Artistic Creativity"},
+              {"name":"Human Development","dx":"Description for Human Development"},
+              {"name":"Societal Change","dx":"Description for Societal Change"},
+              {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
+
+            var offset = 0;
+
+            var dvlink = "https://betterweekdays.github.io/gates/data/testdata.json"
+
+            
+            d3.json(dvlink).then(function(imdata) {
+              var data = imdata.data["0"]["Dominant Values"];
+
+              
+              var grid = d3.range(25).map(function(i){
+                                            return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
+              });
+              var tickVals = grid.map(function(d, i){
+                                        if (i>0){
+                                          return i*10;
+                                        } else if (i==0){
+                                          return "100";
+                                        }
+              });
+              var xScale = d3.scaleLinear()
+                              .domain([0, d3.max(data, function(d) { return d.percent; })+10])
+                              .range([0, 722]);
+              var xAxis = d3.axisBottom()
+                            .scale(xScale)
+                            .tickValues(tickVals);
+              var yScale = d3.scaleBand()
+                              .domain(d3.range(0, 9))
+                              .range([0, 480]);
+              var yAxis = d3.axisLeft()
+                            .scale(yScale)
+                            .tickSize(2)
+                            .tickFormat(function(d, i){
+                                          return data[i].name;
+                            })
+                            .tickValues(d3.range(9));
+
+              
+              var xx = svg.append("g")
+                            .attr("transform", "translate(150, 480)")
+                            .attr("id", "xaxis")
+                            .call(xAxis);
+              var yx = svg.append("g")
+                            .attr("transform", "translate(150, 0)")
+                            .attr("id", "yaxis")
+                            .call(yAxis);
+
+              
+              var bars = svg.append("g")
+                            .attr("transform", "translate(150, 0)")
+                            .attr("id","bars")
+                            .attr("class", "bar")
+                            .selectAll("rect")
+                            .data(data)
+                            .enter()
+                            .append("rect")
+                            .attr("width", function(d){
+                                              return xScale(d.percent);
+                            })
+                            .attr("height", 32)
+                            
+                            
+                            
+                            
+                            .attr("x", 1)
+                            .attr("y", function(d,i){
+                                return yScale(i)+12; })
+                            .on("mouseover", function(d,i){
+                                                var tt = d3.select("#tooltip")
+                                                            .style("left", xScale(d.percent)+450+"px")
+                                                            .style("top", offset+1350+yScale(i)+"px");
+                                                tt.select("#value")
+                                                  .text(d.percent);
+                                                tt.select("#title")
+                                                  .text(d.name);
+                                                tt.select("#text")
+                                                  .text(function() {
+                                                          for (a = 0; a < description.length; a++) {
+                                                            if (description[a].name == d.name){
+                                                              return description[a].dx;
+                                                            }
+                                                          }
+                                                          return "No pre-set description found"; });
+
+                                                d3.select("#tooltip").classed("hidden", false);
+                            })
+                            .on("mouseout", function(){
+                                              d3.select("#tooltip").classed("hidden", true);
+                            });
+
+              
+              svg.append("g")
+                  .attr("id", "label");
+              var label = svg.select("#bars")
+                              .selectAll("text")
+                              .data(data)
+                              .enter()
+                              .append("text")
+                              .text(function(d){
+                                return d.percent+"%";
+                              })
+                              .attr("y", function(d,i){
+                                return yScale(i)+32;
+                              })
+                              .attr("x", function(d){
+                                return xScale(d.percent)+10;
+                              });
+            })
+            console.log("At the end of barchart function")
+          }
+        },
+        template:`
+          <div class="bar-chart">
+            <p><% dv.name %></p>
+            <% barchart() %>
+            <div id="tooltip" class="hidden">
+              <p><strong><span id="title">d<% dv.name %></span></strong></p>
+              <p><span id="value">100</span>%</p>
+              <p><span id="text">explanation</span></p>
+            </div>
+          </div>
+        `
       })
 
       new Vue({
         el: '#test-div',
         data:{
-          inputs:[
-            {id:0, title:'Apple', content:'Ping Guo', buttonText:'A___A'},
-            {id:1, title:'Banana', content:'Xiang Jiao', buttonText:'B___B'},
-            {id:2, title:'Cherry', content:'Ying Tao', buttonText:'C___C'},
-            {id:3, title:'Dragon Fruit', content:'Huo Long Guo', buttonText:'D___D'}
+          input:[
+            {id:0, title:'school', selected: ['SLU'], options: ['WashU', 'SLU']}
+          ],
+          dvalue:[
+            {id: 0, name: 'dv'}
           ]
         }
       })
-
-
-
-
-
-
-      var dvsvg = d3.select("#dvbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
-
-      var dvdescription = [
-        {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
-        {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
-        {"name":"Entrepreneurial Challenge","dx":"Description for Entrepreneurial Challenge"},
-        {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
-        {"name":"Production Efficiency","dx":"Description for Production Efficiency"},
-        {"name":"Artistic Creativity","dx":"Description for Artistic Creativity"},
-        {"name":"Human Development","dx":"Description for Human Development"},
-        {"name":"Societal Change","dx":"Description for Societal Change"},
-        {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
-
-      var dvoffset = 0;
-
-      var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
-      if (school == null) {
-        dvlink='https://betterweekdays.github.io/gates/data/testdata.json'
-      }
-
-      // console.log(dvlink)
-      d3.json(dvlink).then(function(imdata) {
-        var dvdata = imdata.data["0"]["Dominant Values"];
-        barchart(dvoffset, dvdescription, dvsvg, dvdata);
-      })
-
-      function barchart(offset, description, svg, data){
-        //create x&y scale and axis
-        var grid = d3.range(25).map(function(i){
-                                      return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
-        });
-        var tickVals = grid.map(function(d, i){
-                                  if (i>0){
-                                    return i*10;
-                                  } else if (i==0){
-                                    return "100";
-                                  }
-        });
-        var xScale = d3.scaleLinear()
-                        .domain([0, d3.max(data, function(d) { return d.percent; })+10])
-                        .range([0, 722]);
-        var xAxis = d3.axisBottom()
-                      .scale(xScale)
-                      .tickValues(tickVals);
-        var yScale = d3.scaleBand()
-                        .domain(d3.range(0, 9))
-                        .range([0, 480]);
-        var yAxis = d3.axisLeft()
-                      .scale(yScale)
-                      .tickSize(2)
-                      .tickFormat(function(d, i){
-                                    return data[i].name;
-                      })
-                      .tickValues(d3.range(9));
-
-        //apend axis
-        var xx = svg.append("g")
-                      .attr("transform", "translate(150, 480)")
-                      .attr("id", "xaxis")
-                      .call(xAxis);
-        var yx = svg.append("g")
-                      .attr("transform", "translate(150, 0)")
-                      .attr("id", "yaxis")
-                      .call(yAxis);
-
-        //append bars and tooltips
-        var bars = svg.append("g")
-                      .attr("transform", "translate(150, 0)")
-                      .attr("id","bars")
-                      .attr("class", "bar")
-                      .selectAll("rect")
-                      .data(data)
-                      .enter()
-                      .append("rect")
-                      .attr("width", function(d){
-                                        return xScale(d.percent);
-                      })
-                      .attr("height", 32)
-                      // .attr("fill", function(d,i){
-                      //       return color(Math.random()*10*i)
-                      // })
-                      // .attr("fill", "#00a8ff")
-                      .attr("x", 1)
-                      .attr("y", function(d,i){
-                          return yScale(i)+12; })
-                      .on("mouseover", function(d,i){
-                                          var tt = d3.select("#tooltip")
-                                                      .style("left", xScale(d.percent)+450+"px")
-                                                      .style("top", offset+1350+yScale(i)+"px");
-                                          tt.select("#value")
-                                            .text(d.percent);
-                                          tt.select("#title")
-                                            .text(d.name);
-                                          tt.select("#text")
-                                            .text(function() {
-                                                    for (a = 0; a < description.length; a++) {
-                                                      if (description[a].name == d.name){
-                                                        return description[a].dx;
-                                                      }
-                                                    }
-                                                    return "No pre-set description found"; });
-
-                                          d3.select("#tooltip").classed("hidden", false);
-                      })
-                      .on("mouseout", function(){
-                                        d3.select("#tooltip").classed("hidden", true);
-                      });
-
-        //add label to bar chart
-        svg.append("g")
-            .attr("id", "label");
-        var label = svg.select("#bars")
-                        .selectAll("text")
-                        .data(data)
-                        .enter()
-                        .append("text")
-                        .text(function(d){
-                          return d.percent+"%";
-                        })
-                        .attr("y", function(d,i){
-                          return yScale(i)+32;
-                        })
-                        .attr("x", function(d){
-                          return xScale(d.percent)+10;
-                        });
-      }
       </script>
   </div>
 </section>
@@ -581,6 +585,107 @@
         var cadata = imdata.data["0"]["Caution Areas"];
         barchart(caoffset, cadescription, casvg, cadata);
       })
+
+      function barchart(offset, description, svg, data){
+        
+        var grid = d3.range(25).map(function(i){
+                                      return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
+        });
+        var tickVals = grid.map(function(d, i){
+                                  if (i>0){
+                                    return i*10;
+                                  } else if (i==0){
+                                    return "100";
+                                  }
+        });
+        var xScale = d3.scaleLinear()
+                        .domain([0, d3.max(data, function(d) { return d.percent; })+10])
+                        .range([0, 722]);
+        var xAxis = d3.axisBottom()
+                      .scale(xScale)
+                      .tickValues(tickVals);
+        var yScale = d3.scaleBand()
+                        .domain(d3.range(0, 9))
+                        .range([0, 480]);
+        var yAxis = d3.axisLeft()
+                      .scale(yScale)
+                      .tickSize(2)
+                      .tickFormat(function(d, i){
+                                    return data[i].name;
+                      })
+                      .tickValues(d3.range(9));
+
+        
+        var xx = svg.append("g")
+                      .attr("transform", "translate(150, 480)")
+                      .attr("id", "xaxis")
+                      .call(xAxis);
+        var yx = svg.append("g")
+                      .attr("transform", "translate(150, 0)")
+                      .attr("id", "yaxis")
+                      .call(yAxis);
+
+        
+        var bars = svg.append("g")
+                      .attr("transform", "translate(150, 0)")
+                      .attr("id","bars")
+                      .attr("class", "bar")
+                      .selectAll("rect")
+                      .data(data)
+                      .enter()
+                      .append("rect")
+                      .attr("width", function(d){
+                                        return xScale(d.percent);
+                      })
+                      .attr("height", 32)
+                      
+                      
+                      
+                      
+                      .attr("x", 1)
+                      .attr("y", function(d,i){
+                          return yScale(i)+12; })
+                      .on("mouseover", function(d,i){
+                                          var tt = d3.select("#tooltip")
+                                                      .style("left", xScale(d.percent)+450+"px")
+                                                      .style("top", offset+1350+yScale(i)+"px");
+                                          tt.select("#value")
+                                            .text(d.percent);
+                                          tt.select("#title")
+                                            .text(d.name);
+                                          tt.select("#text")
+                                            .text(function() {
+                                                    for (a = 0; a < description.length; a++) {
+                                                      if (description[a].name == d.name){
+                                                        return description[a].dx;
+                                                      }
+                                                    }
+                                                    return "No pre-set description found"; });
+
+                                          d3.select("#tooltip").classed("hidden", false);
+                      })
+                      .on("mouseout", function(){
+                                        d3.select("#tooltip").classed("hidden", true);
+                      });
+
+        
+        svg.append("g")
+            .attr("id", "label");
+        var label = svg.select("#bars")
+                        .selectAll("text")
+                        .data(data)
+                        .enter()
+                        .append("text")
+                        .text(function(d){
+                          return d.percent+"%";
+                        })
+                        .attr("y", function(d,i){
+                          return yScale(i)+32;
+                        })
+                        .attr("x", function(d){
+                          return xScale(d.percent)+10;
+                        });
+      }
       </script>
   </div>
 </section>
