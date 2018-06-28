@@ -303,8 +303,22 @@
         <h3 class="section-heading">Dominant Values</h3>
       </div>
     </div>
+
+
+
+
+    <div id="test-div">
+      <test-component
+        v-for="input in inputs"
+        v-bind:item="input"
+        v-bind:key="input.id"></test-component>
+    </div>
+
+
+
+
     <div id="dv">
-      <h1>School</h1>
+      <h1>Test Selection</h1>
       <v-select multiple v-model="selected" :options="options"></v-select>
       <p> print something else here </p>
       <p> Selected: &lt;% selected %></p>
@@ -319,13 +333,40 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript">
-      
-      
+      Vue.component('v-select', VueSelect.VueSelect)
 
-      
-      
-      
-      
+
+
+
+
+      Vue.component('test-component', {
+        props: ['item'],
+        delimiters: ["<%", "%>"],
+        template:`
+          <div class="test-component">
+            <h1><% item.title %></h1>
+            <p><% item.content %></p>
+            <input type='submit' v-bind:value='item.buttonText'/>
+          </div>
+            `
+      })
+
+      new Vue({
+        el: '#test-div',
+        data:{
+          inputs:[
+            {id:0, title:'Apple', content:'Ping Guo', buttonText:'A___A'},
+            {id:1, title:'Banana', content:'Xiang Jiao', buttonText:'B___B'},
+            {id:2, title:'Cherry', content:'Ying Tao', buttonText:'C___C'},
+            {id:3, title:'Dragon Fruit', content:'Huo Long Guo', buttonText:'D___D'}
+          ]
+        }
+      })
+
+
+
+
+
 
       var dvsvg = d3.select("#dvbody")
                   .append("svg")
@@ -345,43 +386,19 @@
 
       var dvoffset = 0;
 
-      new Vue({
-        el: "#dv",
-        data: function() {
-          return{
-            json: null,
-            selected: ['SLU'],
-            options: ['WashU', 'SLU']
-          };
-        },
-        delimiters: ["<%", "%>"],
-        watch: {
-          selected: function (newQuestion, oldQuestion) {
-            window.school = this.selected[0];
-            console.log(window.school)
-          }
-        },
-        mounted: function(){
-          var that = this;
-          
-          var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
-          if (school == null) dvlink="https://betterweekdays.github.io/gates/data/testdata.json"
+      var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
+      if (school == null) {
+        dvlink='https://betterweekdays.github.io/gates/data/testdata.json'
+      }
 
-          
-          d3.json(dvlink).then(function(imdata) {
-            that.csv=imdata;
-          })
-        },
-        computed: {
-          root: function() {
-            var dvdata = this.csv.data["0"]["Dominant Values"];
-            barchart(dvoffset, dvdescription, dvsvg, dvdata);
-          }
-        }
+      // console.log(dvlink)
+      d3.json(dvlink).then(function(imdata) {
+        var dvdata = imdata.data["0"]["Dominant Values"];
+        barchart(dvoffset, dvdescription, dvsvg, dvdata);
       })
 
       function barchart(offset, description, svg, data){
-        
+        //create x&y scale and axis
         var grid = d3.range(25).map(function(i){
                                       return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
         });
@@ -409,7 +426,7 @@
                       })
                       .tickValues(d3.range(9));
 
-        
+        //apend axis
         var xx = svg.append("g")
                       .attr("transform", "translate(150, 480)")
                       .attr("id", "xaxis")
@@ -419,7 +436,7 @@
                       .attr("id", "yaxis")
                       .call(yAxis);
 
-        
+        //append bars and tooltips
         var bars = svg.append("g")
                       .attr("transform", "translate(150, 0)")
                       .attr("id","bars")
@@ -432,10 +449,10 @@
                                         return xScale(d.percent);
                       })
                       .attr("height", 32)
-                      
-                      
-                      
-                      
+                      // .attr("fill", function(d,i){
+                      //       return color(Math.random()*10*i)
+                      // })
+                      // .attr("fill", "#00a8ff")
                       .attr("x", 1)
                       .attr("y", function(d,i){
                           return yScale(i)+12; })
@@ -462,7 +479,7 @@
                                         d3.select("#tooltip").classed("hidden", true);
                       });
 
-        
+        //add label to bar chart
         svg.append("g")
             .attr("id", "label");
         var label = svg.select("#bars")
