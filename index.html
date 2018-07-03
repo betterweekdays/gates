@@ -116,140 +116,148 @@
 
     <!-- Hero -->
 <header>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-select@latest"></script>
+
   <section id="hero">
+    <style type="text/css">
+      h1 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #2c3e5099;
+        text-rendering: optimizelegibility;
+        -moz-osx-font-smoothing: grayscale;
+        -moz-text-size-adjust: none;
+      }
+
+      #school, #gender, #program, #race, #income, #firstgen {
+        max-width: 30em;
+        margin: 1em auto;
+      }
+    </style>
     <div class="container">
-      <style type="text/css">
-        h1 {
-          font-size: 22px;
-          font-weight: 600;
-          color: #2c3e5099;
-          text-rendering: optimizelegibility;
-          -moz-osx-font-smoothing: grayscale;
-          -moz-text-size-adjust: none;
-        }
+      <div class="intro-text">
+        <div class="section-heading text-muted">Soft Skills & Values Assessment</div>
+        <div class="section-subheading text-muted">A description of the assessment purpose here</div>
 
-        #school, #gender, #program, #race, #income, #firstgen {
-          max-width: 30em;
-          margin: 1em auto;
-        }
-      </style>
-      <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-      <script src="https://unpkg.com/vue-select@latest"></script>
-      <div class="container">
-        <div class="intro-text">
-          <div class="section-heading text-muted">Soft Skills & Values Assessment</div>
-          <div class="section-subheading text-muted">A description of the assessment purpose here</div>
-          <div id="school">
-            <h1>School</h1>
-            <v-select multiple v-model="selected" :options="options"></v-select>
-            <p> print something else here </p>
-            <p> Selected: &lt;% selected %></p>
-          </div>
-          <div id="program">
-            <h1>Program of Study</h1>
-            <v-select multiple v-model="selected" :options="options"></v-select>
-          </div>
-          <div id="race">
-            <h1>Race</h1>
-            <v-select multiple v-model="selected" :options="options"></v-select>
-          </div>
-          <div id="gender">
-            <h1>Gender</h1>
-            <v-select v-model="selected" :options="options"></v-select>
-          </div>
-          <div id="income">
-            <h1>Income Status</h1>
-            <v-select v-model="selected" :options="options"></v-select>
-          </div>
-          <div id="firstgen">
-            <h1>First Generation Status</h1>
-            <v-select v-model="selected" :options="options"></v-select>
-          </div>
-          <br>
+        <div id="school">
+          <h1>School</h1>
+          <v-select multiple v-model="selected" :options="options"></v-select>
+          
         </div>
+
+        <div id="program">
+          <h1>Program of Study</h1>
+          <v-select multiple v-model="selected" :options="options"></v-select>
+        </div>
+
+        <div id="race">
+          <h1>Race</h1>
+          <v-select multiple v-model="selected" :options="options"></v-select>
+        </div>
+
+        <div id="gender">
+          <h1>Gender</h1>
+          <v-select v-model="selected" :options="options"></v-select>
+        </div>
+
+        <div id="income">
+          <h1>Income Status</h1>
+          <v-select v-model="selected" :options="options"></v-select>
+        </div>
+
+        <div id="firstgen">
+          <h1>First Generation Status</h1>
+          <v-select v-model="selected" :options="options"></v-select>
+        </div>
+
+        <br>
       </div>
-      <script>
-        Vue.component('v-select', VueSelect.VueSelect)
-
-        var school = 'SLU';
-        var schoolVue = new Vue({
-          el: '#school',
-          data: {
-            selected: ['SLU'],
-            options: ['WashU', 'SLU']
-          },
-          delimiters: ["<%", "%>"],
-          watch: {
-            selected: function (newQuestion, oldQuestion) {
-              window.school = this.selected[0];
-              console.log(window.school)
-            }
-          }
-        })
-        
-
-        new Vue({
-          el: '#program',
-          data: {
-            selected: ['Any'],
-            options: [
-              {id:1, label:'Computer Science'},
-              {id:2, label:'Business Administration'},
-              {id:2, label:'Marketing'},
-              {id:3, label:'Any'}
-            ]
-          }
-        })
-
-        new Vue({
-          el: '#race',
-          data: {
-            selected: ['Any'],
-            options: [
-              {id:1, label:'Hispanic'},
-              {id:2, label:'White'},
-              {id:3, label:'Any'}
-            ]
-          }
-        })
-
-        new Vue({
-          el: '#gender',
-          data: {
-            options: [
-              {id: 1, label: 'Male'},
-              {id: 2, label: 'Female'},
-              {id: 3, label: 'Any'},
-            ],
-            selected: 'Any',
-          }
-        })
-
-        new Vue({
-          el: '#income',
-          data: {
-            options: [
-              {id: 1, label: 'Low income'},
-              {id: 2, label: 'Not low income'},
-              {id: 3, label: 'Any'},
-            ],
-            selected: 'Any',
-          }
-        })
-
-        new Vue({
-          el: '#firstgen',
-          data: {
-            options: [
-              {id: 1, label: 'First generation'},
-              {id: 2, label: 'Not first generation'},
-              {id: 3, label: 'Any'},
-            ],
-            selected: 'Any',
-          }
-        })
-      </script>
     </div>
+    <script type="text/javascript">
+      Vue.component('v-select', VueSelect.VueSelect)
+
+      var school = 'SLU'; 
+      var schoolVue = new Vue({
+        el: '#school',
+        
+        data: {
+          selected: ['SLU'], 
+          options: ['WashU', 'SLU']
+        },
+        watch: {
+          selected() {
+            window.school = this.selected[0];
+            var removeNode = document.getElementById("dv-chart");
+            while (removeNode.firstChild) {
+              removeNode.removeChild(removeNode.firstChild);
+            }
+            dvVue.vueSchool=window.school;
+          }
+        }
+      })
+
+      new Vue({
+        el: '#program',
+        data: {
+          selected: ['Any'],
+          options: [
+            {id:1, label:'Computer Science'},
+            {id:2, label:'Business Administration'},
+            {id:2, label:'Marketing'},
+            {id:3, label:'Any'}
+          ]
+        }
+      })
+
+      new Vue({
+        el: '#race',
+        data: {
+          selected: ['Any'],
+          options: [
+            {id:1, label:'Hispanic'},
+            {id:2, label:'White'},
+            {id:3, label:'Any'}
+          ]
+        }
+      })
+
+      new Vue({
+        el: '#gender',
+        data: {
+          options: [
+            {id: 1, label: 'Male'},
+            {id: 2, label: 'Female'},
+            {id: 3, label: 'Any'},
+          ],
+          selected: 'Any',
+        }
+      })
+
+      new Vue({
+        el: '#income',
+        data: {
+          options: [
+            {id: 1, label: 'Low income'},
+            {id: 2, label: 'Not low income'},
+            {id: 3, label: 'Any'},
+          ],
+          selected: 'Any',
+        }
+      })
+
+      new Vue({
+        el: '#firstgen',
+        data: {
+          options: [
+            {id: 1, label: 'First generation'},
+            {id: 2, label: 'Not first generation'},
+            {id: 3, label: 'Any'},
+          ],
+          selected: 'Any',
+        }
+      })
+    </script>
   </section>
 </header>
 
@@ -472,7 +480,7 @@
           {"name":"Societal Change","dx":"Description for Societal Change"},
           {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
 
-    new Vue({
+    var dvVue = new Vue({
       el: '#dv',
       data(){
         return{
@@ -483,12 +491,20 @@
           d3Des: dvDescription
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Dominant Values"]
-            })
+      watch: {
+        vueSchool() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Dominant Values"]
+              })
+        }
       }
     })
   </script>
@@ -508,7 +524,7 @@
     </div>
 
     <div class="row" id="ks">
-      <h3 class="section-heading">Key Strength</h3>
+      <h3 class="section-heading">Key Strengths</h3>
       <bar-chart
         :d3-data="d3Data"
         :d3-offset="d3Offset"
@@ -553,12 +569,10 @@
         }
       },
       created(){
-        console.log("inside created()");
         fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
             .then(response => response.json())
             .then(json => {
               this.d3Data = json.data["0"]["Key Strengths"]
-              console.log("this.d3Data: "+this.d3Data);
             })
       }
     })
@@ -587,12 +601,10 @@
         }
       },
       created(){
-        console.log("inside created()");
         fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
             .then(response => response.json())
             .then(json => {
               this.d3Data = json.data["0"]["Caution Areas"]
-              console.log("this.d3Data: "+this.d3Data);
             })
       }
     })
@@ -716,12 +728,10 @@
           }
         },
         created(){
-          console.log("inside created()");
           fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
               .then(response => response.json())
               .then(json => {
                 this.d3Data = json.data["0"]["Model Roles"]
-                console.log("this.d3Data: "+this.d3Data);
               })
         }
       })
