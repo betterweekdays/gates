@@ -304,7 +304,10 @@
       </div>
     </div>
     <div id="dv">
-      
+      <h1>School</h1>
+      <v-select multiple v-model="selected" :options="options"></v-select>
+      <p> print something else here </p>
+      <p> Selected: &lt;% selected %></p>
       <div id="dvbody">
         <div id="tooltip" class="hidden">
           <p><strong><span id="title">dominant value</span></strong></p>
@@ -313,48 +316,8 @@
         </div>
       </div>
     </div>
-    <div id="test">
-      <template>
-        <div>
-          <svg width="500" height="300"></svg>
-          <br>
-          <input
-            type="range"
-            v-model="circleSize"
-            min="1"
-            max="100"
-            step="1"
-          >
-        </div>
-      </template>
-    </div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="require.js"></script>
-    <script>
-      const d3 = require('d3');
-      Vue.component('circle', {
-        data: function() {
-          return {
-            circleSize: 50
-          }
-        },
-        mounted: function(createElement) {
-          var svg = d3.select(this.$el).select('svg');
-          this.circle = svg
-            .append('circle')
-            .attr('cx', '250')
-            .attr('cy', '150')
-            .attr('r', this.circleSize)
-        },
-        watch: {
-          circleSize: function(newValue) {
-            this.circle
-              .attr('r', newValue)
-          }
-        }
-      })
-    </script>
     <script type="text/javascript">
       
       
