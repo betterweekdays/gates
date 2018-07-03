@@ -256,6 +256,10 @@
 
     
       <!-- Services -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <section id="services">
   <style type="text/css">
     #xaxis .domain {
@@ -300,162 +304,194 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">1. Overview</h2>
         <h3 class="section-subheading text-muted">Description of the meaning of the overview section of the assessment</h3>
-        <h3 class="section-heading">Dominant Values</h3>
       </div>
     </div>
-    <div id="dv">
-      <h1>School</h1>
-      <v-select multiple v-model="selected" :options="options"></v-select>
-      <p> print something else here </p>
-      <p> Selected: &lt;% selected %></p>
-      <div id="dvbody">
-        <div id="tooltip" class="hidden">
-          <p><strong><span id="title">dominant value</span></strong></p>
-          <p><span id="value">100</span>%</p>
-          <p><span id="text">explanation of the dominant value</span></p>
-        </div>
-      </div>
+
+    <div class="row" id="dv">
+      <h3 class="section-heading">Dominant Values</h3>
+      <bar-chart
+        :d3-data="d3Data"
+        :d3-offset="d3Offset"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </bar-chart>
     </div>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript">
-      
-      
-
-      
-      
-      
-      
-
-      var dvsvg = d3.select("#dvbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
-
-      var dvdescription = [
-        {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
-        {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
-        {"name":"Entrepreneurial Challenge","dx":"Description for Entrepreneurial Challenge"},
-        {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
-        {"name":"Production Efficiency","dx":"Description for Production Efficiency"},
-        {"name":"Artistic Creativity","dx":"Description for Artistic Creativity"},
-        {"name":"Human Development","dx":"Description for Human Development"},
-        {"name":"Societal Change","dx":"Description for Societal Change"},
-        {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
-
-      var dvoffset = 0;
-
-      var dvlink = "https://betterweekdays.github.io/gates/data/testdata&"+school+".json"
-      if (school == null) dvlink="https://betterweekdays.github.io/gates/data/testdata.json"
-
-      
-      d3.json(dvlink).then(function(imdata) {
-        var dvdata = imdata.data["0"]["Dominant Values"];
-        barchart(dvoffset, dvdescription, dvsvg, dvdata);
-      })
-
-      function barchart(offset, description, svg, data){
-        
-        var grid = d3.range(25).map(function(i){
-                                      return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
-        });
-        var tickVals = grid.map(function(d, i){
-                                  if (i>0){
-                                    return i*10;
-                                  } else if (i==0){
-                                    return "100";
-                                  }
-        });
-        var xScale = d3.scaleLinear()
-                        .domain([0, d3.max(data, function(d) { return d.percent; })+10])
-                        .range([0, 722]);
-        var xAxis = d3.axisBottom()
-                      .scale(xScale)
-                      .tickValues(tickVals);
-        var yScale = d3.scaleBand()
-                        .domain(d3.range(0, 9))
-                        .range([0, 480]);
-        var yAxis = d3.axisLeft()
-                      .scale(yScale)
-                      .tickSize(2)
-                      .tickFormat(function(d, i){
-                                    return data[i].name;
-                      })
-                      .tickValues(d3.range(9));
-
-        
-        var xx = svg.append("g")
-                      .attr("transform", "translate(150, 480)")
-                      .attr("id", "xaxis")
-                      .call(xAxis);
-        var yx = svg.append("g")
-                      .attr("transform", "translate(150, 0)")
-                      .attr("id", "yaxis")
-                      .call(yAxis);
-
-        
-        var bars = svg.append("g")
-                      .attr("transform", "translate(150, 0)")
-                      .attr("id","bars")
-                      .attr("class", "bar")
-                      .selectAll("rect")
-                      .data(data)
-                      .enter()
-                      .append("rect")
-                      .attr("width", function(d){
-                                        return xScale(d.percent);
-                      })
-                      .attr("height", 32)
-                      
-                      
-                      
-                      
-                      .attr("x", 1)
-                      .attr("y", function(d,i){
-                          return yScale(i)+12; })
-                      .on("mouseover", function(d,i){
-                                          var tt = d3.select("#tooltip")
-                                                      .style("left", xScale(d.percent)+450+"px")
-                                                      .style("top", offset+1350+yScale(i)+"px");
-                                          tt.select("#value")
-                                            .text(d.percent);
-                                          tt.select("#title")
-                                            .text(d.name);
-                                          tt.select("#text")
-                                            .text(function() {
-                                                    for (a = 0; a < description.length; a++) {
-                                                      if (description[a].name == d.name){
-                                                        return description[a].dx;
-                                                      }
-                                                    }
-                                                    return "No pre-set description found"; });
-
-                                          d3.select("#tooltip").classed("hidden", false);
-                      })
-                      .on("mouseout", function(){
-                                        d3.select("#tooltip").classed("hidden", true);
-                      });
-
-        
-        svg.append("g")
-            .attr("id", "label");
-        var label = svg.select("#bars")
-                        .selectAll("text")
-                        .data(data)
-                        .enter()
-                        .append("text")
-                        .text(function(d){
-                          return d.percent+"%";
-                        })
-                        .attr("y", function(d,i){
-                          return yScale(i)+32;
-                        })
-                        .attr("x", function(d){
-                          return xScale(d.percent)+10;
-                        });
-      }
-      </script>
   </div>
+
+  <script type="text/javascript">
+    
+    Vue.component('bar-chart', {
+      props: ['d3Data','d3Offset','d3Des', 'chartid'],
+      template:`
+        <div>
+          <svg :id="chartid" width="900" height="550"></svg>
+          <div id="tooltip" class="hidden">
+              <p><strong><span id="title"></span></strong></p>
+              <p><span id="value"></span>%</p>
+              <p><span id="text"></span></p>
+          </div>
+        </div>
+      `,
+      watch: {
+        d3Data(){
+          var that = this;
+          that.appendAxis();
+          that.tooltip(that.appendBars());
+          that.appendLabels();
+        }
+      },
+      methods:{
+        prepareScales: function(){
+          var that = this;
+          var grid = d3.range(25).map(function(i){
+                                        return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
+          });
+          var tickVals = grid.map(function(d, i){
+                                    if (i>0){
+                                      return i*10;
+                                    } else if (i==0){
+                                      return "100";
+                                    }
+          });
+          var xScale = d3.scaleLinear()
+                          .domain([0, d3.max(that.d3Data, function(d) { return d.percent; })+10])
+                          .range([0, 722]);
+          var yScale = d3.scaleBand()
+                          .domain(d3.range(0, 9))
+                          .range([0, 480]);
+          return {xScale, yScale, tickVals};
+        },
+        prepareAxis: function(){
+          var that = this;
+          var getScales = that.prepareScales();
+          var xAxis = d3.axisBottom()
+                        .scale(getScales.xScale)
+                        .tickValues(getScales.tickVals);
+          var yAxis = d3.axisLeft()
+                        .scale(getScales.yScale)
+                        .tickSize(2)
+                        .tickFormat(function(d, i){
+                                      return that.d3Data[i].name;
+                        })
+                        .tickValues(d3.range(9));
+          return {xAxis, yAxis};
+        },
+        appendAxis: function(){
+          var that = this;
+          var svg = d3.select("#"+that.chartid);
+          var getAxis = that.prepareAxis();
+          var xx = svg.append("g")
+                        .attr("transform", "translate(150, 480)")
+                        .attr("id", "xaxis")
+                        .call(getAxis.xAxis);
+          var yx = svg.append("g")
+                        .attr("transform", "translate(150, 0)")
+                        .attr("id", "yaxis")
+                        .call(getAxis.yAxis);
+        },
+        appendBars: function(){
+          var that = this;
+          var getScales = that.prepareScales();
+          var svg = d3.select("#"+that.chartid);
+          var bars = svg.append("g")
+                .attr("transform", "translate(150, 0)")
+                .attr("id","bars")
+                .attr("class", "bar")
+                .selectAll("rect")
+                .data(that.d3Data)
+                .enter()
+                .append("rect")
+                .attr("width", function(d){
+                                  return getScales.xScale(d.percent);
+                })
+                .attr("height", 32)
+                .attr("x", 1)
+                .attr("y", function(d,i){
+                    return getScales.yScale(i)+12; })
+          return bars;
+        },
+        tooltip: function(bars){
+          var that = this;
+          var getScales = that.prepareScales();
+          bars.on("mouseover", function(d,i){
+                      var tt = d3.select("#tooltip")
+                                .style("left", getScales.xScale(d.percent)+250+"px")
+                                .style("top", that.d3Offset+getScales.yScale(i)+"px"); 
+                      tt.select("#value")
+                        .text(d.percent);
+                      tt.select("#title")
+                        .text(d.name);
+                      tt.select("#text")
+                        .text(function() {
+                                for (a = 0; a < that.d3Des.length; a++) {
+                                  if (that.d3Des[a].name == d.name){
+                                    return that.d3Des[a].dx;
+                                  }
+                                }
+                                return "No pre-set description found"; });
+
+                      d3.select("#tooltip").classed("hidden", false);
+              })
+              .on("mouseout", function(){
+                      d3.select("#tooltip").classed("hidden", true);
+              });
+        },
+        appendLabels: function(){
+          var that = this;
+          var svg = d3.select("#"+that.chartid);
+          var getScales = that.prepareScales();
+          svg.append("g")
+            .attr("id", "label");
+          var label = svg.select("#bars")
+                          .selectAll("text")
+                          .data(that.d3Data)
+                          .enter()
+                          .append("text")
+                          .text(function(d){
+                            return d.percent+"%";
+                          })
+                          .attr("y", function(d,i){
+                            return getScales.yScale(i)+32;
+                          })
+                          .attr("x", function(d){
+                            return getScales.xScale(d.percent)+10;
+                          });
+        }
+      }
+    })
+
+    
+    var dvDescription = [
+          {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
+          {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
+          {"name":"Entrepreneurial Challenge","dx":"Description for Entrepreneurial Challenge"},
+          {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
+          {"name":"Production Efficiency","dx":"Description for Production Efficiency"},
+          {"name":"Artistic Creativity","dx":"Description for Artistic Creativity"},
+          {"name":"Human Development","dx":"Description for Human Development"},
+          {"name":"Societal Change","dx":"Description for Societal Change"},
+          {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
+
+    new Vue({
+      el: '#dv',
+      data(){
+        return{
+          chartid:"dv-chart",
+          d3Data: {},
+          vueSchool: school,
+          d3Offset:0,
+          d3Des: dvDescription
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Dominant Values"]
+            })
+      }
+    })
+  </script>
 </section>
 
     
@@ -468,179 +504,99 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">2. Characteristics</h2>
         <h3 class="section-subheading text-muted">Description of what the characteristics section is about</h3>
-        <h3 class="section-heading">Key Strengths</h3>
       </div>
     </div>
-    <div id="ksbody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">key strengths</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the key strength</span></p>
-      </div>
+
+    <div class="row" id="ks">
+      <h3 class="section-heading">Key Strength</h3>
+      <bar-chart
+        :d3-data="d3Data"
+        :d3-offset="d3Offset"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </bar-chart>
     </div>
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading">Caution Areas</h3>
-      </div>
+
+    <div class="row" id="ca">
+      <h3 class="section-heading">Caution Areas</h3>
+      <bar-chart
+        :d3-data="d3Data"
+        :d3-offset="d3Offset"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </bar-chart>
     </div>
-    <div id="cabody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">caution areas</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the caution area</span></p>
-      </div>
-    </div>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript">
-      var kssvg = d3.select("#ksbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
-
-      var ksdescription = [
-        {"name":"Accomplishment-oriented","dx":"KKKKKThis should be description for accomplishment-oriented"},
-        {"name":"Kind-hearted","dx":"SSSSSSdes1"},
-        {"name":"Change-oriented","dx":"KSKSKSKSdes2"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      var ksoffset = 1100;
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var ksdata = imdata.data["0"]["Key Strengths"];
-        barchart(ksoffset, ksdescription, kssvg, ksdata);
-      })
-
-      var casvg = d3.select("#cabody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
-
-      var cadescription = [
-        {"name":"Accomplishment-oriented","dx":"caution area"},
-        {"name":"Kind-hearted","dx":"ccccccca"},
-        {"name":"Change-oriented","dx":"caaaaaaaa"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      var caoffset = 1700;
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var cadata = imdata.data["0"]["Caution Areas"];
-        barchart(caoffset, cadescription, casvg, cadata);
-      })
-
-      function barchart(offset, description, svg, data){
-        
-        var grid = d3.range(25).map(function(i){
-                                      return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
-        });
-        var tickVals = grid.map(function(d, i){
-                                  if (i>0){
-                                    return i*10;
-                                  } else if (i==0){
-                                    return "100";
-                                  }
-        });
-        var xScale = d3.scaleLinear()
-                        .domain([0, d3.max(data, function(d) { return d.percent; })+10])
-                        .range([0, 722]);
-        var xAxis = d3.axisBottom()
-                      .scale(xScale)
-                      .tickValues(tickVals);
-        var yScale = d3.scaleBand()
-                        .domain(d3.range(0, 9))
-                        .range([0, 480]);
-        var yAxis = d3.axisLeft()
-                      .scale(yScale)
-                      .tickSize(2)
-                      .tickFormat(function(d, i){
-                                    return data[i].name;
-                      })
-                      .tickValues(d3.range(9));
-
-        
-        var xx = svg.append("g")
-                      .attr("transform", "translate(150, 480)")
-                      .attr("id", "xaxis")
-                      .call(xAxis);
-        var yx = svg.append("g")
-                      .attr("transform", "translate(150, 0)")
-                      .attr("id", "yaxis")
-                      .call(yAxis);
-
-        
-        var bars = svg.append("g")
-                      .attr("transform", "translate(150, 0)")
-                      .attr("id","bars")
-                      .attr("class", "bar")
-                      .selectAll("rect")
-                      .data(data)
-                      .enter()
-                      .append("rect")
-                      .attr("width", function(d){
-                                        return xScale(d.percent);
-                      })
-                      .attr("height", 32)
-                      
-                      
-                      
-                      
-                      .attr("x", 1)
-                      .attr("y", function(d,i){
-                          return yScale(i)+12; })
-                      .on("mouseover", function(d,i){
-                                          var tt = d3.select("#tooltip")
-                                                      .style("left", xScale(d.percent)+450+"px")
-                                                      .style("top", offset+1350+yScale(i)+"px");
-                                          tt.select("#value")
-                                            .text(d.percent);
-                                          tt.select("#title")
-                                            .text(d.name);
-                                          tt.select("#text")
-                                            .text(function() {
-                                                    for (a = 0; a < description.length; a++) {
-                                                      if (description[a].name == d.name){
-                                                        return description[a].dx;
-                                                      }
-                                                    }
-                                                    return "No pre-set description found"; });
-
-                                          d3.select("#tooltip").classed("hidden", false);
-                      })
-                      .on("mouseout", function(){
-                                        d3.select("#tooltip").classed("hidden", true);
-                      });
-
-        
-        svg.append("g")
-            .attr("id", "label");
-        var label = svg.select("#bars")
-                        .selectAll("text")
-                        .data(data)
-                        .enter()
-                        .append("text")
-                        .text(function(d){
-                          return d.percent+"%";
-                        })
-                        .attr("y", function(d,i){
-                          return yScale(i)+32;
-                        })
-                        .attr("x", function(d){
-                          return xScale(d.percent)+10;
-                        });
-      }
-      </script>
   </div>
+
+  <script type="text/javascript">
+    
+    var ksDescription = [
+      {"name":"Accomplishment-oriented","dx":"KKKKKThis should be description for accomplishment-oriented"},
+      {"name":"Kind-hearted","dx":"SSSSSSdes1"},
+      {"name":"Change-oriented","dx":"KSKSKSKSdes2"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#ks',
+      data(){
+        return{
+          chartid:"ks-chart",
+          d3Data: {},
+          vueSchool: school,
+          d3Offset:1100,
+          d3Des: ksDescription
+        }
+      },
+      created(){
+        console.log("inside created()");
+        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Key Strengths"]
+              console.log("this.d3Data: "+this.d3Data);
+            })
+      }
+    })
+
+    
+    var caDescription = [
+      {"name":"Accomplishment-oriented","dx":"caution area"},
+      {"name":"Kind-hearted","dx":"ccccccca"},
+      {"name":"Change-oriented","dx":"caaaaaaaa"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#ca',
+      data(){
+        return{
+          chartid:"ca-chart",
+          d3Data: {},
+          vueSchool: school,
+          d3Offset:1700,
+          d3Des: caDescription
+        }
+      },
+      created(){
+        console.log("inside created()");
+        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Caution Areas"]
+              console.log("this.d3Data: "+this.d3Data);
+            })
+      }
+    })
+  </script>
 </section>
 
     
@@ -657,18 +613,17 @@
       </div>
     </div>
     <div id="jfbody"></div>
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading">Model Roles</h3>
-      </div>
+
+    <div class="row" id="mr">
+      <h3 class="section-heading">Model Roles</h3>
+      <bar-chart
+        :d3-data="d3Data"
+        :d3-offset="d3Offset"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </bar-chart>
     </div>
-    <div id="mrbody">
-      <div id="tooltip" class="hidden">
-        <p><strong><span id="title">model roles</span></strong></p>
-        <p><span id="value">100</span>%</p>
-        <p><span id="text">explanation of the model role</span></p>
-      </div>
-    </div>
+
     <div class="row">
       <div class="col-lg-12 text-center">
         <h3 class="section-heading">Roles & Positions</h3>
@@ -698,8 +653,7 @@
       font-size: 1em;
       }
     </style>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
     <script type="text/javascript">
       var text = "";
       var width = 400;
@@ -738,12 +692,8 @@
         donutchart(jfdescription, jfg, jfarc, jfdata, jfcolor);
       })
 
-      var mrsvg = d3.select("#mrbody")
-                  .append("svg")
-                  .attr("width", 900)
-                  .attr("height", 550);
-
-      var mrdescription = [
+      
+      var mrDescription = [
         {"name":"Alice","dx":"Description for Alice"},
         {"name":"Ben","dx":"Description for Ben"},
         {"name":"Cici","dx":"Description for Cici"},
@@ -754,11 +704,26 @@
         {"name":"Helen","dx":"Description for Helen"},
         {"name":"Iris","dx":"Description for Iris"}];
 
-      var mroffset = 3250;
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var mrdata = imdata.data["0"]["Model Roles"];
-        barchart(mroffset, mrdescription, mrsvg, mrdata);
+      new Vue({
+        el: '#mr',
+        data(){
+          return{
+            chartid:"mr-chart",
+            d3Data: {},
+            vueSchool: school,
+            d3Offset:3250,
+            d3Des: mrDescription
+          }
+        },
+        created(){
+          console.log("inside created()");
+          fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Model Roles"]
+                console.log("this.d3Data: "+this.d3Data);
+              })
+        }
       })
 
       var rpcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
