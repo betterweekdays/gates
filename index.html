@@ -307,6 +307,7 @@
       line-height:20px;
     }
   </style>
+
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -423,8 +424,8 @@
           var getScales = that.prepareScales();
           bars.on("mouseover", function(d,i){
                       var tt = d3.select("#tooltip")
-                                .style("left", getScales.xScale(d.percent)+250+"px")
-                                .style("top", that.d3Offset+getScales.yScale(i)+"px"); 
+                                .style("left", getScales.xScale(d.percent)+400+"px")
+                                .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
                       tt.select("#value")
                         .text(d.percent);
                       tt.select("#title")
