@@ -135,6 +135,7 @@
         margin: 1em auto;
       }
     </style>
+
     <div class="container">
       <div class="intro-text">
         <div class="section-heading text-muted">Soft Skills & Values Assessment</div>
@@ -174,39 +175,47 @@
         <br>
       </div>
     </div>
+
     <script type="text/javascript">
       Vue.component('v-select', VueSelect.VueSelect)
 
-      var school = 'SLU'; 
+      function clear(id){
+        var removeNode = document.getElementById(id+"-chart");
+        while (removeNode.firstChild) {
+          removeNode.removeChild(removeNode.firstChild);
+        }
+      }
+
+      var school = 'Any'; 
       var schoolVue = new Vue({
         el: '#school',
         
         data: {
-          selected: ['SLU'], 
-          options: ['WashU', 'SLU']
+          selected: ['Any'], 
+          options: ['WashU', 'SLU', 'Any']
         },
         watch: {
           selected() {
             window.school = this.selected[0];
-            var removeNode = document.getElementById("dv-chart");
-            while (removeNode.firstChild) {
-              removeNode.removeChild(removeNode.firstChild);
-            }
+            window.clear("dv");
             dvVue.vueSchool=window.school;
           }
         }
       })
 
-      new Vue({
+      var program = 'Any';
+      var programVue = new Vue({
         el: '#program',
         data: {
           selected: ['Any'],
-          options: [
-            {id:1, label:'Computer Science'},
-            {id:2, label:'Business Administration'},
-            {id:2, label:'Marketing'},
-            {id:3, label:'Any'}
-          ]
+          options: ['CS', 'Architecture', 'Any']
+        },
+        watch: {
+          selected() {
+            window.program = this.selected[0];
+            window.clear("dv");
+            dvVue.vueProgram=window.program;
+          }
         }
       })
 
@@ -222,15 +231,19 @@
         }
       })
 
-      new Vue({
+      var gender = 'Any';
+      var genderVue = new Vue({
         el: '#gender',
         data: {
-          options: [
-            {id: 1, label: 'Male'},
-            {id: 2, label: 'Female'},
-            {id: 3, label: 'Any'},
-          ],
-          selected: 'Any',
+          options: ['male','female','Any'],
+          selected: 'Any'
+        },
+        watch: {
+          selected() {
+            window.gender = this.selected;
+            window.clear("dv");
+            dvVue.vueGender=window.gender;
+          }
         }
       })
 
@@ -488,19 +501,34 @@
           chartid:"dv-chart",
           d3Data: {},
           vueSchool: school,
+          vueProgram: program,
+          vueGender: gender,
           d3Offset:0,
           d3Des: dvDescription
         }
       },
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender].join();
+        }
+      },
       watch: {
-        vueSchool() { this.fetchData(); }
+        isChanged() { this.fetchData(); }
       },
       created: function(){
         this.fetchData();
       },
       methods: {
         fetchData: function(){
-          fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+          var prelink = "https://betterweekdays.github.io/gates/data/testdata";
+          if (!(this.vueSchool==="Any" && this.vueProgram==="Any" && this.vueGender==="Any")){
+            prelink+="-";
+            if (this.vueSchool!=="Any") prelink=prelink+"schools="+this.vueSchool+"&";
+            if (this.vueProgram!=="Any") prelink=prelink+"programs="+this.vueProgram+"&";
+            if (this.vueGender!=="Any") prelink=prelink+"gender="+this.vueGender+"&";
+            prelink = prelink.substring(0, prelink.length - 1);
+          }
+          fetch(prelink+".json")
               .then(response => response.json())
               .then(json => {
                 this.d3Data = json.data["0"]["Dominant Values"]
@@ -570,7 +598,7 @@
         }
       },
       created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
             .then(response => response.json())
             .then(json => {
               this.d3Data = json.data["0"]["Key Strengths"]
@@ -602,7 +630,7 @@
         }
       },
       created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
             .then(response => response.json())
             .then(json => {
               this.d3Data = json.data["0"]["Caution Areas"]
@@ -836,7 +864,7 @@
         }
       },
       created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
             .then(response => response.json())
             .then(json => {
               this.d3Data = json.data["0"]["Model Roles"]
