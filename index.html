@@ -616,15 +616,46 @@
     
       <!-- About Section -->
 <section id="about">
+  <style type="text/css">
+    .pie {
+    margin: 20px;
+    }
+
+    .pie text {
+    font-family: "Verdana";
+    fill: #888;
+    }
+
+    .pie .name-text{
+    font-size: 1.5em;
+    font-weight: bold;
+    }
+
+    .pie .value-text{
+    font-size: 1em;
+    }
+
+    .pie .description-text{
+    font-size: 1em;
+    }
+  </style>
+
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">3. Roles</h2>
         <h3 class="section-subheading text-muted">Description of what the role section of the assessment tells</h3>
-        <h3 class="section-heading">Job Functions</h3>
       </div>
     </div>
-    <div id="jfbody"></div>
+
+    <div class="row" id="jf">
+      <h3 class="section-heading">Job Functions</h3>
+      <donut-chart
+        :d3-data="d3Data"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </donut-chart>
+    </div>
 
     <div class="row" id="mr">
       <h3 class="section-heading">Model Roles</h3>
@@ -636,59 +667,122 @@
       </bar-chart>
     </div>
 
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading">Roles & Positions</h3>
-      </div>
+    <div class="row" id="rp">
+      <h3 class="section-heading">Roles & Positions</h3>
+      <donut-chart
+        :d3-data="d3Data"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </donut-chart>
     </div>
-    <div id="rpbody"></div>
-    <style type="text/css">
-      .pie {
-      margin: 20px;
+  </div>
+
+  <script type="text/javascript">
+  
+  Vue.component('donut-chart', {
+    props: ['d3Data', 'd3Des', 'chartid'],
+    template:`
+      <div>
+        <svg class="pie" width="400" height="400">
+          <g :id="chartid" transform="translate(200,200)"></g>
+        </svg>
+      </div>
+    `,
+    watch:{
+      d3Data(){
+        var that = this;
+        that.appendPath();
       }
+    },
+    methods:{
+      prepareElements: function(){
+        var color = d3.scaleOrdinal(d3.schemeBlues[9]);
 
-      .pie text {
-      font-family: "Verdana";
-      fill: #888;
-      }
+        var arc = d3.arc()
+                    .innerRadius(140) //radius-thickness
+                    .outerRadius(200); 
 
-      .pie .name-text{
-      font-size: 1.5em;
-      font-weight: bold;
-      }
+        var pie = d3.pie()
+                    .value(function(d) { return d.percent; })
+                    .sort(null);
 
-      .pie .value-text{
-      font-size: 1em;
-      }
+        return {color, arc, pie};
+      },
+      appendPath: function(){
+        var that = this;
+        var elements = that.prepareElements();
+        var pie = elements.pie;
+        var color = elements.color;
+        var arc = elements.arc;
+        var gout = d3.select("#"+that.chartid);
 
-      .pie .description-text{
-      font-size: 1em;
-      }
-    </style>
+        var path = gout.selectAll('path')
+                    .data(pie(that.d3Data))
+                    .enter()
+                    .append("g")
+                    .on("mouseover", function(d,i) {
+                          let g = d3.select(this)
+                                    .style("cursor", "pointer")
+                                    .style("fill", "#fed136")
+                                    .append("g")
+                                    .attr("class", "text-group");
 
-    <script type="text/javascript">
-      var text = "";
-      var width = 400;
-      var height = 400;
-      var thickness = 60;
-      var radius = Math.min(width, height) / 2;
+                          g.append("text")
+                            .attr("class", "name-text")
+                            .text(d.data.name)
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', '-1.2em');
 
-      var jfcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
+                          g.append("text")
+                            .attr("class", "value-text")
+                            .text(d.data.percent+"%")
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', '.6em');
 
-      var jfsvg = d3.select("#jfbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
+                          g.append("text")
+                            .attr("class", "description-text")
+                            .text(function() {
+                                    for (a = 0; a < that.d3Des.length; a++) {
+                                      if (that.d3Des[a].name == d.name){
+                                        return that.d3Des[a].dx;
+                                      }
+                                    }
+                                    return "No pre-set description found"; })
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', '1.8em');
+                      })
+                .on("mouseout", function(d) {
+                                    d3.select(this)
+                                      .style("cursor", "none")
+                                      .style("fill", color(this._current))
+                                      .select(".text-group").remove();
+                                })
+                .append('path')
+                .attr('d', arc)
+                .attr('fill', (d,i) => color(i))
+                .on("mouseover", function(d) {
+                    d3.select(this)
+                      .style("cursor", "pointer")
+                      .style("fill", "#fed136");
+                  })
+                .on("mouseout", function(d) {
+                    d3.select(this)
+                      .style("cursor", "none")
+                      .style("fill", color(this._current));
+                  })
+                .each(function(d, i) { this._current = i; });
 
-      var jfg = jfsvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
+            var text = "";
+            gout.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '.35em')
+                .text(text);
+          }
+        }
+      })
 
-      var jfarc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
-
-      var jfdescription = [
+    
+    var jfdescription = [
         {"name":"Accomplishment-oriented","dx":"job functions"},
         {"name":"Kind-hearted","dx":"job functions"},
         {"name":"Change-oriented","dx":"job functions"},
@@ -699,143 +793,86 @@
         {"name":"test5","dx":"des"},
         {"name":"test6","dx":"des"}];
 
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var jfdata = imdata.data["0"]["Job Functions"];
-        donutchart(jfdescription, jfg, jfarc, jfdata, jfcolor);
-      })
-
-      
-      var mrDescription = [
-        {"name":"Alice","dx":"Description for Alice"},
-        {"name":"Ben","dx":"Description for Ben"},
-        {"name":"Cici","dx":"Description for Cici"},
-        {"name":"Dave","dx":"Description for Dave"},
-        {"name":"Eva","dx":"Description for Eva"},
-        {"name":"Frank","dx":"Description for Frank"},
-        {"name":"Gigi","dx":"Description for Gigi"},
-        {"name":"Helen","dx":"Description for Helen"},
-        {"name":"Iris","dx":"Description for Iris"}];
-
-      new Vue({
-        el: '#mr',
-        data(){
-          return{
-            chartid:"mr-chart",
-            d3Data: {},
-            vueSchool: school,
-            d3Offset:3250,
-            d3Des: mrDescription
-          }
-        },
-        created(){
-          fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
-              .then(response => response.json())
-              .then(json => {
-                this.d3Data = json.data["0"]["Model Roles"]
-              })
+    new Vue({
+      el: '#jf',
+      data(){
+        return{
+          d3Data: {},
+          d3Des: jfdescription,
+          chartid: "jf-chart"
         }
-      })
-
-      var rpcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
-
-      var rpsvg = d3.select("#rpbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
-
-      var rpg = rpsvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
-
-      var rparc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
-
-      var rpdescription = [
-        {"name":"Accomplishment-oriented","dx":"roles & positions"},
-        {"name":"Kind-hearted","dx":"roles & positions"},
-        {"name":"Change-oriented","dx":"roles & positions"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var rpdata = imdata.data["0"]["Role Positions"];
-        donutchart(rpdescription, rpg, rparc, rpdata, rpcolor);
-      })
-
-      function donutchart(description, g, arc, data, color){
-        var pie = d3.pie()
-                    .value(function(d) { return d.percent; })
-                    .sort(null);
-
-        var path = g.selectAll('path')
-                    .data(pie(data))
-                    .enter()
-                    .append("g")
-                    .on("mouseover", function(d,i) {
-                                        let g = d3.select(this)
-                                                  .style("cursor", "pointer")
-                                                  .style("fill", "#fed136")
-                                                  .append("g")
-                                                  .attr("class", "text-group");
-
-                                        g.append("text")
-                                          .attr("class", "name-text")
-                                          .text(d.data.name)
-                                          .attr('text-anchor', 'middle')
-                                          .attr('dy', '-1.2em');
-
-                                        g.append("text")
-                                          .attr("class", "value-text")
-                                          .text(d.data.percent+"%")
-                                          .attr('text-anchor', 'middle')
-                                          .attr('dy', '.6em');
-
-                                        g.append("text")
-                                          .attr("class", "description-text")
-                                          .text(function() {
-                                                  for (a = 0; a < description.length; a++) {
-                                                    if (description[a].name == d.name){
-                                                      return description[a].dx;
-                                                    }
-                                                  }
-                                                  return "No pre-set description found"; })
-                                          .attr('text-anchor', 'middle')
-                                          .attr('dy', '1.8em');
-                                    })
-                  .on("mouseout", function(d) {
-                                      d3.select(this)
-                                        .style("cursor", "none")
-                                        .style("fill", color(this._current))
-                                        .select(".text-group").remove();
-                                  })
-                  .append('path')
-                  .attr('d', arc)
-                  .attr('fill', (d,i) => color(i))
-                  .on("mouseover", function(d) {
-                      d3.select(this)
-                        .style("cursor", "pointer")
-                        .style("fill", "#fed136");
-                    })
-                  .on("mouseout", function(d) {
-                      d3.select(this)
-                        .style("cursor", "none")
-                        .style("fill", color(this._current));
-                    })
-                  .each(function(d, i) { this._current = i; });
-
-
-        g.append('text')
-          .attr('text-anchor', 'middle')
-          .attr('dy', '.35em')
-          .text(text);
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Job Functions"]
+            })
       }
-      </script>
-  </div>
+    })
+
+    
+    var mrDescription = [
+      {"name":"Alice","dx":"Description for Alice"},
+      {"name":"Ben","dx":"Description for Ben"},
+      {"name":"Cici","dx":"Description for Cici"},
+      {"name":"Dave","dx":"Description for Dave"},
+      {"name":"Eva","dx":"Description for Eva"},
+      {"name":"Frank","dx":"Description for Frank"},
+      {"name":"Gigi","dx":"Description for Gigi"},
+      {"name":"Helen","dx":"Description for Helen"},
+      {"name":"Iris","dx":"Description for Iris"}];
+
+    new Vue({
+      el: '#mr',
+      data(){
+        return{
+          chartid:"mr-chart",
+          d3Data: {},
+          vueSchool: school,
+          d3Offset:3250,
+          d3Des: mrDescription
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata&"+this.vueSchool+".json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Model Roles"]
+            })
+      }
+    })
+
+    
+    var rpdescription = [
+      {"name":"Accomplishment-oriented","dx":"roles & positions"},
+      {"name":"Kind-hearted","dx":"roles & positions"},
+      {"name":"Change-oriented","dx":"roles & positions"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#rp',
+      data(){
+        return{
+          d3Data: {},
+          d3Des: rpdescription,
+          chartid: "rp-chart"
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Role Positions"]
+            })
+      }
+    })
+    </script>
 </section>
 
     
@@ -848,125 +885,128 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">4. Companies</h2>
         <h3 class="section-subheading text-muted">Description of the company section of the assessment</h3>
-        <h3 class="section-heading">Organization Culture</h3>
       </div>
     </div>
-    <div id="ocbody"></div>
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading">Industries</h3>
-      </div>
+
+    <div class="row" id="oc">
+      <h3 class="section-heading">Organization Culture</h3>
+      <donut-chart
+        :d3-data="d3Data"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </donut-chart>
     </div>
-    <div id="inbody"></div>
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h3 class="section-heading">Organizations</h3>
-      </div>
+
+    <div class="row" id="in">
+      <h3 class="section-heading">Industries</h3>
+      <donut-chart
+        :d3-data="d3Data"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </donut-chart>
     </div>
-    <div id="ogbody"></div>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript">
-      var text = "";
-      var width = 400;
-      var height = 400;
-      var thickness = 60;
-      var radius = Math.min(width, height) / 2;
 
-      var occolor = d3.scaleOrdinal(d3.schemeBlues[9]);
-
-      var ocsvg = d3.select("#ocbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
-
-      var ocg = ocsvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
-
-      var ocarc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
-
-      var ocdescription = [
-        {"name":"Accomplishment-oriented","dx":"OC"},
-        {"name":"Kind-hearted","dx":"OCC"},
-        {"name":"Change-oriented","dx":"OCCC"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var ocdata = imdata.data["0"]["Organization Culture"];
-        donutchart(ocdescription, ocg, ocarc, ocdata, occolor);
-      })
-
-      var incolor = d3.scaleOrdinal(d3.schemeBlues[9]);
-
-      var insvg = d3.select("#inbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
-
-      var ing = insvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
-
-      var inarc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
-
-      var indescription = [
-        {"name":"Accomplishment-oriented","dx":"IN"},
-        {"name":"Kind-hearted","dx":"INN"},
-        {"name":"Change-oriented","dx":"INNN"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var indata = imdata.data["0"]["Industry Types"];
-        donutchart(indescription, ing, inarc, indata, incolor);
-      })
-
-      var ogcolor = d3.scaleOrdinal(d3.schemeBlues[9]);
-
-      var ogsvg = d3.select("#ogbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
-
-      var ogg = ogsvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
-
-      var ogarc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
-
-      var ogdescription = [
-        {"name":"Accomplishment-oriented","dx":"OG"},
-        {"name":"Kind-hearted","dx":"OGG"},
-        {"name":"Change-oriented","dx":"OGGG"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var ogdata = imdata.data["0"]["Organization Types"];
-        donutchart(ogdescription, ogg, ogarc, ogdata, ogcolor);
-      })
-      </script>
+    <div class="row" id="og">
+      <h3 class="section-heading">Organizations</h3>
+      <donut-chart
+        :d3-data="d3Data"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </donut-chart>
+    </div>
   </div>
+
+  <script type="text/javascript">
+    
+    var ocdescription = [
+      {"name":"Accomplishment-oriented","dx":"OC"},
+      {"name":"Kind-hearted","dx":"OCC"},
+      {"name":"Change-oriented","dx":"OCCC"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#oc',
+      data(){
+        return{
+          d3Data: {},
+          d3Des: ocdescription,
+          chartid: "oc-chart"
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Organization Culture"]
+            })
+      }
+    })
+
+    
+    var indescription = [
+      {"name":"Accomplishment-oriented","dx":"IN"},
+      {"name":"Kind-hearted","dx":"INN"},
+      {"name":"Change-oriented","dx":"INNN"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#in',
+      data(){
+        return{
+          d3Data: {},
+          d3Des: indescription,
+          chartid: "in-chart"
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Industry Types"]
+            })
+      }
+    })
+
+    
+    var ogdescription = [
+      {"name":"Accomplishment-oriented","dx":"OG"},
+      {"name":"Kind-hearted","dx":"OGG"},
+      {"name":"Change-oriented","dx":"OGGG"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#og',
+      data(){
+        return{
+          d3Data: {},
+          d3Des: ogdescription,
+          chartid: "og-chart"
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Organization Types"]
+            })
+      }
+    })
+  </script>
 </section>
 
     
@@ -981,51 +1021,50 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">5. Personal Growth</h2>
         <h3 class="section-subheading text-muted">Description of what the personal growth section of the assessment tells</h3>
-        <h3 class="section-heading">Areas of Study</h3>
       </div>
     </div>
-    <div id="asbody"></div>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript">
-      var text = "";
-      var width = 400;
-      var height = 400;
-      var thickness = 60;
-      var radius = Math.min(width, height) / 2;
 
-      var ascolor = d3.scaleOrdinal(d3.schemeBlues[9]);
-
-      var assvg = d3.select("#asbody")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width)
-                    .attr('height', height);
-
-      var asg = assvg.append('g')
-                    .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
-
-      var asarc = d3.arc()
-                  .innerRadius(radius - thickness)
-                  .outerRadius(radius);
-
-      var asdescription = [
-        {"name":"Accomplishment-oriented","dx":"areas of study"},
-        {"name":"Kind-hearted","dx":"areas of study"},
-        {"name":"Change-oriented","dx":"areas of study"},
-        {"name":"test1","dx":"des"},
-        {"name":"test2","dx":"des"},
-        {"name":"test3","dx":"des"},
-        {"name":"test4","dx":"des"},
-        {"name":"test5","dx":"des"},
-        {"name":"test6","dx":"des"}];
-
-      d3.json("https://betterweekdays.github.io/gates/data/testdata.json").then(function(imdata) {
-        var asdata = imdata.data["0"]["Areas of Study"];
-        donutchart(asdescription, asg, asarc, asdata, ascolor);
-      })
-      </script>
+    <div class="row" id="as">
+      <h3 class="section-heading">Areas of Study</h3>
+      <donut-chart
+        :d3-data="d3Data"
+        :d3-des="d3Des"
+        :chartid="chartid">
+      </donut-chart>
+    </div>
   </div>
+
+  <script type="text/javascript">
+    
+    var asdescription = [
+      {"name":"Accomplishment-oriented","dx":"areas of study"},
+      {"name":"Kind-hearted","dx":"areas of study"},
+      {"name":"Change-oriented","dx":"areas of study"},
+      {"name":"test1","dx":"des"},
+      {"name":"test2","dx":"des"},
+      {"name":"test3","dx":"des"},
+      {"name":"test4","dx":"des"},
+      {"name":"test5","dx":"des"},
+      {"name":"test6","dx":"des"}];
+
+    new Vue({
+      el: '#as',
+      data(){
+        return{
+          d3Data: {},
+          d3Des: asdescription,
+          chartid: "as-chart"
+        }
+      },
+      created(){
+        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
+            .then(response => response.json())
+            .then(json => {
+              this.d3Data = json.data["0"]["Areas of Study"]
+            })
+      }
+    })
+  </script>
 </section>
 
     
