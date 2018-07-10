@@ -296,8 +296,17 @@
                 ["school"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueSchool=target.value;
+            ksVue.vueSchool=target.value;
+            caVue.vueSchool=target.value;
+            jfVue.vueSchool=target.value;
+            mrVue.vueSchool=target.value;
+            rpVue.vueSchool=target.value;
+            ocVue.vueSchool=target.value;
+            inVue.vueSchool=target.value;
+            ogVue.vueSchool=target.value;
+            asVue.vueSchool=target.value;
           },
           updateProgram({target}){
             this.$router.replace({
@@ -306,8 +315,17 @@
                 ["program"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueProgram=target.value;
+            ksVue.vueProgram=target.value;
+            caVue.vueProgram=target.value;
+            jfVue.vueProgram=target.value;
+            mrVue.vueProgram=target.value;
+            rpVue.vueProgram=target.value;
+            ocVue.vueProgram=target.value;
+            inVue.vueProgram=target.value;
+            ogVue.vueProgram=target.value;
+            asVue.vueProgram=target.value;
           },
           updateRace({target}){
             this.$router.replace({
@@ -316,8 +334,17 @@
                 ["race"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueRace=target.value;
+            ksVue.vueRace=target.value;
+            caVue.vueRace=target.value;
+            jfVue.vueRace=target.value;
+            mrVue.vueRace=target.value;
+            rpVue.vueRace=target.value;
+            ocVue.vueRace=target.value;
+            inVue.vueRace=target.value;
+            ogVue.vueRace=target.value;
+            asVue.vueRace=target.value;
           },
           updateGender({target}){
             this.$router.replace({
@@ -326,8 +353,17 @@
                 ["gender"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueGender=target.value;
+            ksVue.vueGender=target.value;
+            caVue.vueGender=target.value;
+            jfVue.vueGender=target.value;
+            mrVue.vueGender=target.value;
+            rpVue.vueGender=target.value;
+            ocVue.vueGender=target.value;
+            inVue.vueGender=target.value;
+            ogVue.vueGender=target.value;
+            asVue.vueGender=target.value;
           },
           updateIncome({target}){
             this.$router.replace({
@@ -336,8 +372,17 @@
                 ["income"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueIncome=target.value;
+            ksVue.vueIncome=target.value;
+            caVue.vueIncome=target.value;
+            jfVue.vueIncome=target.value;
+            mrVue.vueIncome=target.value;
+            rpVue.vueIncome=target.value;
+            ocVue.vueIncome=target.value;
+            inVue.vueIncome=target.value;
+            ogVue.vueIncome=target.value;
+            asVue.vueIncome=target.value;
           },
           updateFirst({target}){
             this.$router.replace({
@@ -346,8 +391,17 @@
                 ["first"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueFirst=target.value;
+            ksVue.vueFirst=target.value;
+            caVue.vueFirst=target.value;
+            jfVue.vueFirst=target.value;
+            mrVue.vueFirst=target.value;
+            rpVue.vueFirst=target.value;
+            ocVue.vueFirst=target.value;
+            inVue.vueFirst=target.value;
+            ogVue.vueFirst=target.value;
+            asVue.vueFirst=target.value;
           },
           updateAttendance({target}){
             this.$router.replace({
@@ -356,8 +410,17 @@
                 ["attendance"]: target.value
               }
             })
-            window.clear("dv");
+            clearAll();
             dvVue.vueAttendance=target.value;
+            ksVue.vueAttendance=target.value;
+            caVue.vueAttendance=target.value;
+            jfVue.vueAttendance=target.value;
+            mrVue.vueAttendance=target.value;
+            rpVue.vueAttendance=target.value;
+            ocVue.vueAttendance=target.value;
+            inVue.vueAttendance=target.value;
+            ogVue.vueAttendance=target.value;
+            asVue.vueAttendance=target.value;
           }
         }
       })
@@ -367,6 +430,19 @@
         while (removeNode.firstChild) {
           removeNode.removeChild(removeNode.firstChild);
         }
+      }
+
+      function clearAll(){
+        clear("dv");
+        clear("ks");
+        clear("ca");
+        clear("jf");
+        clear("mr");
+        clear("rp");
+        clear("oc");
+        clear("in");
+        clear("og");
+        clear("as");
       }
 
       var router = new VueRouter({
@@ -662,7 +738,6 @@
           if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
             link = prelink + "testdata.json";
           }
-          console.log("link: "+link)
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -721,22 +796,47 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var ksVue = new Vue({
       el: '#ks',
       data(){
         return{
           chartid:"ks-chart",
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           d3Data: {},
           d3Offset:1100,
           d3Des: ksDescription
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Key Strengths"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Key Strengths"]
+              })
+        }
       }
     })
 
@@ -752,22 +852,47 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var caVue = new Vue({
       el: '#ca',
       data(){
         return{
           chartid:"ca-chart",
           d3Data: {},
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           d3Offset:1700,
           d3Des: caDescription
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Caution Areas"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Caution Areas"]
+              })
+        }
       }
     })
   </script>
@@ -955,21 +1080,46 @@
         {"name":"test5","dx":"des"},
         {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var jfVue = new Vue({
       el: '#jf',
       data(){
         return{
           d3Data: {},
           d3Des: jfdescription,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           chartid: "jf-chart"
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Job Functions"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Job Functions"]
+              })
+        }
       }
     })
 
@@ -985,22 +1135,47 @@
       {"name":"Helen","dx":"Description for Helen"},
       {"name":"Iris","dx":"Description for Iris"}];
 
-    new Vue({
+    var mrVue = new Vue({
       el: '#mr',
       data(){
         return{
           chartid:"mr-chart",
           d3Data: {},
           d3Offset:3250,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           d3Des: mrDescription
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Model Roles"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Model Roles"]
+              })
+        }
       }
     })
 
@@ -1016,21 +1191,46 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var rpVue = new Vue({
       el: '#rp',
       data(){
         return{
           d3Data: {},
           d3Des: rpdescription,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           chartid: "rp-chart"
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Role Positions"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Role Positions"]
+              })
+        }
       }
     })
     </script>
@@ -1090,21 +1290,46 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var ocVue = new Vue({
       el: '#oc',
       data(){
         return{
           d3Data: {},
           d3Des: ocdescription,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           chartid: "oc-chart"
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Organization Culture"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Organization Culture"]
+              })
+        }
       }
     })
 
@@ -1120,21 +1345,46 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var inVue = new Vue({
       el: '#in',
       data(){
         return{
           d3Data: {},
           d3Des: indescription,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           chartid: "in-chart"
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Industry Types"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Industry Types"]
+              })
+        }
       }
     })
 
@@ -1150,21 +1400,46 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var ogVue = new Vue({
       el: '#og',
       data(){
         return{
           d3Data: {},
           d3Des: ogdescription,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           chartid: "og-chart"
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Organization Types"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Organization Types"]
+              })
+        }
       }
     })
   </script>
@@ -1208,21 +1483,46 @@
       {"name":"test5","dx":"des"},
       {"name":"test6","dx":"des"}];
 
-    new Vue({
+    var asVue = new Vue({
       el: '#as',
       data(){
         return{
           d3Data: {},
           d3Des: asdescription,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           chartid: "as-chart"
         }
       },
-      created(){
-        fetch("https://betterweekdays.github.io/gates/data/testdata.json")
-            .then(response => response.json())
-            .then(json => {
-              this.d3Data = json.data["0"]["Areas of Study"]
-            })
+      computed:{
+        isChanged(){
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        }
+      },
+      watch: {
+        isChanged() { this.fetchData(); }
+      },
+      created: function(){
+        this.fetchData();
+      },
+      methods: {
+        fetchData: function(){
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          fetch(link)
+              .then(response => response.json())
+              .then(json => {
+                this.d3Data = json.data["0"]["Areas of Study"]
+              })
+        }
       }
     })
   </script>
