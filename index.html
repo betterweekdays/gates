@@ -289,6 +289,7 @@
         },
         methods:{
           updateSchool({target}){
+            console.log("change of school detected: "+target.value)
             this.$router.replace({
               query:{
                 ...this.$route.query,
@@ -296,7 +297,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueSchool=this.school;
+            dvVue.vueSchool=target.value;
           },
           updateProgram({target}){
             this.$router.replace({
@@ -306,7 +307,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueProgram=this.program;
+            dvVue.vueProgram=target.value;
           },
           updateRace({target}){
             this.$router.replace({
@@ -316,7 +317,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueRace=this.race;
+            dvVue.vueRace=target.value;
           },
           updateGender({target}){
             this.$router.replace({
@@ -326,7 +327,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueGender=this.gender;
+            dvVue.vueGender=target.value;
           },
           updateIncome({target}){
             this.$router.replace({
@@ -336,7 +337,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueIncome=this.income;
+            dvVue.vueIncome=target.value;
           },
           updateFirst({target}){
             this.$router.replace({
@@ -346,7 +347,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueFirst=this.first;
+            dvVue.vueFirst=target.value;
           },
           updateAttendance({target}){
             this.$router.replace({
@@ -356,7 +357,7 @@
               }
             })
             window.clear("dv");
-            dvVue.vueAttendance=this.attendance;
+            dvVue.vueAttendance=target.value;
           }
         }
       })
@@ -658,6 +659,10 @@
         fetchData: function(){
           var prelink = "https://betterweekdays.github.io/gates/data/";
           var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+            link = prelink + "testdata.json";
+          }
+          console.log("link: "+link)
           fetch(link)
               .then(response => response.json())
               .then(json => {
