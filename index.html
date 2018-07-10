@@ -117,7 +117,7 @@
     <!-- Hero -->
 <header>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <script src="https://unpkg.com/vue-select@latest"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
   <section id="hero">
     <style type="text/css">
@@ -134,6 +134,16 @@
         max-width: 30em;
         margin: 1em auto;
       }
+
+      #selectapp {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin: 3rem;
+        height: 100%;
+      }
     </style>
 
     <div class="container">
@@ -141,43 +151,215 @@
         <div class="section-heading text-muted">Soft Skills & Values Assessment</div>
         <div class="section-subheading text-muted">A description of the assessment purpose here</div>
 
-        <div id="school">
-          <h1>School</h1>
-          <v-select multiple v-model="selected" :options="options"></v-select>
-          
-        </div>
-
-        <div id="program">
-          <h1>Program of Study</h1>
-          <v-select multiple v-model="selected" :options="options"></v-select>
-        </div>
-
-        <div id="race">
-          <h1>Race</h1>
-          <v-select multiple v-model="selected" :options="options"></v-select>
-        </div>
-
-        <div id="gender">
-          <h1>Gender</h1>
-          <v-select v-model="selected" :options="options"></v-select>
-        </div>
-
-        <div id="income">
-          <h1>Income Status</h1>
-          <v-select v-model="selected" :options="options"></v-select>
-        </div>
-
-        <div id="firstgen">
-          <h1>First Generation Status</h1>
-          <v-select v-model="selected" :options="options"></v-select>
-        </div>
-
+        <div id="selectapp"></div>
         <br>
       </div>
     </div>
 
     <script type="text/javascript">
-      Vue.component('v-select', VueSelect.VueSelect)
+      var maincpo = Vue.component('main-cpo',{
+        props:['school','program','race', 'gender','income','first','attendance'],
+        delimiters:["<%","%>"],
+        template:`
+          <div>
+            <label> School: <br/>
+              <select v-model="this.school" @input="updateSchool">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.school %></span><br/>
+            <label> Program of Study: <br/>
+              <select v-model="this.program" @input="updateProgram">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.program %></span><br/>
+            <label> Race: <br/>
+              <select v-model="this.race" @input="updateRace">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.race %></span><br/>
+            <label> Gender: <br/>
+              <select v-model="this.gender" @input="updateGender">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.gender %></span><br/>
+            <label> Income Status: <br/>
+              <select v-model="this.income" @input="updateIncome">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.income %></span><br/>
+            <label> First Generation Status: <br/>
+              <select v-model="this.first" @input="updateFirst">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.first %></span><br/>
+            <label> Attendance Intensity: <br/>
+              <select v-model="this.attendance" @input="updateAttendance">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </label>
+            <span>Selected: <% this.attendance %></span><br/>
+
+            <h3>The current filters applied are:</h3>
+            <p><%schoolshow%></p>
+            <p><%programshow%></p>
+            <p><%raceshow%></p>
+            <p><%gendershow%></p>
+            <p><%incomeshow%></p>
+            <p><%firstshow%></p>
+            <p><%attendanceshow%></p>
+          </div>
+        `,
+        computed:{
+          schoolshow(){
+            if (this.school) {
+              return "School: "+this.school
+            } else{
+              return "No school has been chosen"
+            }
+          },
+          programshow(){
+            if (this.program) {
+              return "Program: "+this.program
+            } else{
+              return "No program has been chosen"
+            }
+          },
+          raceshow(){
+            if (this.race) {
+              return "Race: "+this.race
+            } else{
+              return "No race has been chosen"
+            }
+          },
+          gendershow(){
+            if (this.gender) {
+              return "Gender: "+this.gender
+            } else{
+              return "No gender has been chosen"
+            }
+          },
+          incomeshow(){
+            if (this.income) {
+              return "Income Status: "+this.income
+            } else{
+              return "No income status has been chosen"
+            }
+          },
+          firstshow(){
+            if (this.first) {
+              return "First Generation Status: "+this.first
+            } else{
+              return "No first generation status has been chosen"
+            }
+          },
+          attendanceshow(){
+            if (this.attendance) {
+              return "Attendance Intensity: "+this.attendance
+            } else{
+              return "No attendance intensity has been chosen"
+            }
+          }
+        },
+        methods:{
+          updateSchool({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["school"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueSchool=this.school;
+          },
+          updateProgram({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["program"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueProgram=this.program;
+          },
+          updateRace({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["race"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueRace=this.race;
+          },
+          updateGender({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["gender"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueGender=this.gender;
+          },
+          updateIncome({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["income"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueIncome=this.income;
+          },
+          updateFirst({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["first"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueFirst=this.first;
+          },
+          updateAttendance({target}){
+            this.$router.replace({
+              query:{
+                ...this.$route.query,
+                ["attendance"]: target.value
+              }
+            })
+            window.clear("dv");
+            dvVue.vueAttendance=this.attendance;
+          }
+        }
+      })
 
       function clear(id){
         var removeNode = document.getElementById(id+"-chart");
@@ -186,88 +368,38 @@
         }
       }
 
-      var school = 'Any'; 
-      var schoolVue = new Vue({
-        el: '#school',
-        
-        data: {
-          selected: ['Any'], 
-          options: ['WashU', 'SLU', 'Any']
+      var router = new VueRouter({
+        mode:'history',
+        routes:[{
+          path:'*',
+          component:maincpo,
+          props:(route)=>({
+            school:route.query.school,
+            program:route.query.program,
+            race:route.query.race,
+            gender:route.query.gender,
+            income:route.query.income,
+            first:route.query.first,
+            attendance:route.query.attendance
+          })
+        }]
+      })
+
+      var app = new Vue({
+        router,
+        el: '#selectapp',
+        components:{
+          maincpo
         },
-        watch: {
-          selected() {
-            window.school = this.selected[0];
-            window.clear("dv");
-            dvVue.vueSchool=window.school;
-          }
-        }
-      })
-
-      var program = 'Any';
-      var programVue = new Vue({
-        el: '#program',
-        data: {
-          selected: ['Any'],
-          options: ['CS', 'Architecture', 'Any']
-        },
-        watch: {
-          selected() {
-            window.program = this.selected[0];
-            window.clear("dv");
-            dvVue.vueProgram=window.program;
-          }
-        }
-      })
-
-      new Vue({
-        el: '#race',
-        data: {
-          selected: ['Any'],
-          options: [
-            {id:1, label:'Hispanic'},
-            {id:2, label:'White'},
-            {id:3, label:'Any'}
-          ]
-        }
-      })
-
-      var gender = 'Any';
-      var genderVue = new Vue({
-        el: '#gender',
-        data: {
-          options: ['male','female','Any'],
-          selected: 'Any'
-        },
-        watch: {
-          selected() {
-            window.gender = this.selected;
-            window.clear("dv");
-            dvVue.vueGender=window.gender;
-          }
-        }
-      })
-
-      new Vue({
-        el: '#income',
-        data: {
-          options: [
-            {id: 1, label: 'Low income'},
-            {id: 2, label: 'Not low income'},
-            {id: 3, label: 'Any'},
-          ],
-          selected: 'Any',
-        }
-      })
-
-      new Vue({
-        el: '#firstgen',
-        data: {
-          options: [
-            {id: 1, label: 'First generation'},
-            {id: 2, label: 'Not first generation'},
-            {id: 3, label: 'Any'},
-          ],
-          selected: 'Any',
+        render(h){
+          return h('div',{
+            attrs:{
+              id:'selectapp'
+            }
+          },[
+            h('h1','Soft Skills & Values Assessment'),
+            h('router-view')
+          ])
         }
       })
     </script>
@@ -500,16 +632,20 @@
         return{
           chartid:"dv-chart",
           d3Data: {},
-          vueSchool: school,
-          vueProgram: program,
-          vueGender: gender,
+          vueSchool:"",
+          vueProgram:"",
+          vueRace:"",
+          vueGender:"",
+          vueIncome:"",
+          vueFirst:"",
+          vueAttendance:"",
           d3Offset:0,
           d3Des: dvDescription
         }
       },
       computed:{
         isChanged(){
-          return [this.vueSchool, this.vueProgram, this.vueGender].join();
+          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
         }
       },
       watch: {
@@ -520,15 +656,9 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/testdata";
-          if (!(this.vueSchool==="Any" && this.vueProgram==="Any" && this.vueGender==="Any")){
-            prelink+="-";
-            if (this.vueSchool!=="Any") prelink=prelink+"schools="+this.vueSchool+"&";
-            if (this.vueProgram!=="Any") prelink=prelink+"programs="+this.vueProgram+"&";
-            if (this.vueGender!=="Any") prelink=prelink+"gender="+this.vueGender+"&";
-            prelink = prelink.substring(0, prelink.length - 1);
-          }
-          fetch(prelink+".json")
+          var prelink = "https://betterweekdays.github.io/gates/data/";
+          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
+          fetch(link)
               .then(response => response.json())
               .then(json => {
                 this.d3Data = json.data["0"]["Dominant Values"]
@@ -592,7 +722,6 @@
         return{
           chartid:"ks-chart",
           d3Data: {},
-          vueSchool: school,
           d3Offset:1100,
           d3Des: ksDescription
         }
@@ -624,7 +753,6 @@
         return{
           chartid:"ca-chart",
           d3Data: {},
-          vueSchool: school,
           d3Offset:1700,
           d3Des: caDescription
         }
@@ -858,7 +986,6 @@
         return{
           chartid:"mr-chart",
           d3Data: {},
-          vueSchool: school,
           d3Offset:3250,
           d3Des: mrDescription
         }
