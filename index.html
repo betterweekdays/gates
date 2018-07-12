@@ -117,6 +117,7 @@
     <!-- Hero -->
 <header>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-select@2.4.0"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
   <section id="hero">
@@ -152,81 +153,108 @@
         <div class="section-subheading text-muted">A description of the assessment purpose here</div>
 
         <div id="selectapp"></div>
-        <br>
       </div>
     </div>
 
     <script type="text/javascript">
+      var dvVue = new Vue({
+        el: '#dv',
+        data(){
+          return{
+            chartid:"dv-chart",
+            d3Data: {},
+            vueSchool:[],
+            vueProgram:[],
+            vueRace:[],
+            vueGender:"",
+            vueIncome:"",
+            vueFirst:"",
+            vueAttendance:"",
+            d3Offset:0,
+            d3Des: dvDescription
+          }
+        },
+        computed:{
+          isChanged(){
+            return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+          }
+        },
+        watch: {
+          isChanged() { this.fetchData(); }
+        },
+        created: function(){
+          this.fetchData();
+        },
+        methods: {
+          fetchData: function(){
+            var link = window.produceLink(this);
+            fetch(link)
+                .then(response => response.json())
+                .then(json => {
+                  this.d3Data = json.data["0"]["Dominant Values"]
+                })
+          }
+        }
+      })
+
+      var selectcpo = Vue.component('v-select', VueSelect.VueSelect)
+
       var maincpo = Vue.component('main-cpo',{
-        props:['school','program','race', 'gender','income','first','attendance'],
+        props:['school','program','race','gender','income','first','attendance'],
+        data(){
+          return{
+            school_selected:this.school,
+            program_selected:this.program,
+            race_selected:this.race,
+            gender_selected:this.gender,
+            income_selected:this.income,
+            first_selected:this.first,
+            attendance_selected:this.attendance,
+            schooloptions:['A','B','C'],
+            programoptions:['A','B','C'],
+            genderoptions:['A','B','C'],
+            raceoptions:['A','B','C'],
+            incomeoptions:['A','B','C'],
+            firstoptions:['A','B','C'],
+            attendanceoptions:['A','B','C']
+          }
+        },
+        components:{
+          selectcpo
+        },
         delimiters:["<%","%>"],
         template:`
           <div>
-            <label> School: <br/>
-              <select v-model="this.school" @input="updateSchool">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.school %></span><br/>
-            <label> Program of Study: <br/>
-              <select v-model="this.program" @input="updateProgram">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.program %></span><br/>
-            <label> Race: <br/>
-              <select v-model="this.race" @input="updateRace">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.race %></span><br/>
-            <label> Gender: <br/>
-              <select v-model="this.gender" @input="updateGender">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.gender %></span><br/>
-            <label> Income Status: <br/>
-              <select v-model="this.income" @input="updateIncome">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.income %></span><br/>
-            <label> First Generation Status: <br/>
-              <select v-model="this.first" @input="updateFirst">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.first %></span><br/>
-            <label> Attendance Intensity: <br/>
-              <select v-model="this.attendance" @input="updateAttendance">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-            </label>
-            <span>Selected: <% this.attendance %></span><br/>
+            <h1>School:</h1>
+            <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool"></v-select>
+            <span>Selected: <% school_selected %></span><br/>
+
+            <h1> Program of Study: </h1>
+              <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram"></v-select>
+            <span>Selected: <% program_selected %></span><br/>
+
+            <h1> Race: </h1>
+            <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace"></v-select>
+            <span>Selected: <% race_selected %></span><br/>
+
+            <h1> Gender: </h1>
+            <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender"></v-select>
+            <span>Selected: <% gender_selected %></span><br/>
+
+            <h1> Income Status: </h1>
+            <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome"></v-select>
+            <span>Selected: <% income_selected %></span><br/>
+
+            <h1> First Generation Status: </h1>
+            <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst"></v-select>
+            <span>Selected: <% first_selected %></span><br/>
+
+            <h1> Attendance Intensity: </h1>
+            <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
+            <span>Selected: <% attendance_selected %></span><br/>
 
             <h3>The current filters applied are:</h3>
+            <p><%testshow%></p>
             <p><%schoolshow%></p>
             <p><%programshow%></p>
             <p><%raceshow%></p>
@@ -236,7 +264,24 @@
             <p><%attendanceshow%></p>
           </div>
         `,
+        created: function(){
+          
+          console.log(this.$route.query.school)
+          
+          
+          
+          
+          
+          
+        },
         computed:{
+          testshow(){
+            if (this.test) {
+              return "Test: "+this.test
+            } else{
+              return "No test has been chosen"
+            }
+          },
           schoolshow(){
             if (this.school) {
               return "School: "+this.school
@@ -288,147 +333,170 @@
           }
         },
         methods:{
-          updateSchool({target}){
-            console.log("change of school detected: "+target.value)
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                ["school"]: target.value
-              }
-            })
-            clearAll();
-            dvVue.vueSchool=target.value;
-            ksVue.vueSchool=target.value;
-            caVue.vueSchool=target.value;
-            jfVue.vueSchool=target.value;
-            mrVue.vueSchool=target.value;
-            rpVue.vueSchool=target.value;
-            ocVue.vueSchool=target.value;
-            inVue.vueSchool=target.value;
-            ogVue.vueSchool=target.value;
-            asVue.vueSchool=target.value;
+          updateSchool(target){
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+              this.$router.replace({
+                query:{
+                  ...this.$route.query,
+                  school: target
+                }
+              })
+              clearAll();
+              dvVue.vueSchool=target;
+              ksVue.vueSchool=target;
+              caVue.vueSchool=target;
+              jfVue.vueSchool=target;
+              mrVue.vueSchool=target;
+              rpVue.vueSchool=target;
+              ocVue.vueSchool=target;
+              inVue.vueSchool=target;
+              ogVue.vueSchool=target;
+              asVue.vueSchool=target;
+            
           },
-          updateProgram({target}){
+          updateProgram(target){
+            
+            
+            
+            
+            
+            
             this.$router.replace({
               query:{
                 ...this.$route.query,
-                ["program"]: target.value
+                program: target
               }
             })
             clearAll();
-            dvVue.vueProgram=target.value;
-            ksVue.vueProgram=target.value;
-            caVue.vueProgram=target.value;
-            jfVue.vueProgram=target.value;
-            mrVue.vueProgram=target.value;
-            rpVue.vueProgram=target.value;
-            ocVue.vueProgram=target.value;
-            inVue.vueProgram=target.value;
-            ogVue.vueProgram=target.value;
-            asVue.vueProgram=target.value;
+            dvVue.vueProgram=target;
+            ksVue.vueProgram=target;
+            caVue.vueProgram=target;
+            jfVue.vueProgram=target;
+            mrVue.vueProgram=target;
+            rpVue.vueProgram=target;
+            ocVue.vueProgram=target;
+            inVue.vueProgram=target;
+            ogVue.vueProgram=target;
+            asVue.vueProgram=target;
           },
-          updateRace({target}){
+          updateRace(target){
             this.$router.replace({
               query:{
                 ...this.$route.query,
-                ["race"]: target.value
+                race: target
               }
             })
             clearAll();
-            dvVue.vueRace=target.value;
-            ksVue.vueRace=target.value;
-            caVue.vueRace=target.value;
-            jfVue.vueRace=target.value;
-            mrVue.vueRace=target.value;
-            rpVue.vueRace=target.value;
-            ocVue.vueRace=target.value;
-            inVue.vueRace=target.value;
-            ogVue.vueRace=target.value;
-            asVue.vueRace=target.value;
+            dvVue.vueRace=target;
+            ksVue.vueRace=target;
+            caVue.vueRace=target;
+            jfVue.vueRace=target;
+            mrVue.vueRace=target;
+            rpVue.vueRace=target;
+            ocVue.vueRace=target;
+            inVue.vueRace=target;
+            ogVue.vueRace=target;
+            asVue.vueRace=target;
           },
-          updateGender({target}){
+          updateGender(target){
             this.$router.replace({
               query:{
                 ...this.$route.query,
-                ["gender"]: target.value
+                gender: target
               }
             })
             clearAll();
-            dvVue.vueGender=target.value;
-            ksVue.vueGender=target.value;
-            caVue.vueGender=target.value;
-            jfVue.vueGender=target.value;
-            mrVue.vueGender=target.value;
-            rpVue.vueGender=target.value;
-            ocVue.vueGender=target.value;
-            inVue.vueGender=target.value;
-            ogVue.vueGender=target.value;
-            asVue.vueGender=target.value;
+            dvVue.vueGender=target;
+            ksVue.vueGender=target;
+            caVue.vueGender=target;
+            jfVue.vueGender=target;
+            mrVue.vueGender=target;
+            rpVue.vueGender=target;
+            ocVue.vueGender=target;
+            inVue.vueGender=target;
+            ogVue.vueGender=target;
+            asVue.vueGender=target;
           },
-          updateIncome({target}){
+          updateIncome(target){
             this.$router.replace({
               query:{
                 ...this.$route.query,
-                ["income"]: target.value
+                income: target
               }
             })
             clearAll();
-            dvVue.vueIncome=target.value;
-            ksVue.vueIncome=target.value;
-            caVue.vueIncome=target.value;
-            jfVue.vueIncome=target.value;
-            mrVue.vueIncome=target.value;
-            rpVue.vueIncome=target.value;
-            ocVue.vueIncome=target.value;
-            inVue.vueIncome=target.value;
-            ogVue.vueIncome=target.value;
-            asVue.vueIncome=target.value;
+            dvVue.vueIncome=target;
+            ksVue.vueIncome=target;
+            caVue.vueIncome=target;
+            jfVue.vueIncome=target;
+            mrVue.vueIncome=target;
+            rpVue.vueIncome=target;
+            ocVue.vueIncome=target;
+            inVue.vueIncome=target;
+            ogVue.vueIncome=target;
+            asVue.vueIncome=target;
           },
-          updateFirst({target}){
+          updateFirst(target){
             this.$router.replace({
               query:{
                 ...this.$route.query,
-                ["first"]: target.value
+                first: target
               }
             })
             clearAll();
-            dvVue.vueFirst=target.value;
-            ksVue.vueFirst=target.value;
-            caVue.vueFirst=target.value;
-            jfVue.vueFirst=target.value;
-            mrVue.vueFirst=target.value;
-            rpVue.vueFirst=target.value;
-            ocVue.vueFirst=target.value;
-            inVue.vueFirst=target.value;
-            ogVue.vueFirst=target.value;
-            asVue.vueFirst=target.value;
+            dvVue.vueFirst=target;
+            ksVue.vueFirst=target;
+            caVue.vueFirst=target;
+            jfVue.vueFirst=target;
+            mrVue.vueFirst=target;
+            rpVue.vueFirst=target;
+            ocVue.vueFirst=target;
+            inVue.vueFirst=target;
+            ogVue.vueFirst=target;
+            asVue.vueFirst=target;
           },
-          updateAttendance({target}){
+          updateAttendance(target){
             this.$router.replace({
               query:{
                 ...this.$route.query,
-                ["attendance"]: target.value
+                attendance: target
               }
             })
             clearAll();
-            dvVue.vueAttendance=target.value;
-            ksVue.vueAttendance=target.value;
-            caVue.vueAttendance=target.value;
-            jfVue.vueAttendance=target.value;
-            mrVue.vueAttendance=target.value;
-            rpVue.vueAttendance=target.value;
-            ocVue.vueAttendance=target.value;
-            inVue.vueAttendance=target.value;
-            ogVue.vueAttendance=target.value;
-            asVue.vueAttendance=target.value;
+            dvVue.vueAttendance=target;
+            ksVue.vueAttendance=target;
+            caVue.vueAttendance=target;
+            jfVue.vueAttendance=target;
+            mrVue.vueAttendance=target;
+            rpVue.vueAttendance=target;
+            ocVue.vueAttendance=target;
+            inVue.vueAttendance=target;
+            ogVue.vueAttendance=target;
+            asVue.vueAttendance=target;
           }
         }
       })
 
       function clear(id){
-        var removeNode = document.getElementById(id+"-chart");
-        while (removeNode.firstChild) {
-          removeNode.removeChild(removeNode.firstChild);
+        
+        console.log(document.getElementById(id+"-chart"))
+        if (document.getElementById(id+"-chart") !== null){
+          var removeNode = document.getElementById(id+"-chart");
+          
+          while (removeNode.firstChild) {
+            removeNode.removeChild(removeNode.firstChild);
+          }
         }
       }
 
@@ -691,6 +759,30 @@
       }
     })
 
+    function produceLink(that){
+      var prelink = "https://betterweekdays.github.io/gates/data/";
+      for (i=0; i<that.vueSchool.length;i++){
+        prelink = prelink + "school=" + that.vueSchool[i]+"&"
+      }
+      for (i=0; i<that.vueProgram.length;i++){
+        prelink = prelink + "program=" + that.vueProgram[i]+"&"
+      }
+      for (i=0; i<that.vueRace.length;i++){
+        prelink = prelink + "race=" + that.vueRace[i]+"&"
+      }
+      if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
+      if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
+      if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
+      if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
+      var link = prelink.substring(0, prelink.length-1)+".json"
+      console.log(link)
+      
+      if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+        link = "https://betterweekdays.github.io/gates/data/testdata.json";
+      }
+      return link;
+    }
+
     
     var dvDescription = [
           {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
@@ -709,9 +801,9 @@
         return{
           chartid:"dv-chart",
           d3Data: {},
-          vueSchool:"",
-          vueProgram:"",
-          vueRace:"",
+          vueSchool:[],
+          vueProgram:[],
+          vueRace:[],
           vueGender:"",
           vueIncome:"",
           vueFirst:"",
@@ -733,11 +825,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -826,11 +914,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -882,11 +966,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1109,11 +1189,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1165,11 +1241,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1220,11 +1292,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1319,11 +1387,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1374,11 +1438,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1429,11 +1489,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
@@ -1512,11 +1568,7 @@
       },
       methods: {
         fetchData: function(){
-          var prelink = "https://betterweekdays.github.io/gates/data/";
-          var link = prelink+"school="+this.vueSchool+"&program="+this.vueProgram+"&race="+this.vueRace+"&gender="+this.vueGender+"&income="+this.vueIncome+"&first="+this.vueFirst+"&attendance="+this.vueAttendance+".json";
-          if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-            link = prelink + "testdata.json";
-          }
+          var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
               .then(json => {
