@@ -155,467 +155,219 @@
         <div id="selectapp"></div>
       </div>
     </div>
-
-    <script type="text/javascript">
-      var dvVue = new Vue({
-        el: '#dv',
-        data(){
-          return{
-            chartid:"dv-chart",
-            d3Data: {},
-            vueSchool:[],
-            vueProgram:[],
-            vueRace:[],
-            vueGender:"",
-            vueIncome:"",
-            vueFirst:"",
-            vueAttendance:"",
-            d3Offset:0,
-            d3Des: dvDescription
-          }
-        },
-        computed:{
-          isChanged(){
-            return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-          }
-        },
-        watch: {
-          isChanged() { this.fetchData(); }
-        },
-        created: function(){
-          this.fetchData();
-        },
-        methods: {
-          fetchData: function(){
-            var link = window.produceLink(this);
-            fetch(link)
-                .then(response => response.json())
-                .then(json => {
-                  this.d3Data = json.data["0"]["Dominant Values"]
-                })
-          }
-        }
-      })
-
-      var selectcpo = Vue.component('v-select', VueSelect.VueSelect)
-
-      var maincpo = Vue.component('main-cpo',{
-        props:['school','program','race','gender','income','first','attendance'],
-        data(){
-          return{
-            school_selected:this.school,
-            program_selected:this.program,
-            race_selected:this.race,
-            gender_selected:this.gender,
-            income_selected:this.income,
-            first_selected:this.first,
-            attendance_selected:this.attendance,
-            schooloptions:['A','B','C'],
-            programoptions:['A','B','C'],
-            genderoptions:['A','B','C'],
-            raceoptions:['A','B','C'],
-            incomeoptions:['A','B','C'],
-            firstoptions:['A','B','C'],
-            attendanceoptions:['A','B','C']
-          }
-        },
-        components:{
-          selectcpo
-        },
-        delimiters:["<%","%>"],
-        template:`
-          <div>
-            <h1>School:</h1>
-            <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool"></v-select>
-            <span>Selected: <% school_selected %></span><br/>
-
-            <h1> Program of Study: </h1>
-              <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram"></v-select>
-            <span>Selected: <% program_selected %></span><br/>
-
-            <h1> Race: </h1>
-            <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace"></v-select>
-            <span>Selected: <% race_selected %></span><br/>
-
-            <h1> Gender: </h1>
-            <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender"></v-select>
-            <span>Selected: <% gender_selected %></span><br/>
-
-            <h1> Income Status: </h1>
-            <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome"></v-select>
-            <span>Selected: <% income_selected %></span><br/>
-
-            <h1> First Generation Status: </h1>
-            <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst"></v-select>
-            <span>Selected: <% first_selected %></span><br/>
-
-            <h1> Attendance Intensity: </h1>
-            <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
-            <span>Selected: <% attendance_selected %></span><br/>
-
-            <h3>The current filters applied are:</h3>
-            <p><%testshow%></p>
-            <p><%schoolshow%></p>
-            <p><%programshow%></p>
-            <p><%raceshow%></p>
-            <p><%gendershow%></p>
-            <p><%incomeshow%></p>
-            <p><%firstshow%></p>
-            <p><%attendanceshow%></p>
-          </div>
-        `,
-        created: function(){
-          
-          console.log(this.$route.query.school)
-          
-          
-          
-          
-          
-          
-        },
-        computed:{
-          testshow(){
-            if (this.test) {
-              return "Test: "+this.test
-            } else{
-              return "No test has been chosen"
-            }
-          },
-          schoolshow(){
-            if (this.school) {
-              return "School: "+this.school
-            } else{
-              return "No school has been chosen"
-            }
-          },
-          programshow(){
-            if (this.program) {
-              return "Program: "+this.program
-            } else{
-              return "No program has been chosen"
-            }
-          },
-          raceshow(){
-            if (this.race) {
-              return "Race: "+this.race
-            } else{
-              return "No race has been chosen"
-            }
-          },
-          gendershow(){
-            if (this.gender) {
-              return "Gender: "+this.gender
-            } else{
-              return "No gender has been chosen"
-            }
-          },
-          incomeshow(){
-            if (this.income) {
-              return "Income Status: "+this.income
-            } else{
-              return "No income status has been chosen"
-            }
-          },
-          firstshow(){
-            if (this.first) {
-              return "First Generation Status: "+this.first
-            } else{
-              return "No first generation status has been chosen"
-            }
-          },
-          attendanceshow(){
-            if (this.attendance) {
-              return "Attendance Intensity: "+this.attendance
-            } else{
-              return "No attendance intensity has been chosen"
-            }
-          }
-        },
-        methods:{
-          updateSchool(target){
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-              this.$router.replace({
-                query:{
-                  ...this.$route.query,
-                  school: target
-                }
-              })
-              clearAll();
-              dvVue.vueSchool=target;
-              ksVue.vueSchool=target;
-              caVue.vueSchool=target;
-              jfVue.vueSchool=target;
-              mrVue.vueSchool=target;
-              rpVue.vueSchool=target;
-              ocVue.vueSchool=target;
-              inVue.vueSchool=target;
-              ogVue.vueSchool=target;
-              asVue.vueSchool=target;
-            
-          },
-          updateProgram(target){
-            
-            
-            
-            
-            
-            
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                program: target
-              }
-            })
-            clearAll();
-            dvVue.vueProgram=target;
-            ksVue.vueProgram=target;
-            caVue.vueProgram=target;
-            jfVue.vueProgram=target;
-            mrVue.vueProgram=target;
-            rpVue.vueProgram=target;
-            ocVue.vueProgram=target;
-            inVue.vueProgram=target;
-            ogVue.vueProgram=target;
-            asVue.vueProgram=target;
-          },
-          updateRace(target){
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                race: target
-              }
-            })
-            clearAll();
-            dvVue.vueRace=target;
-            ksVue.vueRace=target;
-            caVue.vueRace=target;
-            jfVue.vueRace=target;
-            mrVue.vueRace=target;
-            rpVue.vueRace=target;
-            ocVue.vueRace=target;
-            inVue.vueRace=target;
-            ogVue.vueRace=target;
-            asVue.vueRace=target;
-          },
-          updateGender(target){
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                gender: target
-              }
-            })
-            clearAll();
-            dvVue.vueGender=target;
-            ksVue.vueGender=target;
-            caVue.vueGender=target;
-            jfVue.vueGender=target;
-            mrVue.vueGender=target;
-            rpVue.vueGender=target;
-            ocVue.vueGender=target;
-            inVue.vueGender=target;
-            ogVue.vueGender=target;
-            asVue.vueGender=target;
-          },
-          updateIncome(target){
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                income: target
-              }
-            })
-            clearAll();
-            dvVue.vueIncome=target;
-            ksVue.vueIncome=target;
-            caVue.vueIncome=target;
-            jfVue.vueIncome=target;
-            mrVue.vueIncome=target;
-            rpVue.vueIncome=target;
-            ocVue.vueIncome=target;
-            inVue.vueIncome=target;
-            ogVue.vueIncome=target;
-            asVue.vueIncome=target;
-          },
-          updateFirst(target){
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                first: target
-              }
-            })
-            clearAll();
-            dvVue.vueFirst=target;
-            ksVue.vueFirst=target;
-            caVue.vueFirst=target;
-            jfVue.vueFirst=target;
-            mrVue.vueFirst=target;
-            rpVue.vueFirst=target;
-            ocVue.vueFirst=target;
-            inVue.vueFirst=target;
-            ogVue.vueFirst=target;
-            asVue.vueFirst=target;
-          },
-          updateAttendance(target){
-            this.$router.replace({
-              query:{
-                ...this.$route.query,
-                attendance: target
-              }
-            })
-            clearAll();
-            dvVue.vueAttendance=target;
-            ksVue.vueAttendance=target;
-            caVue.vueAttendance=target;
-            jfVue.vueAttendance=target;
-            mrVue.vueAttendance=target;
-            rpVue.vueAttendance=target;
-            ocVue.vueAttendance=target;
-            inVue.vueAttendance=target;
-            ogVue.vueAttendance=target;
-            asVue.vueAttendance=target;
-          }
-        }
-      })
-
-      function clear(id){
-        
-        console.log(document.getElementById(id+"-chart"))
-        if (document.getElementById(id+"-chart") !== null){
-          var removeNode = document.getElementById(id+"-chart");
-          
-          while (removeNode.firstChild) {
-            removeNode.removeChild(removeNode.firstChild);
-          }
-        }
-      }
-
-      function clearAll(){
-        clear("dv");
-        clear("ks");
-        clear("ca");
-        clear("jf");
-        clear("mr");
-        clear("rp");
-        clear("oc");
-        clear("in");
-        clear("og");
-        clear("as");
-      }
-
-      var router = new VueRouter({
-        mode:'history',
-        routes:[{
-          path:'*',
-          component:maincpo,
-          props:(route)=>({
-            school:route.query.school,
-            program:route.query.program,
-            race:route.query.race,
-            gender:route.query.gender,
-            income:route.query.income,
-            first:route.query.first,
-            attendance:route.query.attendance
-          })
-        }]
-      })
-
-      var app = new Vue({
-        router,
-        el: '#selectapp',
-        components:{
-          maincpo
-        },
-        render(h){
-          return h('div',{
-            attrs:{
-              id:'selectapp'
-            }
-          },[
-            h('h1','Soft Skills & Values Assessment'),
-            h('router-view')
-          ])
-        }
-      })
-    </script>
   </section>
-</header>
 
+  <section id="services">
+    <style type="text/css">
+      #xaxis .domain {
+        fill: none;
+        stroke: #000;
+      }
+      #xaxis text, #yaxis text{
+        font-size: 12px;
+      }
+      #bars {
+        fill: #00a8ff;
+      }
+      rect:hover{
+        fill:#fed136;
+      }
+      #tooltip{
+        position:absolute;
+        width:200px;
+        height:auto;
+        padding:10px;
+        background-color: white;
+        -webkit-border-radius:10px;
+        -moz-border-radius:10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+      }
+      #tooltip.hidden{
+        display: none;
+      }
+      #tooltip p{
+        margin:0;
+        font-family:Futura;
+        font-size:16px;
+        line-height:20px;
+      }
+    </style>
 
-    
-      <!-- Services -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">1. Overview</h2>
+          <h3 class="section-subheading text-muted">Description of the meaning of the overview section of the assessment</h3>
+        </div>
+      </div>
 
-<section id="services">
-  <style type="text/css">
-    #xaxis .domain {
-      fill: none;
-      stroke: #000;
-    }
-    #xaxis text, #yaxis text{
-      font-size: 12px;
-    }
-    #bars {
-      fill: #00a8ff;
-    }
-    rect:hover{
-      fill:#fed136;
-    }
-    #tooltip{
-      position:absolute;
-      width:200px;
-      height:auto;
-      padding:10px;
-      background-color: white;
-      -webkit-border-radius:10px;
-      -moz-border-radius:10px;
-      border-radius: 10px;
-      -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-      -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-    }
-    #tooltip.hidden{
-      display: none;
-    }
-    #tooltip p{
-      margin:0;
-      font-family:Futura;
-      font-size:16px;
-      line-height:20px;
-    }
-  </style>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">1. Overview</h2>
-        <h3 class="section-subheading text-muted">Description of the meaning of the overview section of the assessment</h3>
+      <div class="row" id="dv">
+        <h3 class="section-heading">Dominant Values</h3>
+        <bar-chart
+          :d3-data="d3Data"
+          :d3-offset="d3Offset"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </bar-chart>
       </div>
     </div>
+  </section>
 
-    <div class="row" id="dv">
-      <h3 class="section-heading">Dominant Values</h3>
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </bar-chart>
+  <section id="portfolio" class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">2. Characteristics</h2>
+          <h3 class="section-subheading text-muted">Description of what the characteristics section is about</h3>
+        </div>
+      </div>
+
+      <div class="row" id="ks">
+        <h3 class="section-heading">Key Strengths</h3>
+        <bar-chart
+          :d3-data="d3Data"
+          :d3-offset="d3Offset"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </bar-chart>
+      </div>
+
+      <div class="row" id="ca">
+        <h3 class="section-heading">Caution Areas</h3>
+        <bar-chart
+          :d3-data="d3Data"
+          :d3-offset="d3Offset"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </bar-chart>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <section id="about">
+    <style type="text/css">
+      .pie {
+      margin: 20px;
+      }
+
+      .pie text {
+      font-family: "Verdana";
+      fill: #888;
+      }
+
+      .pie .name-text{
+      font-size: 1.5em;
+      font-weight: bold;
+      }
+
+      .pie .value-text{
+      font-size: 1em;
+      }
+
+      .pie .description-text{
+      font-size: 1em;
+      }
+    </style>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">3. Roles</h2>
+          <h3 class="section-subheading text-muted">Description of what the role section of the assessment tells</h3>
+        </div>
+      </div>
+
+      <div class="row" id="jf">
+        <h3 class="section-heading">Job Functions</h3>
+        <donut-chart
+          :d3-data="d3Data"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </donut-chart>
+      </div>
+
+      <div class="row" id="mr">
+        <h3 class="section-heading">Model Roles</h3>
+        <bar-chart
+          :d3-data="d3Data"
+          :d3-offset="d3Offset"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </bar-chart>
+      </div>
+
+      <div class="row" id="rp">
+        <h3 class="section-heading">Roles & Positions</h3>
+        <donut-chart
+          :d3-data="d3Data"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </donut-chart>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">4. Companies</h2>
+          <h3 class="section-subheading text-muted">Description of the company section of the assessment</h3>
+        </div>
+      </div>
+
+      <div class="row" id="oc">
+        <h3 class="section-heading">Organization Culture</h3>
+        <donut-chart
+          :d3-data="d3Data"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </donut-chart>
+      </div>
+
+      <div class="row" id="in">
+        <h3 class="section-heading">Industries</h3>
+        <donut-chart
+          :d3-data="d3Data"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </donut-chart>
+      </div>
+
+      <div class="row" id="og">
+        <h3 class="section-heading">Organizations</h3>
+        <donut-chart
+          :d3-data="d3Data"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </donut-chart>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">5. Personal Growth</h2>
+          <h3 class="section-subheading text-muted">Description of what the personal growth section of the assessment tells</h3>
+        </div>
+      </div>
+
+      <div class="row" id="as">
+        <h3 class="section-heading">Areas of Study</h3>
+        <donut-chart
+          :d3-data="d3Data"
+          :d3-des="d3Des"
+          :chartid="chartid">
+        </donut-chart>
+      </div>
+    </div>
+  </section>
 
   <script type="text/javascript">
     
@@ -821,6 +573,9 @@
         isChanged() { this.fetchData(); }
       },
       created: function(){
+        
+        console.log("inside dvVue created w vueProgram: ")
+        console.log(this.vueProgram)
         this.fetchData();
       },
       methods: {
@@ -834,44 +589,7 @@
         }
       }
     })
-  </script>
-</section>
 
-    
-
-    
-      <!-- Portfolio Grid Section -->
-<section id="portfolio" class="bg-light-gray">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">2. Characteristics</h2>
-        <h3 class="section-subheading text-muted">Description of what the characteristics section is about</h3>
-      </div>
-    </div>
-
-    <div class="row" id="ks">
-      <h3 class="section-heading">Key Strengths</h3>
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </bar-chart>
-    </div>
-
-    <div class="row" id="ca">
-      <h3 class="section-heading">Caution Areas</h3>
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </bar-chart>
-    </div>
-  </div>
-
-  <script type="text/javascript">
     
     var ksDescription = [
       {"name":"Accomplishment-oriented","dx":"KKKKKThis should be description for accomplishment-oriented"},
@@ -975,178 +693,109 @@
         }
       }
     })
-  </script>
-</section>
 
     
-
-    
-      <!-- About Section -->
-<section id="about">
-  <style type="text/css">
-    .pie {
-    margin: 20px;
-    }
-
-    .pie text {
-    font-family: "Verdana";
-    fill: #888;
-    }
-
-    .pie .name-text{
-    font-size: 1.5em;
-    font-weight: bold;
-    }
-
-    .pie .value-text{
-    font-size: 1em;
-    }
-
-    .pie .description-text{
-    font-size: 1em;
-    }
-  </style>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">3. Roles</h2>
-        <h3 class="section-subheading text-muted">Description of what the role section of the assessment tells</h3>
-      </div>
-    </div>
-
-    <div class="row" id="jf">
-      <h3 class="section-heading">Job Functions</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
-    </div>
-
-    <div class="row" id="mr">
-      <h3 class="section-heading">Model Roles</h3>
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </bar-chart>
-    </div>
-
-    <div class="row" id="rp">
-      <h3 class="section-heading">Roles & Positions</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
-    </div>
-  </div>
-
-  <script type="text/javascript">
-  
-  Vue.component('donut-chart', {
-    props: ['d3Data', 'd3Des', 'chartid'],
-    template:`
-      <div>
-        <svg class="pie" width="400" height="400">
-          <g :id="chartid" transform="translate(200,200)"></g>
-        </svg>
-      </div>
-    `,
-    watch:{
-      d3Data(){
-        var that = this;
-        that.appendPath();
-      }
-    },
-    methods:{
-      prepareElements: function(){
-        var color = d3.scaleOrdinal(d3.schemeBlues[9]);
-
-        var arc = d3.arc()
-                    .innerRadius(140) //radius-thickness
-                    .outerRadius(200); 
-
-        var pie = d3.pie()
-                    .value(function(d) { return d.percent; })
-                    .sort(null);
-
-        return {color, arc, pie};
-      },
-      appendPath: function(){
-        var that = this;
-        var elements = that.prepareElements();
-        var pie = elements.pie;
-        var color = elements.color;
-        var arc = elements.arc;
-        var gout = d3.select("#"+that.chartid);
-
-        var path = gout.selectAll('path')
-                    .data(pie(that.d3Data))
-                    .enter()
-                    .append("g")
-                    .on("mouseover", function(d,i) {
-                          let g = d3.select(this)
-                                    .style("cursor", "pointer")
-                                    .style("fill", "#fed136")
-                                    .append("g")
-                                    .attr("class", "text-group");
-
-                          g.append("text")
-                            .attr("class", "name-text")
-                            .text(d.data.name)
-                            .attr('text-anchor', 'middle')
-                            .attr('dy', '-1.2em');
-
-                          g.append("text")
-                            .attr("class", "value-text")
-                            .text(d.data.percent+"%")
-                            .attr('text-anchor', 'middle')
-                            .attr('dy', '.6em');
-
-                          g.append("text")
-                            .attr("class", "description-text")
-                            .text(function() {
-                                    for (a = 0; a < that.d3Des.length; a++) {
-                                      if (that.d3Des[a].name == d.name){
-                                        return that.d3Des[a].dx;
-                                      }
-                                    }
-                                    return "No pre-set description found"; })
-                            .attr('text-anchor', 'middle')
-                            .attr('dy', '1.8em');
-                      })
-                .on("mouseout", function(d) {
-                                    d3.select(this)
-                                      .style("cursor", "none")
-                                      .style("fill", color(this._current))
-                                      .select(".text-group").remove();
-                                })
-                .append('path')
-                .attr('d', arc)
-                .attr('fill', (d,i) => color(i))
-                .on("mouseover", function(d) {
-                    d3.select(this)
-                      .style("cursor", "pointer")
-                      .style("fill", "#fed136");
-                  })
-                .on("mouseout", function(d) {
-                    d3.select(this)
-                      .style("cursor", "none")
-                      .style("fill", color(this._current));
-                  })
-                .each(function(d, i) { this._current = i; });
-
-            var text = "";
-            gout.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('dy', '.35em')
-                .text(text);
-          }
+    Vue.component('donut-chart', {
+      props: ['d3Data', 'd3Des', 'chartid'],
+      template:`
+        <div>
+          <svg class="pie" width="400" height="400">
+            <g :id="chartid" transform="translate(200,200)"></g>
+          </svg>
+        </div>
+      `,
+      watch:{
+        d3Data(){
+          var that = this;
+          that.appendPath();
         }
-      })
+      },
+      methods:{
+        prepareElements: function(){
+          var color = d3.scaleOrdinal(d3.schemeBlues[9]);
+
+          var arc = d3.arc()
+                      .innerRadius(140) //radius-thickness
+                      .outerRadius(200); 
+
+          var pie = d3.pie()
+                      .value(function(d) { return d.percent; })
+                      .sort(null);
+
+          return {color, arc, pie};
+        },
+        appendPath: function(){
+          var that = this;
+          var elements = that.prepareElements();
+          var pie = elements.pie;
+          var color = elements.color;
+          var arc = elements.arc;
+          var gout = d3.select("#"+that.chartid);
+
+          var path = gout.selectAll('path')
+                      .data(pie(that.d3Data))
+                      .enter()
+                      .append("g")
+                      .on("mouseover", function(d,i) {
+                            let g = d3.select(this)
+                                      .style("cursor", "pointer")
+                                      .style("fill", "#fed136")
+                                      .append("g")
+                                      .attr("class", "text-group");
+
+                            g.append("text")
+                              .attr("class", "name-text")
+                              .text(d.data.name)
+                              .attr('text-anchor', 'middle')
+                              .attr('dy', '-1.2em');
+
+                            g.append("text")
+                              .attr("class", "value-text")
+                              .text(d.data.percent+"%")
+                              .attr('text-anchor', 'middle')
+                              .attr('dy', '.6em');
+
+                            g.append("text")
+                              .attr("class", "description-text")
+                              .text(function() {
+                                      for (a = 0; a < that.d3Des.length; a++) {
+                                        if (that.d3Des[a].name == d.name){
+                                          return that.d3Des[a].dx;
+                                        }
+                                      }
+                                      return "No pre-set description found"; })
+                              .attr('text-anchor', 'middle')
+                              .attr('dy', '1.8em');
+                        })
+                  .on("mouseout", function(d) {
+                                      d3.select(this)
+                                        .style("cursor", "none")
+                                        .style("fill", color(this._current))
+                                        .select(".text-group").remove();
+                                  })
+                  .append('path')
+                  .attr('d', arc)
+                  .attr('fill', (d,i) => color(i))
+                  .on("mouseover", function(d) {
+                      d3.select(this)
+                        .style("cursor", "pointer")
+                        .style("fill", "#fed136");
+                    })
+                  .on("mouseout", function(d) {
+                      d3.select(this)
+                        .style("cursor", "none")
+                        .style("fill", color(this._current));
+                    })
+                  .each(function(d, i) { this._current = i; });
+
+              var text = "";
+              gout.append('text')
+                  .attr('text-anchor', 'middle')
+                  .attr('dy', '.35em')
+                  .text(text);
+        }
+      }
+    })
 
     
     var jfdescription = [
@@ -1264,88 +913,44 @@
       {"name":"test6","dx":"des"}];
 
     var rpVue = new Vue({
-      el: '#rp',
-      data(){
-        return{
-          d3Data: {},
-          d3Des: rpdescription,
-          vueSchool:"",
-          vueProgram:"",
-          vueRace:"",
-          vueGender:"",
-          vueIncome:"",
-          vueFirst:"",
-          vueAttendance:"",
-          chartid: "rp-chart"
+        el: '#rp',
+        data(){
+          return{
+            d3Data: {},
+            d3Des: rpdescription,
+            vueSchool:"",
+            vueProgram:"",
+            vueRace:"",
+            vueGender:"",
+            vueIncome:"",
+            vueFirst:"",
+            vueAttendance:"",
+            chartid: "rp-chart"
+          }
+        },
+        computed:{
+          isChanged(){
+            return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+          }
+        },
+        watch: {
+          isChanged() { this.fetchData(); }
+        },
+        created: function(){
+          this.fetchData();
+        },
+        methods: {
+          fetchData: function(){
+            var link = window.produceLink(this);
+            fetch(link)
+                .then(response => response.json())
+                .then(json => {
+                  this.d3Data = json.data["0"]["Role Positions"]
+                })
+          }
         }
-      },
-      computed:{
-        isChanged(){
-          return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-        }
-      },
-      watch: {
-        isChanged() { this.fetchData(); }
-      },
-      created: function(){
-        this.fetchData();
-      },
-      methods: {
-        fetchData: function(){
-          var link = window.produceLink(this);
-          fetch(link)
-              .then(response => response.json())
-              .then(json => {
-                this.d3Data = json.data["0"]["Role Positions"]
-              })
-        }
-      }
-    })
-    </script>
-</section>
+      })
 
-    
-
-    
-      <!-- Team Section -->
-<section id="team" class="bg-light-gray">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">4. Companies</h2>
-        <h3 class="section-subheading text-muted">Description of the company section of the assessment</h3>
-      </div>
-    </div>
-
-    <div class="row" id="oc">
-      <h3 class="section-heading">Organization Culture</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
-    </div>
-
-    <div class="row" id="in">
-      <h3 class="section-heading">Industries</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
-    </div>
-
-    <div class="row" id="og">
-      <h3 class="section-heading">Organizations</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
-    </div>
-  </div>
-
-  <script type="text/javascript">
     
     var ocdescription = [
       {"name":"Accomplishment-oriented","dx":"OC"},
@@ -1498,35 +1103,7 @@
         }
       }
     })
-  </script>
-</section>
 
-    
-
-    
-
-    
-      <!-- Contact Section -->
-<section id="contact">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">5. Personal Growth</h2>
-        <h3 class="section-subheading text-muted">Description of what the personal growth section of the assessment tells</h3>
-      </div>
-    </div>
-
-    <div class="row" id="as">
-      <h3 class="section-heading">Areas of Study</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
-    </div>
-  </div>
-
-  <script type="text/javascript">
     
     var asdescription = [
       {"name":"Accomplishment-oriented","dx":"areas of study"},
@@ -1577,8 +1154,387 @@
         }
       }
     })
+
+    var selectcpo = Vue.component('v-select', VueSelect.VueSelect)
+
+    var maincpo = Vue.component('main-cpo',{
+      props:{
+        school:{
+          default: function () {
+            return ['A']
+          }
+        },
+        program:{
+          default: function () {
+            return ['A']
+          }
+        },
+        race:{
+          default: function () {
+            return ['A']
+          }
+        },
+        gender:{
+          default:'A'
+        },
+        income:{
+          default:'A'
+        },
+        first:{
+          default:'A'
+        },
+        attendance:{
+          default:'A'
+        }
+      },
+      data(){
+        return{
+          school_selected:this.school,
+          program_selected:this.program,
+          race_selected:this.race,
+          gender_selected:this.gender,
+          income_selected:this.income,
+          first_selected:this.first,
+          attendance_selected:this.attendance,
+          schooloptions:['A','B','C'],
+          programoptions:['A','B','C'],
+          genderoptions:['A','B','C'],
+          raceoptions:['A','B','C'],
+          incomeoptions:['A','B','C'],
+          firstoptions:['A','B','C'],
+          attendanceoptions:['A','B','C']
+        }
+      },
+      components:{
+        selectcpo
+      },
+      delimiters:["<%","%>"],
+      template:`
+        <div>
+          <h1>School:</h1>
+          <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool"></v-select>
+          <span>Selected: <% school_selected %></span><br/>
+
+          <h1> Program of Study: </h1>
+            <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram"></v-select>
+          <span>Selected: <% program_selected %></span><br/>
+
+          <h1> Race: </h1>
+          <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace"></v-select>
+          <span>Selected: <% race_selected %></span><br/>
+
+          <h1> Gender: </h1>
+          <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender"></v-select>
+          <span>Selected: <% gender_selected %></span><br/>
+
+          <h1> Income Status: </h1>
+          <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome"></v-select>
+          <span>Selected: <% income_selected %></span><br/>
+
+          <h1> First Generation Status: </h1>
+          <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst"></v-select>
+          <span>Selected: <% first_selected %></span><br/>
+
+          <h1> Attendance Intensity: </h1>
+          <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
+          <span>Selected: <% attendance_selected %></span><br/>
+
+          <h3>The current filters applied are:</h3>
+          <p><%testshow%></p>
+          <p><%schoolshow%></p>
+          <p><%programshow%></p>
+          <p><%raceshow%></p>
+          <p><%gendershow%></p>
+          <p><%incomeshow%></p>
+          <p><%firstshow%></p>
+          <p><%attendanceshow%></p>
+        </div>
+      `,
+      computed:{
+        testshow(){
+          if (this.test) {
+            return "Test: "+this.test
+          } else{
+            return "No test has been chosen"
+          }
+        },
+        schoolshow(){
+          if (this.school) {
+            return "School: "+this.school
+          } else{
+            return "No school has been chosen"
+          }
+        },
+        programshow(){
+          if (this.program) {
+            return "Program: "+this.program
+          } else{
+            return "No program has been chosen"
+          }
+        },
+        raceshow(){
+          if (this.race) {
+            return "Race: "+this.race
+          } else{
+            return "No race has been chosen"
+          }
+        },
+        gendershow(){
+          if (this.gender) {
+            return "Gender: "+this.gender
+          } else{
+            return "No gender has been chosen"
+          }
+        },
+        incomeshow(){
+          if (this.income) {
+            return "Income Status: "+this.income
+          } else{
+            return "No income status has been chosen"
+          }
+        },
+        firstshow(){
+          if (this.first) {
+            return "First Generation Status: "+this.first
+          } else{
+            return "No first generation status has been chosen"
+          }
+        },
+        attendanceshow(){
+          if (this.attendance) {
+            return "Attendance Intensity: "+this.attendance
+          } else{
+            return "No attendance intensity has been chosen"
+          }
+        }
+      },
+      methods:{
+        updateSchool(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              school: target
+            }
+          })
+          clearAll();
+          dvVue.vueSchool=target;
+          ksVue.vueSchool=target;
+          caVue.vueSchool=target;
+          jfVue.vueSchool=target;
+          mrVue.vueSchool=target;
+          rpVue.vueSchool=target;
+          ocVue.vueSchool=target;
+          inVue.vueSchool=target;
+          ogVue.vueSchool=target;
+          asVue.vueSchool=target;
+        },
+        updateProgram(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              program: target
+            }
+          })
+          clearAll();
+          dvVue.vueProgram=target;
+          ksVue.vueProgram=target;
+          caVue.vueProgram=target;
+          jfVue.vueProgram=target;
+          mrVue.vueProgram=target;
+          rpVue.vueProgram=target;
+          ocVue.vueProgram=target;
+          inVue.vueProgram=target;
+          ogVue.vueProgram=target;
+          asVue.vueProgram=target;
+        },
+        updateRace(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              race: target
+            }
+          })
+          clearAll();
+          dvVue.vueRace=target;
+          ksVue.vueRace=target;
+          caVue.vueRace=target;
+          jfVue.vueRace=target;
+          mrVue.vueRace=target;
+          rpVue.vueRace=target;
+          ocVue.vueRace=target;
+          inVue.vueRace=target;
+          ogVue.vueRace=target;
+          asVue.vueRace=target;
+        },
+        updateGender(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              gender: target
+            }
+          })
+          clearAll();
+          dvVue.vueGender=target;
+          ksVue.vueGender=target;
+          caVue.vueGender=target;
+          jfVue.vueGender=target;
+          mrVue.vueGender=target;
+          rpVue.vueGender=target;
+          ocVue.vueGender=target;
+          inVue.vueGender=target;
+          ogVue.vueGender=target;
+          asVue.vueGender=target;
+        },
+        updateIncome(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              income: target
+            }
+          })
+          clearAll();
+          dvVue.vueIncome=target;
+          ksVue.vueIncome=target;
+          caVue.vueIncome=target;
+          jfVue.vueIncome=target;
+          mrVue.vueIncome=target;
+          rpVue.vueIncome=target;
+          ocVue.vueIncome=target;
+          inVue.vueIncome=target;
+          ogVue.vueIncome=target;
+          asVue.vueIncome=target;
+        },
+        updateFirst(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              first: target
+            }
+          })
+          clearAll();
+          dvVue.vueFirst=target;
+          ksVue.vueFirst=target;
+          caVue.vueFirst=target;
+          jfVue.vueFirst=target;
+          mrVue.vueFirst=target;
+          rpVue.vueFirst=target;
+          ocVue.vueFirst=target;
+          inVue.vueFirst=target;
+          ogVue.vueFirst=target;
+          asVue.vueFirst=target;
+        },
+        updateAttendance(target){
+          this.$router.replace({
+            query:{
+              ...this.$route.query,
+              attendance: target
+            }
+          })
+          clearAll();
+          dvVue.vueAttendance=target;
+          ksVue.vueAttendance=target;
+          caVue.vueAttendance=target;
+          jfVue.vueAttendance=target;
+          mrVue.vueAttendance=target;
+          rpVue.vueAttendance=target;
+          ocVue.vueAttendance=target;
+          inVue.vueAttendance=target;
+          ogVue.vueAttendance=target;
+          asVue.vueAttendance=target;
+        }
+      }
+    })
+
+    function clear(id){
+      
+      
+      if (document.getElementById(id+"-chart") !== null){
+        var removeNode = document.getElementById(id+"-chart");
+        
+        while (removeNode.firstChild) {
+          removeNode.removeChild(removeNode.firstChild);
+        }
+      }
+    }
+
+    function clearAll(){
+      clear("dv");
+      clear("ks");
+      clear("ca");
+      clear("jf");
+      clear("mr");
+      clear("rp");
+      clear("oc");
+      clear("in");
+      clear("og");
+      clear("as");
+    }
+
+    var router = new VueRouter({
+      mode:'history',
+      routes:[{
+        path:'*',
+        component:maincpo,
+        props:(route)=>({
+          school:route.query.school,
+          program:route.query.program,
+          race:route.query.race,
+          gender:route.query.gender,
+          income:route.query.income,
+          first:route.query.first,
+          attendance:route.query.attendance
+        })
+      }]
+    })
+
+    var app = new Vue({
+      router,
+      el: '#selectapp',
+      components:{
+        maincpo
+      },
+      render(h){
+        return h('div',{
+          attrs:{
+            id:'selectapp'
+          }
+        },[
+          h('h1','Soft Skills & Values Assessment'),
+          h('router-view')
+        ])
+      }
+    })
   </script>
-</section>
+</header>
+
+
+    
+      <!-- Services -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    
+
+    
+      <!-- Portfolio Grid Section -->
+
+    
+
+    
+      <!-- About Section -->
+
+    
+
+    
+      <!-- Team Section -->
+
+    
+
+    
+
+    
+      <!-- Contact Section -->
 
     
 
