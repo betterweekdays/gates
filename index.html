@@ -119,6 +119,9 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-select@2.4.0"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  
 
   <section id="hero">
     <style type="text/css">
@@ -513,24 +516,30 @@
 
     function produceLink(that){
       var prelink = "https://betterweekdays.github.io/gates/data/";
-      for (i=0; i<that.vueSchool.length;i++){
-        prelink = prelink + "school=" + that.vueSchool[i]+"&"
-      }
-      for (i=0; i<that.vueProgram.length;i++){
-        prelink = prelink + "program=" + that.vueProgram[i]+"&"
-      }
-      for (i=0; i<that.vueRace.length;i++){
-        prelink = prelink + "race=" + that.vueRace[i]+"&"
-      }
-      if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
-      if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
-      if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
-      if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
-      var link = prelink.substring(0, prelink.length-1)+".json"
-      console.log(link)
-      
-      if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-        link = "https://betterweekdays.github.io/gates/data/testdata.json";
+      var link = "";
+
+      if ((!that.vueSchool||that.vueSchool.length===0)&&(!that.vueProgram||that.vueProgram.length===0)&&(!that.vueGender||that.vueGender.length===0)&&(!that.vueRace||that.vueRace.length===0)&&(!that.vueIncome||that.vueIncome.length===0)&&(!that.vueFirst||that.vueFirst.length===0)&&(!that.vueAttendance||that.vueAttendance.length===0)){
+        link = "https://betterweekdays.github.io/gates/data/emptydata.json"
+      } else{
+        for (i=0; i<that.vueSchool.length;i++){
+          prelink = prelink + "school=" + that.vueSchool[i]+"&"
+        }
+        for (i=0; i<that.vueProgram.length;i++){
+          prelink = prelink + "program=" + that.vueProgram[i]+"&"
+        }
+        for (i=0; i<that.vueRace.length;i++){
+          prelink = prelink + "race=" + that.vueRace[i]+"&"
+        }
+        if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
+        if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
+        if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
+        if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
+        link = prelink.substring(0, prelink.length-1)+".json"
+        console.log(link)
+        
+        if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+          link = "https://betterweekdays.github.io/gates/data/testdata.json";
+        }
       }
       return link;
     }
@@ -570,16 +579,27 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("dvVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("dvVue created")
         
-        console.log("inside dvVue created w vueProgram: ")
-        console.log(this.vueProgram)
+        
+        
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("dvVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("dvVue methods fetchData")
+          
+          
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -625,13 +645,24 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("ksVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("ksVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("ksVue mounted")
+      },
+      mounted: function(){
+        console.log("ksVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("ksVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -677,13 +708,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("caVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("caVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("caVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("caVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -831,13 +870,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("jfVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("jfVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("jfVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("jfVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -883,13 +930,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("mrVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("mrVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("mrVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("mrVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -934,13 +989,21 @@
           }
         },
         watch: {
-          isChanged() { this.fetchData(); }
+          isChanged() {
+            console.log("rpVue watch")
+            this.fetchData();
+          }
         },
         created: function(){
+          console.log("rpVue created")
           this.fetchData();
+        },
+        mounted: function(){
+          console.log("rpVue mounted")
         },
         methods: {
           fetchData: function(){
+            console.log("rpVue methods fetchData")
             var link = window.produceLink(this);
             fetch(link)
                 .then(response => response.json())
@@ -985,13 +1048,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("ocVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("ocVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("ocVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("ocVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1036,13 +1107,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("inVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("inVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("inVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("inVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1087,13 +1166,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("ogVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("ogVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("ogVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("ogVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1138,13 +1225,21 @@
         }
       },
       watch: {
-        isChanged() { this.fetchData(); }
+        isChanged() {
+          console.log("asVue watch")
+          this.fetchData();
+        }
       },
       created: function(){
+        console.log("asVue created")
         this.fetchData();
+      },
+      mounted: function(){
+        console.log("asVue mounted")
       },
       methods: {
         fetchData: function(){
+          console.log("asVue methods fetchData")
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1310,13 +1405,14 @@
       },
       methods:{
         updateSchool(target){
+          console.log("*******updateSchool*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               school: target
             }
           })
-          clearAll();
+          
           dvVue.vueSchool=target;
           ksVue.vueSchool=target;
           caVue.vueSchool=target;
@@ -1329,13 +1425,14 @@
           asVue.vueSchool=target;
         },
         updateProgram(target){
+          console.log("*******updateProgram*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               program: target
             }
           })
-          clearAll();
+          
           dvVue.vueProgram=target;
           ksVue.vueProgram=target;
           caVue.vueProgram=target;
@@ -1348,13 +1445,14 @@
           asVue.vueProgram=target;
         },
         updateRace(target){
+          console.log("*******updateRace*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               race: target
             }
           })
-          clearAll();
+          
           dvVue.vueRace=target;
           ksVue.vueRace=target;
           caVue.vueRace=target;
@@ -1367,13 +1465,14 @@
           asVue.vueRace=target;
         },
         updateGender(target){
+          console.log("*******updateGender*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               gender: target
             }
           })
-          clearAll();
+          
           dvVue.vueGender=target;
           ksVue.vueGender=target;
           caVue.vueGender=target;
@@ -1386,13 +1485,14 @@
           asVue.vueGender=target;
         },
         updateIncome(target){
+          console.log("*******updateIncome*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               income: target
             }
           })
-          clearAll();
+          
           dvVue.vueIncome=target;
           ksVue.vueIncome=target;
           caVue.vueIncome=target;
@@ -1405,13 +1505,14 @@
           asVue.vueIncome=target;
         },
         updateFirst(target){
+          console.log("*******updateFirst*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               first: target
             }
           })
-          clearAll();
+          
           dvVue.vueFirst=target;
           ksVue.vueFirst=target;
           caVue.vueFirst=target;
@@ -1424,13 +1525,14 @@
           asVue.vueFirst=target;
         },
         updateAttendance(target){
+          console.log("*******updateAttendance*******")
           this.$router.replace({
             query:{
               ...this.$route.query,
               attendance: target
             }
           })
-          clearAll();
+          
           dvVue.vueAttendance=target;
           ksVue.vueAttendance=target;
           caVue.vueAttendance=target;
@@ -1445,29 +1547,90 @@
       }
     })
 
-    function clear(id){
+    
       
       
-      if (document.getElementById(id+"-chart") !== null){
-        var removeNode = document.getElementById(id+"-chart");
+      
         
-        while (removeNode.firstChild) {
-          removeNode.removeChild(removeNode.firstChild);
-        }
-      }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+      
+      
+      
+      
+
+      
+      
+      
+      
+      
+
+    
+    
+    
+
+    function clearBar(that){
+      console.log("that.$el.childNodes[2].childNodes[0]")
+      console.log(that.$el.childNodes[2].childNodes[0])
+      that.$el.childNodes[2].childNodes[0].remove();
+    }
+
+    function clearDonut(that){
+      console.log("that.$el.childNodes[2].childNodes[0].childNodes[0]")
+      console.log(that.$el.childNodes[2].childNodes[0].childNodes[0])
+      that.$el.childNodes[2].childNodes[0].childNodes[0].remove();
     }
 
     function clearAll(){
-      clear("dv");
-      clear("ks");
-      clear("ca");
-      clear("jf");
-      clear("mr");
-      clear("rp");
-      clear("oc");
-      clear("in");
-      clear("og");
-      clear("as");
+      console.log("clearAll")
+      clearBar(dvVue);
+      clearBar(ksVue);
+      clearBar(caVue);
+      clearDonut(jfVue);
+      clearBar(mrVue);
+      clearDonut(rpVue);
+      clearDonut(ocVue);
+      clearDonut(inVue);
+      clearDonut(ogVue);
+      clearDonut(asVue);
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
     }
 
     var router = new VueRouter({
@@ -1510,9 +1673,6 @@
 
     
       <!-- Services -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     
 
