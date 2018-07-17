@@ -526,12 +526,15 @@
     })
 
     function produceLink(that){
-      var prelink = "https://betterweekdays.github.io/gates/data/";
-      var link = "";
+      that.vueSchool.sort();
+      that.vueProgram.sort();
+      that.vueRace.sort();
 
-      if ((!that.vueSchool||that.vueSchool.length===0)&&(!that.vueProgram||that.vueProgram.length===0)&&(!that.vueGender||that.vueGender.length===0)&&(!that.vueRace||that.vueRace.length===0)&&(!that.vueIncome||that.vueIncome.length===0)&&(!that.vueFirst||that.vueFirst.length===0)&&(!that.vueAttendance||that.vueAttendance.length===0)){
-        link = "https://betterweekdays.github.io/gates/data/emptydata.json"
-      } else{
+      var prelink = "https://betterweekdays.github.io/gates/data/";
+
+      
+      
+      
         for (i=0; i<that.vueSchool.length;i++){
           prelink = prelink + "school=" + that.vueSchool[i]+"&"
         }
@@ -545,12 +548,12 @@
         if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
         if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
         if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
-        link = prelink.substring(0, prelink.length-1)+".json"
+        var link = prelink.substring(0, prelink.length-1)+".json"
         
         if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
           link = "https://betterweekdays.github.io/gates/data/testdata.json";
         }
-      }
+      
       console.log(link)
       return link;
     }
@@ -1450,16 +1453,6 @@
             }
           })
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           dvVue.vueProgram=target;
           ksVue.vueProgram=target;
           caVue.vueProgram=target;
@@ -1573,96 +1566,6 @@
         }
       }
     })
-
-    
-      
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-      
-      
-      
-      
-      
-
-      
-      
-      
-      
-      
-
-    
-    
-    
-
-    function clearBar(that){
-      console.log("that.$el.childNodes[2].childNodes[0]")
-      console.log(that.$el.childNodes[2].childNodes[0])
-      that.$el.childNodes[2].childNodes[0].remove();
-    }
-
-    function clearDonut(that){
-      console.log("that.$el.childNodes[2].childNodes[0].childNodes[0]")
-      console.log(that.$el.childNodes[2].childNodes[0].childNodes[0])
-      that.$el.childNodes[2].childNodes[0].childNodes[0].remove();
-    }
-
-    function clearAll(){
-      console.log("clearAll")
-      console.log(document.getElementById("xaxis"))
-      console.log(document.getElementById("yaxis"))
-      console.log(document.getElementById("bars"))
-      console.log(document.getElementById("dv-chart"))
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    }
 
     var router = new VueRouter({
       mode:'history',
