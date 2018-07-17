@@ -526,33 +526,45 @@
     })
 
     function produceLink(that){
-      that.vueSchool.sort();
-      that.vueProgram.sort();
-      that.vueRace.sort();
+      if (that.vueSchool.constructor === Array) that.vueSchool.sort();
+      if (that.vueProgram.constructor === Array) that.vueProgram.sort();
+      if (that.vueRace.constructor === Array) that.vueRace.sort();
 
       var prelink = "https://betterweekdays.github.io/gates/data/";
 
       
       
       
+      if (!that.vueSchool||that.vueSchool.length===0){
+        prelink=prelink+"school=A&"
+      } else{
         for (i=0; i<that.vueSchool.length;i++){
           prelink = prelink + "school=" + that.vueSchool[i]+"&"
         }
+      }
+      if (!that.vueProgram||that.vueProgram.length===0){
+        prelink = prelink + "program=A&"
+      }else{
         for (i=0; i<that.vueProgram.length;i++){
           prelink = prelink + "program=" + that.vueProgram[i]+"&"
         }
+      }
+      if (!that.vueRace||that.vueRace.length===0){
+        prelink=prelink+"race=A&"
+      }else{
         for (i=0; i<that.vueRace.length;i++){
           prelink = prelink + "race=" + that.vueRace[i]+"&"
         }
-        if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
-        if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
-        if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
-        if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
-        var link = prelink.substring(0, prelink.length-1)+".json"
-        
-        if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
-          link = "https://betterweekdays.github.io/gates/data/testdata.json";
-        }
+      }
+      if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
+      if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
+      if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
+      if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
+      var link = prelink.substring(0, prelink.length-1)+".json"
+      
+      if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
+        link = "https://betterweekdays.github.io/gates/data/testdata.json";
+      }
       
       console.log(link)
       return link;
@@ -1327,15 +1339,15 @@
       template:`
         <div>
           <h1>School:</h1>
-          <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool"></v-select>
+          <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false"></v-select>
           <span>Selected: <% school_selected %></span><br/>
 
           <h1> Program of Study: </h1>
-            <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram"></v-select>
+            <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false"></v-select>
           <span>Selected: <% program_selected %></span><br/>
 
           <h1> Race: </h1>
-          <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace"></v-select>
+          <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace" :close-on-select="false"></v-select>
           <span>Selected: <% race_selected %></span><br/>
 
           <h1> Gender: </h1>
@@ -1424,8 +1436,20 @@
         }
       },
       methods:{
+        checkIfContainsAny(arr){
+          console.log("inside checkIfContainsAny")
+          console.log(arr)
+          console.log(arr.includes("A"))
+          if (arr.includes("A")) {
+            return ["A"]
+          } else{
+            return arr
+          }
+        },
         updateSchool(target){
           console.log("*******updateSchool*******")
+          target = this.checkIfContainsAny(target)
+          console.log(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
