@@ -535,27 +535,27 @@
       
       
       
-      if (!that.vueSchool||that.vueSchool.length===0){
-        prelink=prelink+"school=A&"
-      } else{
+      
+      
+      
         for (i=0; i<that.vueSchool.length;i++){
           prelink = prelink + "school=" + that.vueSchool[i]+"&"
         }
-      }
-      if (!that.vueProgram||that.vueProgram.length===0){
-        prelink = prelink + "program=A&"
-      }else{
+      
+      
+      
+      
         for (i=0; i<that.vueProgram.length;i++){
           prelink = prelink + "program=" + that.vueProgram[i]+"&"
         }
-      }
-      if (!that.vueRace||that.vueRace.length===0){
-        prelink=prelink+"race=A&"
-      }else{
+      
+      
+      
+      
         for (i=0; i<that.vueRace.length;i++){
           prelink = prelink + "race=" + that.vueRace[i]+"&"
         }
-      }
+      
       if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
       if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
       if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
@@ -617,9 +617,9 @@
         
         this.fetchData();
       },
-      mounted: function(){
-        console.log("dvVue mounted")
-      },
+      
+      
+      
       methods: {
         fetchData: function(){
           console.log("dvVue methods fetchData")
@@ -1316,7 +1316,7 @@
       },
       data(){
         return{
-          school_selected:this.school,
+          school_selected:this.schoolarr,
           program_selected:this.program,
           race_selected:this.race,
           gender_selected:this.gender,
@@ -1367,7 +1367,6 @@
           <span>Selected: <% attendance_selected %></span><br/>
 
           <h3>The current filters applied are:</h3>
-          <p><%testshow%></p>
           <p><%schoolshow%></p>
           <p><%programshow%></p>
           <p><%raceshow%></p>
@@ -1378,16 +1377,15 @@
         </div>
       `,
       computed:{
-        testshow(){
-          if (this.test) {
-            return "Test: "+this.test
-          } else{
-            return "No test has been chosen"
-          }
+        schoolarr(){
+          console.log("inside schoolarr")
+          console.log(this.$route.query.school)
+          const scharr = this.$route.query.school
+          return Array.isArray(scharr) ? scharr : [scharr]
         },
         schoolshow(){
-          if (this.school) {
-            return "School: "+this.school
+          if (this.schoolarr) {
+            return "School: "+this.schoolarr
           } else{
             return "No school has been chosen"
           }
@@ -1437,19 +1435,28 @@
       },
       methods:{
         checkIfContainsAny(arr){
-          console.log("inside checkIfContainsAny")
-          console.log(arr)
-          console.log(arr.includes("A"))
+          // console.log("inside checkIfContainsAny")
+          
+          
           if (arr.includes("A")) {
+            return ["A"]
+          } else if (!arr||arr.length===0){
             return ["A"]
           } else{
             return arr
           }
         },
+        checkIfNull(str){
+          if(str===null){
+            return "A"
+          } else{
+            return str
+          }
+        },
         updateSchool(target){
           console.log("*******updateSchool*******")
           target = this.checkIfContainsAny(target)
-          console.log(target)
+          
           this.$router.replace({
             query:{
               ...this.$route.query,
@@ -1470,6 +1477,7 @@
         },
         updateProgram(target){
           console.log("*******updateProgram*******")
+          target = this.checkIfContainsAny(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
@@ -1490,6 +1498,7 @@
         },
         updateRace(target){
           console.log("*******updateRace*******")
+          target = this.checkIfContainsAny(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
@@ -1510,6 +1519,7 @@
         },
         updateGender(target){
           console.log("*******updateGender*******")
+          target=this.checkIfNull(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
@@ -1530,6 +1540,7 @@
         },
         updateIncome(target){
           console.log("*******updateIncome*******")
+          target=this.checkIfNull(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
@@ -1550,6 +1561,7 @@
         },
         updateFirst(target){
           console.log("*******updateFirst*******")
+          target=this.checkIfNull(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
@@ -1570,6 +1582,7 @@
         },
         updateAttendance(target){
           console.log("*******updateAttendance*******")
+          target=this.checkIfNull(target)
           this.$router.replace({
             query:{
               ...this.$route.query,
