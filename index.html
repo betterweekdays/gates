@@ -430,9 +430,20 @@
                         .tickValues(d3.range(9));
           return {xAxis, yAxis};
         },
+        checkDup: function(svg){
+          
+          if (!svg.selectAll("*").empty()){
+            svg.selectAll("*").remove();
+          }
+        },
         appendAxis: function(){
           var that = this;
           var svg = d3.select("#"+that.chartid);
+          that.checkDup(svg);
+          
+          
+          
+          
           var getAxis = that.prepareAxis();
           var xx = svg.append("g")
                         .attr("transform", "translate(150, 480)")
@@ -535,12 +546,12 @@
         if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
         if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
         link = prelink.substring(0, prelink.length-1)+".json"
-        console.log(link)
         
         if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
           link = "https://betterweekdays.github.io/gates/data/testdata.json";
         }
       }
+      console.log(link)
       return link;
     }
 
@@ -763,6 +774,11 @@
 
           return {color, arc, pie};
         },
+        checkDup: function(element){
+          if (!element.selectAll("*").empty()){
+            element.selectAll("*").remove();
+          }
+        },
         appendPath: function(){
           var that = this;
           var elements = that.prepareElements();
@@ -770,6 +786,7 @@
           var color = elements.color;
           var arc = elements.arc;
           var gout = d3.select("#"+that.chartid);
+          that.checkDup(gout);
 
           var path = gout.selectAll('path')
                       .data(pie(that.d3Data))
@@ -1433,6 +1450,16 @@
             }
           })
           
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           dvVue.vueProgram=target;
           ksVue.vueProgram=target;
           caVue.vueProgram=target;
@@ -1610,16 +1637,20 @@
 
     function clearAll(){
       console.log("clearAll")
-      clearBar(dvVue);
-      clearBar(ksVue);
-      clearBar(caVue);
-      clearDonut(jfVue);
-      clearBar(mrVue);
-      clearDonut(rpVue);
-      clearDonut(ocVue);
-      clearDonut(inVue);
-      clearDonut(ogVue);
-      clearDonut(asVue);
+      console.log(document.getElementById("xaxis"))
+      console.log(document.getElementById("yaxis"))
+      console.log(document.getElementById("bars"))
+      console.log(document.getElementById("dv-chart"))
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       
