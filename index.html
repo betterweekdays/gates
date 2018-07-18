@@ -121,7 +121,6 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-  
 
   <section id="hero">
     <style type="text/css">
@@ -1366,90 +1365,23 @@
           <h1> Attendance Intensity: </h1>
           <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
           <span>Selected: <% attendance_selected %></span><br/>
-
-          <h3>The current filters applied are:</h3>
-          <p><%schoolshow%></p>
-          <p><%programshow%></p>
-          <p><%raceshow%></p>
-          <p><%gendershow%></p>
-          <p><%incomeshow%></p>
-          <p><%firstshow%></p>
-          <p><%attendanceshow%></p>
-        </div>
       `,
       computed:{
         school(){
-          // set: function (newValue) {
-          
-          
-          
-            const scharr = this.$route.query.school
-            return Array.isArray(scharr) ? scharr : [scharr]
-          
+          const scharr = this.$route.query.school
+          return Array.isArray(scharr) ? scharr : [scharr]
         },
-        school(){
+        program(){
           const progarr = this.$route.query.program
           return Array.isArray(progarr) ? progarr : [progarr]
         },
         race(){
           const racearr = this.$route.query.race
           return Array.isArray(racearr) ? racearr : [racearr]
-        },
-        schoolshow(){
-          if (this.school_selected) {
-            return "School: "+this.school_selected
-          } else{
-            return "No school has been chosen"
-          }
-        },
-        programshow(){
-          if (this.program) {
-            return "Program: "+this.program
-          } else{
-            return "No program has been chosen"
-          }
-        },
-        raceshow(){
-          if (this.race) {
-            return "Race: "+this.race
-          } else{
-            return "No race has been chosen"
-          }
-        },
-        gendershow(){
-          if (this.gender) {
-            return "Gender: "+this.gender
-          } else{
-            return "No gender has been chosen"
-          }
-        },
-        incomeshow(){
-          if (this.income) {
-            return "Income Status: "+this.income
-          } else{
-            return "No income status has been chosen"
-          }
-        },
-        firstshow(){
-          if (this.first) {
-            return "First Generation Status: "+this.first
-          } else{
-            return "No first generation status has been chosen"
-          }
-        },
-        attendanceshow(){
-          if (this.attendance) {
-            return "Attendance Intensity: "+this.attendance
-          } else{
-            return "No attendance intensity has been chosen"
-          }
         }
       },
       methods:{
         checkIfContainsAny(arr){
-          
-          
-          
           if (arr.includes("A")) {
             return ["A"]
           } else if (!arr||arr.length===0){
@@ -1468,14 +1400,12 @@
         updateSchool(target){
           console.log("*******updateSchool*******")
           target = this.checkIfContainsAny(target)
-          
           this.$router.replace({
             query:{
               ...this.$route.query,
               school: target
             }
           })
-          
           dvVue.vueSchool=target;
           ksVue.vueSchool=target;
           caVue.vueSchool=target;
@@ -1496,7 +1426,6 @@
               program: target
             }
           })
-          
           dvVue.vueProgram=target;
           ksVue.vueProgram=target;
           caVue.vueProgram=target;
@@ -1517,7 +1446,6 @@
               race: target
             }
           })
-          
           dvVue.vueRace=target;
           ksVue.vueRace=target;
           caVue.vueRace=target;
@@ -1538,7 +1466,6 @@
               gender: target
             }
           })
-          
           dvVue.vueGender=target;
           ksVue.vueGender=target;
           caVue.vueGender=target;
@@ -1559,7 +1486,6 @@
               income: target
             }
           })
-          
           dvVue.vueIncome=target;
           ksVue.vueIncome=target;
           caVue.vueIncome=target;
@@ -1580,7 +1506,6 @@
               first: target
             }
           })
-          
           dvVue.vueFirst=target;
           ksVue.vueFirst=target;
           caVue.vueFirst=target;
@@ -1601,7 +1526,6 @@
               attendance: target
             }
           })
-          
           dvVue.vueAttendance=target;
           ksVue.vueAttendance=target;
           caVue.vueAttendance=target;
