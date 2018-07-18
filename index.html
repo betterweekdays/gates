@@ -562,6 +562,7 @@
       if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
       var link = prelink.substring(0, prelink.length-1)+".json"
       
+      console.log(link)
       if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
         link = "https://betterweekdays.github.io/gates/data/testdata.json";
       }
@@ -1286,17 +1287,17 @@
 
     var maincpo = Vue.component('main-cpo',{
       props:{
-        school:{
+        schoolprops:{
+          default: function () {
+            return ["A"]
+          }
+        },
+        programprops:{
           default: function () {
             return ['A']
           }
         },
-        program:{
-          default: function () {
-            return ['A']
-          }
-        },
-        race:{
+        raceprops:{
           default: function () {
             return ['A']
           }
@@ -1316,9 +1317,9 @@
       },
       data(){
         return{
-          school_selected:this.schoolarr,
-          program_selected:this.program,
-          race_selected:this.race,
+          school_selected:this.schoolprops,
+          program_selected:this.programprops,
+          race_selected:this.raceprops,
           gender_selected:this.gender,
           income_selected:this.income,
           first_selected:this.first,
@@ -1377,15 +1378,26 @@
         </div>
       `,
       computed:{
-        schoolarr(){
-          console.log("inside schoolarr")
-          console.log(this.$route.query.school)
-          const scharr = this.$route.query.school
-          return Array.isArray(scharr) ? scharr : [scharr]
+        school(){
+          // set: function (newValue) {
+          
+          
+          
+            const scharr = this.$route.query.school
+            return Array.isArray(scharr) ? scharr : [scharr]
+          
+        },
+        school(){
+          const progarr = this.$route.query.program
+          return Array.isArray(progarr) ? progarr : [progarr]
+        },
+        race(){
+          const racearr = this.$route.query.race
+          return Array.isArray(racearr) ? racearr : [racearr]
         },
         schoolshow(){
-          if (this.schoolarr) {
-            return "School: "+this.schoolarr
+          if (this.school_selected) {
+            return "School: "+this.school_selected
           } else{
             return "No school has been chosen"
           }
@@ -1435,7 +1447,7 @@
       },
       methods:{
         checkIfContainsAny(arr){
-          // console.log("inside checkIfContainsAny")
+          
           
           
           if (arr.includes("A")) {
