@@ -1,1 +1,5 @@
-{"data":{"school":["WashU","SLU","NYU","NTU","NUS","UCLA"]}}
+{"data":[{
+  "id":0,
+  "school":["WashU","SLU","NYU","NTU","NUS","UCLA"]
+  }]
+}
