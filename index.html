@@ -1286,17 +1286,17 @@
 
     var maincpo = Vue.component('main-cpo',{
       props:{
-        schoolprops:{
+        school:{
           default: function () {
             return ["A"]
           }
         },
-        programprops:{
+        program:{
           default: function () {
             return ['A']
           }
         },
-        raceprops:{
+        race:{
           default: function () {
             return ['A']
           }
@@ -1314,11 +1314,16 @@
           default:'A'
         }
       },
+      created(){
+        this.school_selected = this.schoolarr
+        this.program_selected = this.programarr
+        this.race_selected = this.racearr
+      },
       data(){
         return{
-          school_selected:this.schoolprops,
-          program_selected:this.programprops,
-          race_selected:this.raceprops,
+          school_selected:this.school,
+          program_selected:this.program,
+          race_selected:this.race,
           gender_selected:this.gender,
           income_selected:this.income,
           first_selected:this.first,
@@ -1341,6 +1346,9 @@
           <h1>School:</h1>
           <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false"></v-select>
           <span>Selected: <% school_selected %></span><br/>
+          <span>Route: <% this.$route.query.school %></span></br>
+          <span>Computed: <% schoolarr %></span><br/>
+          <span>Props: <% school %></span><br/>
 
           <h1> Program of Study: </h1>
             <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false"></v-select>
@@ -1365,19 +1373,32 @@
           <h1> Attendance Intensity: </h1>
           <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
           <span>Selected: <% attendance_selected %></span><br/>
+        </div>
       `,
       computed:{
-        school(){
-          const scharr = this.$route.query.school
-          return Array.isArray(scharr) ? scharr : [scharr]
+        schoolarr(){
+          var scharr = this.$route.query.school
+          if (typeof scharr !== 'undefined') {
+            return Array.isArray(scharr) ? scharr : [scharr]
+          } else {
+            return this.school
+          }
         },
-        program(){
-          const progarr = this.$route.query.program
-          return Array.isArray(progarr) ? progarr : [progarr]
+        programarr(){
+          var progarr = this.$route.query.program
+          if (typeof progarr !== 'undefined'){
+            return Array.isArray(progarr) ? progarr : [progarr]
+          } else {
+            return this.program
+          }
         },
-        race(){
-          const racearr = this.$route.query.race
-          return Array.isArray(racearr) ? racearr : [racearr]
+        racearr(){
+          var racearr = this.$route.query.race
+          if (typeof racearr !== 'undefined'){
+            return Array.isArray(racearr) ? racearr : [racearr]
+          } else {
+            return this.race
+          }
         }
       },
       methods:{
@@ -1545,7 +1566,7 @@
       routes:[{
         path:'*',
         component:maincpo,
-        props:(route)=>({
+        props: (route)=>({
           school:route.query.school,
           program:route.query.program,
           race:route.query.race,
