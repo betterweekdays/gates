@@ -561,12 +561,12 @@
       if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
       var link = prelink.substring(0, prelink.length-1)+".json"
       
-      console.log(link)
+      
       if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
         link = "https://betterweekdays.github.io/gates/data/testdata.json";
       }
       
-      console.log(link)
+      
       return link;
     }
 
@@ -606,12 +606,12 @@
       },
       watch: {
         isChanged() {
-          console.log("dvVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("dvVue created")
+        
         
         
         
@@ -622,7 +622,7 @@
       
       methods: {
         fetchData: function(){
-          console.log("dvVue methods fetchData")
+          
           
           
           
@@ -672,23 +672,20 @@
       },
       watch: {
         isChanged() {
-          console.log("ksVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("ksVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("ksVue mounted")
-      },
-      mounted: function(){
-        console.log("ksVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("ksVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -735,20 +732,20 @@
       },
       watch: {
         isChanged() {
-          console.log("caVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("caVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("caVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("caVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -903,20 +900,20 @@
       },
       watch: {
         isChanged() {
-          console.log("jfVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("jfVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("jfVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("jfVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -963,20 +960,20 @@
       },
       watch: {
         isChanged() {
-          console.log("mrVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("mrVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("mrVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("mrVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1022,20 +1019,20 @@
         },
         watch: {
           isChanged() {
-            console.log("rpVue watch")
+            
             this.fetchData();
           }
         },
         created: function(){
-          console.log("rpVue created")
+          
           this.fetchData();
         },
         mounted: function(){
-          console.log("rpVue mounted")
+          
         },
         methods: {
           fetchData: function(){
-            console.log("rpVue methods fetchData")
+            
             var link = window.produceLink(this);
             fetch(link)
                 .then(response => response.json())
@@ -1081,20 +1078,20 @@
       },
       watch: {
         isChanged() {
-          console.log("ocVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("ocVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("ocVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("ocVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1140,20 +1137,20 @@
       },
       watch: {
         isChanged() {
-          console.log("inVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("inVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("inVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("inVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1199,20 +1196,20 @@
       },
       watch: {
         isChanged() {
-          console.log("ogVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("ogVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("ogVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("ogVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1258,20 +1255,20 @@
       },
       watch: {
         isChanged() {
-          console.log("asVue watch")
+          
           this.fetchData();
         }
       },
       created: function(){
-        console.log("asVue created")
+        
         this.fetchData();
       },
       mounted: function(){
-        console.log("asVue mounted")
+        
       },
       methods: {
         fetchData: function(){
-          console.log("asVue methods fetchData")
+          
           var link = window.produceLink(this);
           fetch(link)
               .then(response => response.json())
@@ -1318,6 +1315,18 @@
         this.school_selected = this.schoolarr
         this.program_selected = this.programarr
         this.race_selected = this.racearr
+        if (this.attendance_selected == "C"){
+          this.disableUponAttendance()
+        }
+      },
+      watch:{
+        attendance:function(){
+          if (this.attendance_selected == "C"){
+            this.disableUponAttendance()
+          } else {
+            this.enableUponAttendance()
+          }
+        }
       },
       data(){
         return{
@@ -1334,7 +1343,13 @@
           raceoptions:['A','B','C'],
           incomeoptions:['A','B','C'],
           firstoptions:['A','B','C'],
-          attendanceoptions:['A','B','C']
+          attendanceoptions:['A','B','C'],
+          schoolnodrop: false,
+          programnodrop: false,
+          racenodrop: false,
+          gendernodrop: false,
+          firstnodrop: false,
+          incomenodrop: false
         }
       },
       components:{
@@ -1344,30 +1359,30 @@
       template:`
         <div>
           <h1>School:</h1>
-          <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false"></v-select>
+          <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false" :no-drop="schoolnodrop"></v-select>
           <span>Selected: <% school_selected %></span><br/>
           <span>Route: <% this.$route.query.school %></span></br>
           <span>Computed: <% schoolarr %></span><br/>
           <span>Props: <% school %></span><br/>
 
           <h1> Program of Study: </h1>
-            <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false"></v-select>
+            <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false" :no-drop="programnodrop"></v-select>
           <span>Selected: <% program_selected %></span><br/>
 
           <h1> Race: </h1>
-          <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace" :close-on-select="false"></v-select>
+          <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace" :close-on-select="false" :no-drop="racenodrop"></v-select>
           <span>Selected: <% race_selected %></span><br/>
 
           <h1> Gender: </h1>
-          <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender"></v-select>
+          <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender" :no-drop="gendernodrop"></v-select>
           <span>Selected: <% gender_selected %></span><br/>
 
           <h1> Income Status: </h1>
-          <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome"></v-select>
+          <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome" :no-drop="incomenodrop"></v-select>
           <span>Selected: <% income_selected %></span><br/>
 
           <h1> First Generation Status: </h1>
-          <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst"></v-select>
+          <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst" :no-drop="firstnodrop"></v-select>
           <span>Selected: <% first_selected %></span><br/>
 
           <h1> Attendance Intensity: </h1>
@@ -1557,6 +1572,28 @@
           inVue.vueAttendance=target;
           ogVue.vueAttendance=target;
           asVue.vueAttendance=target;
+        },
+        disableUponAttendance(){
+          this.school_selected = ["A"]
+          this.schoolnodrop = true
+          this.program_selected = ["A"]
+          this.programnodrop = true
+          this.race_selected = ["A"]
+          this.racenodrop = true
+          this.gender_selected = "A"
+          this.gendernodrop = true
+          this.first_selected = "A"
+          this.firstnodrop = true
+          this.income_selected = "A"
+          this.incomenodrop = true
+        },
+        enableUponAttendance(){
+          this.schoolnodrop = false
+          this.programnodrop = false
+          this.racenodrop = false
+          this.gendernodrop = false
+          this.firstnodrop = false
+          this.incomenodrop = false
         }
       }
     })
