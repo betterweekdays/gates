@@ -1329,10 +1329,7 @@
           .then (json =>{
             this.schooloptions = json.data.school
           })
-        this.schooloptions.push({
-          "name":"Any",
-          "position":0
-        })
+        this.schooloptions.push("Any")
       },
       watch:{
         attendance:function(){
