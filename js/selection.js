@@ -162,7 +162,7 @@ var maincpo = Vue.component('main-cpo',{
       }
     },
     updateSchool(target){
-      console.log("*******updateSchool*******")
+      // console.log("*******updateSchool*******")
       target = this.checkIfContainsAny(target)
       this.$router.replace({
         query:{
@@ -182,7 +182,7 @@ var maincpo = Vue.component('main-cpo',{
       asVue.vueSchool=target;
     },
     updateProgram(target){
-      console.log("*******updateProgram*******")
+      // console.log("*******updateProgram*******")
       target = this.checkIfContainsAny(target)
       this.$router.replace({
         query:{
@@ -202,7 +202,7 @@ var maincpo = Vue.component('main-cpo',{
       asVue.vueProgram=target;
     },
     updateRace(target){
-      console.log("*******updateRace*******")
+      // console.log("*******updateRace*******")
       target = this.checkIfContainsAny(target)
       this.$router.replace({
         query:{
@@ -222,7 +222,7 @@ var maincpo = Vue.component('main-cpo',{
       asVue.vueRace=target;
     },
     updateGender(target){
-      console.log("*******updateGender*******")
+      // console.log("*******updateGender*******")
       target=this.checkIfNull(target)
       this.$router.replace({
         query:{
@@ -242,7 +242,7 @@ var maincpo = Vue.component('main-cpo',{
       asVue.vueGender=target;
     },
     updateIncome(target){
-      console.log("*******updateIncome*******")
+      // console.log("*******updateIncome*******")
       target=this.checkIfNull(target)
       this.$router.replace({
         query:{
@@ -262,7 +262,7 @@ var maincpo = Vue.component('main-cpo',{
       asVue.vueIncome=target;
     },
     updateFirst(target){
-      console.log("*******updateFirst*******")
+      // console.log("*******updateFirst*******")
       target=this.checkIfNull(target)
       this.$router.replace({
         query:{
@@ -282,7 +282,7 @@ var maincpo = Vue.component('main-cpo',{
       asVue.vueFirst=target;
     },
     updateAttendance(target){
-      console.log("*******updateAttendance*******")
+      // console.log("*******updateAttendance*******")
       target=this.checkIfNull(target)
       this.$router.replace({
         query:{

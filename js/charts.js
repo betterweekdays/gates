@@ -56,7 +56,6 @@ Vue.component('bar-chart', {
       return {xAxis, yAxis};
     },
     checkDup: function(svg){
-      // var svg = d3.select("#"+that.chartid);
       if (!svg.selectAll("*").empty()){
         svg.selectAll("*").remove();
       }
@@ -65,10 +64,6 @@ Vue.component('bar-chart', {
       var that = this;
       var svg = d3.select("#"+that.chartid);
       that.checkDup(svg);
-      // console.log("inside bar component")
-      // console.log(svg.selectAll("*"))
-      // console.log(svg.selectAll("*").empty())
-      // console.log(that.d3Data)
       var getAxis = that.prepareAxis();
       var xx = svg.append("g")
                     .attr("transform", "translate(150, 480)")
@@ -157,42 +152,27 @@ function produceLink(that){
 
   var prelink = "https://betterweekdays.github.io/gates/data/";
 
-  // if ((!that.vueSchool||that.vueSchool.length===0)&&(!that.vueProgram||that.vueProgram.length===0)&&(!that.vueGender||that.vueGender.length===0)&&(!that.vueRace||that.vueRace.length===0)&&(!that.vueIncome||that.vueIncome.length===0)&&(!that.vueFirst||that.vueFirst.length===0)&&(!that.vueAttendance||that.vueAttendance.length===0)){
-  //   link = "https://betterweekdays.github.io/gates/data/emptydata.json"
-  // } else{
-  // if (!that.vueSchool||that.vueSchool.length===0){
-  //   prelink=prelink+"school=A&"
-  // } else{
-    for (i=0; i<that.vueSchool.length;i++){
-      prelink = prelink + "school=" + that.vueSchool[i]+"&"
-    }
-  // }
-  // if (!that.vueProgram||that.vueProgram.length===0){
-  //   prelink = prelink + "program=A&"
-  // }else{
-    for (i=0; i<that.vueProgram.length;i++){
-      prelink = prelink + "program=" + that.vueProgram[i]+"&"
-    }
-  // }
-  // if (!that.vueRace||that.vueRace.length===0){
-  //   prelink=prelink+"race=A&"
-  // }else{
-    for (i=0; i<that.vueRace.length;i++){
-      prelink = prelink + "race=" + that.vueRace[i]+"&"
-    }
-  // }
+  for (i=0; i<that.vueSchool.length;i++){
+    prelink = prelink + "school=" + that.vueSchool[i]+"&"
+  }
+
+  for (i=0; i<that.vueProgram.length;i++){
+    prelink = prelink + "program=" + that.vueProgram[i]+"&"
+  }
+
+  for (i=0; i<that.vueRace.length;i++){
+    prelink = prelink + "race=" + that.vueRace[i]+"&"
+  }
+
   if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
   if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
   if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
   if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
   var link = prelink.substring(0, prelink.length-1)+".json"
   //for testing purpose
-  // console.log(link)
   if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
     link = "https://betterweekdays.github.io/gates/data/testdata.json";
   }
-  // }
-  // console.log(link)
   return link;
 }
 
@@ -238,9 +218,6 @@ var dvVue = new Vue({
   },
   created: function(){
     // console.log("dvVue created")
-    // console.log("app.maincpo.school_selected: "+app.maincpo.school_selected)
-    // console.log("inside dvVue created w vueProgram: ")
-    // console.log(this.vueProgram)
     this.fetchData();
   },
   // mounted: function(){
@@ -249,9 +226,6 @@ var dvVue = new Vue({
   methods: {
     fetchData: function(){
       // console.log("dvVue methods fetchData")
-      // console.log(this.vueSchool)
-      // console.log(this.vueGender)
-      // console.log(this.vueAttendance)
       var link = window.produceLink(this);
       fetch(link)
           .then(response => response.json())
@@ -306,9 +280,9 @@ var ksVue = new Vue({
     // console.log("ksVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("ksVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("ksVue methods fetchData")
@@ -366,9 +340,9 @@ var caVue = new Vue({
     // console.log("caVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("caVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("caVue methods fetchData")
@@ -534,9 +508,9 @@ var jfVue = new Vue({
     // console.log("jfVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("jfVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("jfVue methods fetchData")
@@ -594,9 +568,9 @@ var mrVue = new Vue({
     // console.log("mrVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("mrVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("mrVue methods fetchData")
@@ -653,9 +627,9 @@ var rpVue = new Vue({
       // console.log("rpVue created")
       this.fetchData();
     },
-    mounted: function(){
+    // mounted: function(){
       // console.log("rpVue mounted")
-    },
+    // },
     methods: {
       fetchData: function(){
         // console.log("rpVue methods fetchData")
@@ -712,9 +686,9 @@ var ocVue = new Vue({
     // console.log("ocVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("ocVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("ocVue methods fetchData")
@@ -771,9 +745,9 @@ var inVue = new Vue({
     // console.log("inVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("inVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("inVue methods fetchData")
@@ -830,9 +804,9 @@ var ogVue = new Vue({
     // console.log("ogVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("ogVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("ogVue methods fetchData")
@@ -889,9 +863,9 @@ var asVue = new Vue({
     // console.log("asVue created")
     this.fetchData();
   },
-  mounted: function(){
+  // mounted: function(){
     // console.log("asVue mounted")
-  },
+  // },
   methods: {
     fetchData: function(){
       // console.log("asVue methods fetchData")
