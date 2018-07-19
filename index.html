@@ -1285,11 +1285,8 @@
       props:{
         school:{
           default: function () {
-            return {
-              "name":"Any",
-              "position":0
+            return ["A"]
             }
-          }
         },
         program:{
           default: function () {
@@ -1326,10 +1323,10 @@
         
         fetch ("https://betterweekdays.github.io/gates/data/school.json")
           .then (response => response.json())
-          .then (json =>{
-            this.schooloptions = json.data.school
+          .then (data =>{
+            this.schooloptions = data
+            this.schooloptions.unshift("A")
           })
-        this.schooloptions.push("Any")
       },
       watch:{
         attendance:function(){
