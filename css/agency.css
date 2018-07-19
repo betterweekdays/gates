@@ -11,6 +11,93 @@
  section#contact .section-heading
  */
 
+/*for selection*/
+ h1 {
+   font-size: 22px;
+   font-weight: 600;
+   color: #2c3e5099;
+   text-rendering: optimizelegibility;
+   -moz-osx-font-smoothing: grayscale;
+   -moz-text-size-adjust: none;
+ }
+
+ #school, #gender, #program, #race, #income, #firstgen {
+   max-width: 30em;
+   margin: 1em auto;
+ }
+
+ #selectapp {
+   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   text-align: center;
+   color: #2c3e50;
+   margin: 3rem;
+   height: 100%;
+ }
+
+/*for bar chart*/
+ #xaxis .domain {
+   fill: none;
+   stroke: #000;
+ }
+ #xaxis text, #yaxis text{
+   font-size: 12px;
+ }
+ #bars {
+   fill: #00a8ff;
+ }
+ rect:hover{
+   fill:#fed136;
+ }
+ #tooltip{
+   position:absolute;
+   width:200px;
+   height:auto;
+   padding:10px;
+   background-color: white;
+   -webkit-border-radius:10px;
+   -moz-border-radius:10px;
+   border-radius: 10px;
+   -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+   -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+   pointer-events: none;
+ }
+ #tooltip.hidden{
+   display: none;
+ }
+ #tooltip p{
+   margin:0;
+   font-family:Futura;
+   font-size:16px;
+   line-height:20px;
+ }
+
+/*for donut chart*/
+.pie {
+margin: 20px;
+}
+
+.pie text {
+font-family: "Verdana";
+fill: #888;
+}
+
+.pie .name-text{
+font-size: 1.5em;
+font-weight: bold;
+}
+
+.pie .value-text{
+font-size: 1em;
+}
+
+.pie .description-text{
+font-size: 1em;
+}
+
+/*originally with the theme*/
 body {
     overflow-x: hidden;
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
