@@ -1285,7 +1285,10 @@
       props:{
         school:{
           default: function () {
-            return ["A"]
+            return {
+              "name":"Any",
+              "position":0
+            }
           }
         },
         program:{
@@ -1312,12 +1315,24 @@
         }
       },
       created(){
+        
         this.school_selected = this.schoolarr
         this.program_selected = this.programarr
         this.race_selected = this.racearr
         if (this.attendance_selected == "C"){
           this.disableUponAttendance()
         }
+
+        
+        fetch ("https://betterweekdays.github.io/gates/data/school.json")
+          .then (response => response.json())
+          .then (json =>{
+            this.schooloptions = json.data.school
+          })
+        this.schooloptions.push({
+          "name":"Any",
+          "position":0
+        })
       },
       watch:{
         attendance:function(){
@@ -1337,7 +1352,7 @@
           income_selected:this.income,
           first_selected:this.first,
           attendance_selected:this.attendance,
-          schooloptions:['A','B','C'],
+          schooloptions:[],
           programoptions:['A','B','C'],
           genderoptions:['A','B','C'],
           raceoptions:['A','B','C'],
