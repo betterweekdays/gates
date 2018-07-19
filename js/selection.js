@@ -88,34 +88,24 @@ var maincpo = Vue.component('main-cpo',{
     <div>
       <h1>School:</h1>
       <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false" :no-drop="schoolnodrop"></v-select>
-      <span>Selected: <% school_selected %></span><br/>
-      <span>Route: <% this.$route.query.school %></span></br>
-      <span>Computed: <% schoolarr %></span><br/>
-      <span>Props: <% school %></span><br/>
 
       <h1> Program of Study: </h1>
-        <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false" :no-drop="programnodrop"></v-select>
-      <span>Selected: <% program_selected %></span><br/>
+      <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false" :no-drop="programnodrop"></v-select>
 
       <h1> Race: </h1>
       <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace" :close-on-select="false" :no-drop="racenodrop"></v-select>
-      <span>Selected: <% race_selected %></span><br/>
 
       <h1> Gender: </h1>
       <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender" :no-drop="gendernodrop"></v-select>
-      <span>Selected: <% gender_selected %></span><br/>
 
       <h1> Income Status: </h1>
       <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome" :no-drop="incomenodrop"></v-select>
-      <span>Selected: <% income_selected %></span><br/>
 
       <h1> First Generation Status: </h1>
       <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst" :no-drop="firstnodrop"></v-select>
-      <span>Selected: <% first_selected %></span><br/>
 
       <h1> Attendance Intensity: </h1>
       <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
-      <span>Selected: <% attendance_selected %></span><br/>
     </div>
   `,
   computed:{
