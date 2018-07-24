@@ -277,7 +277,7 @@ var ksVue = new Vue({
       d3Data: {},
       d3Offset:750,
       d3Des: ksDescription,
-      d3Translate:600,
+      d3Translate:800,
       d3TranslateHor:305,
       tooltipWidth:300,
       tooltipHeight:250,
@@ -386,10 +386,10 @@ var caVue = new Vue({
 
 //reusable vue compoenent for donut chart
 Vue.component('donut-chart', {
-  props: ['d3Data', 'd3Des', 'chartid'],
+  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move'],
   template:`
     <div>
-      <svg class="pie" width="400" height="400">
+      <svg class="pie" width="400" height="400" :transform="move">
         <g :id="chartid" transform="translate(200,200)"></g>
       </svg>
     </div>
@@ -402,11 +402,12 @@ Vue.component('donut-chart', {
   },
   methods:{
     prepareElements: function(){
+      var that = this;
       var color = d3.scaleOrdinal(d3.schemeBlues[9]);
 
       var arc = d3.arc()
-                  .innerRadius(140) //radius-thickness
-                  .outerRadius(200); //radius
+                  .innerRadius(that.innerRadius) //radius-thickness
+                  .outerRadius(that.outerRadius); //radius
 
       var pie = d3.pie()
                   .value(function(d) { return d.percent; })
@@ -518,7 +519,10 @@ var jfVue = new Vue({
       vueIncome:"",
       vueFirst:"",
       vueAttendance:"",
-      chartid: "jf-chart"
+      chartid: "jf-chart",
+      innerRadius:140,
+      outerRadius:200,
+      move:"translate(-150,0)"
     }
   },
   computed:{
@@ -553,72 +557,72 @@ var jfVue = new Vue({
 })
 
 //customized vue instance for model role (mr)
-var mrDescription = [
-  {"name":"Alice","dx":"Description for Alice"},
-  {"name":"Ben","dx":"Description for Ben"},
-  {"name":"Cici","dx":"Description for Cici"},
-  {"name":"Dave","dx":"Description for Dave"},
-  {"name":"Eva","dx":"Description for Eva"},
-  {"name":"Frank","dx":"Description for Frank"},
-  {"name":"Gigi","dx":"Description for Gigi"},
-  {"name":"Helen","dx":"Description for Helen"},
-  {"name":"Iris","dx":"Description for Iris"}];
-
-var mrVue = new Vue({
-  el: '#mr',
-  data(){
-    return{
-      chartid:"mr-chart",
-      chartWidth:900,
-      chartHeight:550,
-      d3Data: {},
-      d3Offset:3250,
-      vueSchool:"",
-      vueProgram:"",
-      vueRace:"",
-      vueGender:"",
-      vueIncome:"",
-      vueFirst:"",
-      vueAttendance:"",
-      d3Des: mrDescription,
-      d3Translate:150,
-      d3TranslateHor:480,
-      tooltipWidth:350,
-      tooltipHeight:400,
-      tooltipTopMargin:2525,
-      tooltipLeftMargin:400
-    }
-  },
-  computed:{
-    isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-    }
-  },
-  watch: {
-    isChanged() {
-      // console.log("mrVue watch")
-      this.fetchData();
-    }
-  },
-  created: function(){
-    // console.log("mrVue created")
-    this.fetchData();
-  },
-  // mounted: function(){
-    // console.log("mrVue mounted")
-  // },
-  methods: {
-    fetchData: function(){
-      // console.log("mrVue methods fetchData")
-      var link = window.produceLink(this);
-      fetch(link)
-          .then(response => response.json())
-          .then(json => {
-            this.d3Data = json.data["0"]["Model Roles"]
-          })
-    }
-  }
-})
+// var mrDescription = [
+//   {"name":"Alice","dx":"Description for Alice"},
+//   {"name":"Ben","dx":"Description for Ben"},
+//   {"name":"Cici","dx":"Description for Cici"},
+//   {"name":"Dave","dx":"Description for Dave"},
+//   {"name":"Eva","dx":"Description for Eva"},
+//   {"name":"Frank","dx":"Description for Frank"},
+//   {"name":"Gigi","dx":"Description for Gigi"},
+//   {"name":"Helen","dx":"Description for Helen"},
+//   {"name":"Iris","dx":"Description for Iris"}];
+//
+// var mrVue = new Vue({
+//   el: '#mr',
+//   data(){
+//     return{
+//       chartid:"mr-chart",
+//       chartWidth:900,
+//       chartHeight:550,
+//       d3Data: {},
+//       d3Offset:3250,
+//       vueSchool:"",
+//       vueProgram:"",
+//       vueRace:"",
+//       vueGender:"",
+//       vueIncome:"",
+//       vueFirst:"",
+//       vueAttendance:"",
+//       d3Des: mrDescription,
+//       d3Translate:150,
+//       d3TranslateHor:480,
+//       tooltipWidth:350,
+//       tooltipHeight:400,
+//       tooltipTopMargin:2525,
+//       tooltipLeftMargin:400
+//     }
+//   },
+//   computed:{
+//     isChanged(){
+//       return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+//     }
+//   },
+//   watch: {
+//     isChanged() {
+//       // console.log("mrVue watch")
+//       this.fetchData();
+//     }
+//   },
+//   created: function(){
+//     // console.log("mrVue created")
+//     this.fetchData();
+//   },
+//   // mounted: function(){
+//     // console.log("mrVue mounted")
+//   // },
+//   methods: {
+//     fetchData: function(){
+//       // console.log("mrVue methods fetchData")
+//       var link = window.produceLink(this);
+//       fetch(link)
+//           .then(response => response.json())
+//           .then(json => {
+//             this.d3Data = json.data["0"]["Model Roles"]
+//           })
+//     }
+//   }
+// })
 
 //customized vue instance for job functions (jf)
 var rpdescription = [
@@ -645,7 +649,10 @@ var rpVue = new Vue({
         vueIncome:"",
         vueFirst:"",
         vueAttendance:"",
-        chartid: "rp-chart"
+        chartid: "rp-chart",
+        innerRadius:140,
+        outerRadius:200,
+        move:"translate(400,0)"
       }
     },
     computed:{
@@ -910,6 +917,114 @@ var asVue = new Vue({
           .then(response => response.json())
           .then(json => {
             this.d3Data = json.data["0"]["Areas of Study"]
+          })
+    }
+  }
+})
+
+//reusable vue component for picture chart
+Vue.component('picture-chart', {
+  props: ['d3Data'],
+  delimiters:["<%","%>"],
+  template:`
+    <div>
+      <span class="mr1">
+        <img src="img/mr/1.png" class="img-responsive" width="100" height="200"></svg>
+        <p>1. <% d3Data["0"]["name"] %></p>
+        <p><% d3Data["0"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr2">
+        <img src="img/mr/2.png" class="img-responsive" width="100" height="200"></svg>
+        <p>2. <% d3Data["1"]["name"] %></p>
+        <p><% d3Data["1"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr3">
+        <img src="img/mr/3.png" class="img-responsive" width="100" height="200"></svg>
+        <p>3. <% d3Data["2"]["name"] %></p>
+        <p><% d3Data["2"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr4">
+        <img src="img/mr/4.png" class="img-responsive" width="100" height="200"></svg>
+        <p>4. <% d3Data["3"]["name"] %></p>
+        <p><% d3Data["3"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr5">
+        <img src="img/mr/5.png" class="img-responsive" width="100" height="200"></svg>
+        <p>5. <% d3Data["4"]["name"] %></p>
+        <p><% d3Data["4"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr6">
+        <img src="img/mr/6.png" class="img-responsive" width="100" height="200"></svg>
+        <p>6. <% d3Data["5"]["name"] %></p>
+        <p><% d3Data["5"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr7">
+        <img src="img/mr/7.png" class="img-responsive" width="100" height="200"></svg>
+        <p>7. <% d3Data["6"]["name"] %></p>
+        <p><% d3Data["6"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr8">
+        <img src="img/mr/8.png" class="img-responsive" width="100" height="200"></svg>
+        <p>8. <% d3Data["7"]["name"] %></p>
+        <p><% d3Data["7"]["percent"] %>%</p>
+      </span>
+
+      <span class="mr9">
+        <img src="img/mr/9.png" class="img-responsive" width="100" height="200"></svg>
+        <p>9. <% d3Data["8"]["name"] %></p>
+        <p><% d3Data["8"]["percent"] %>%</p>
+      </span>
+    </div>
+  `
+})
+
+var mrVue = new Vue({
+  el: '#mr',
+  data(){
+    return{
+      d3Data: {},
+      vueSchool:"",
+      vueProgram:"",
+      vueRace:"",
+      vueGender:"",
+      vueIncome:"",
+      vueFirst:"",
+      vueAttendance:""
+    }
+  },
+  computed:{
+    isChanged(){
+      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+    }
+  },
+  watch: {
+    isChanged() {
+      // console.log("mrVue watch")
+      this.fetchData();
+    }
+  },
+  created: function(){
+    // console.log("mrVue created")
+    this.fetchData();
+  },
+  // mounted: function(){
+    // console.log("mrVue mounted")
+  // },
+  methods: {
+    fetchData: function(){
+      // console.log("mrVue methods fetchData")
+      var link = window.produceLink(this);
+      fetch(link)
+          .then(response => response.json())
+          .then(json => {
+            this.d3Data = json.data["0"]["Model Roles"]
           })
     }
   }

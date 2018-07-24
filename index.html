@@ -233,39 +233,34 @@
       </div>
     </div>
 
+    <div class="row" id="mr">
+      <h3 class="section-heading" id="mr-title">Model Roles</h3>
+      <picture-chart
+        :d3-data="d3Data">
+      </picture-chart>
+    </div>
+
     <div class="row" id="jf">
-      <h3 class="section-heading">Job Functions</h3>
+      <h3 class="section-heading" id="jf-title">Job Functions</h3>
       <donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
-        :chartid="chartid">
+        :chartid="chartid"
+        :inner-radius="innerRadius"
+        :outer-radius="outerRadius"
+        :move="move">
       </donut-chart>
     </div>
 
-    <div class="row" id="mr">
-      <h3 class="section-heading" id="mr-title">Model Roles</h3>
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :d3-translate="d3Translate"
-        :d3-translate-hor="d3TranslateHor"
-        :chartid="chartid"
-        :chart-width="chartWidth"
-        :chart-height="chartHeight"
-        :tooltip-left-margin="tooltipLeftMargin"
-        :tooltip-top-margin="tooltipTopMargin"
-        :tooltip-width="tooltipWidth"
-        :tooltip-height="tooltipHeight">
-      </bar-chart>
-    </div>
-
     <div class="row" id="rp">
-      <h3 class="section-heading">Roles & Positions</h3>
+      <h3 class="section-heading" id="rp-title">Roles & Positions</h3>
       <donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
-        :chartid="chartid">
+        :chartid="chartid"
+        :inner-radius="innerRadius"
+        :outer-radius="outerRadius"
+        :move="move">
       </donut-chart>
     </div>
   </div>

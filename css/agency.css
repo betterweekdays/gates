@@ -48,7 +48,8 @@
 
 /* Style page content */
 .main {
-    margin-left: 100px; /* Same as the width of the sidebar */
+    margin-left: -100px; /* Same as the width of the sidebar */
+    margin-right: -200px;
     padding: 0px 10px;
 }
 
@@ -199,7 +200,7 @@ a.sidebar-nav-item:focus {
    margin-left:100px;
  }
  #mr-title{
-   margin-left:0px;
+   margin-left:250px;
  }
 
 /*for donut chart*/
@@ -223,6 +224,100 @@ font-size: 1em;
 
 .pie .description-text{
 font-size: 1em;
+}
+
+#jf-title{
+  margin-left:-300px;
+}
+
+#rp-title{
+  margin-top:-480px;
+  margin-left:800px;
+}
+
+/*for model role section*/
+.mr1 img{
+  margin-left:350px;
+}
+.mr1 p{
+  margin-top:-10px;
+  margin-left:-650px;
+}
+
+.mr2 img{
+  margin-top:-100px;
+  margin-left:460px;
+}
+.mr2 p{
+  margin-top:-10px;
+  margin-left:-430px;
+}
+
+.mr3 img{
+  margin-top:-250px;
+  margin-left:570px;
+}
+.mr3 p{
+  margin-top:-10px;
+  margin-left:-210px;
+}
+
+.mr4 img{
+  margin-top:-75px;
+  margin-left:680px;
+}
+.mr4 p{
+  margin-top:-10px;
+  margin-left:10px;
+}
+
+.mr5 img{
+  margin-top:-250px;
+  margin-left:790px;
+}
+.mr5 p{
+  margin-top:-10px;
+  margin-left:230px;
+}
+
+.mr6 img{
+  margin-top:-110px;
+  margin-left:900px;
+}
+.mr6 p{
+  margin-top:-10px;
+  margin-left:450px;
+}
+
+.mr7 img{
+  margin-top:-210px;
+  margin-left:1010px;
+}
+.mr7 p{
+  margin-top:-10px;
+  margin-left:670px;
+}
+
+.mr8 img{
+  margin-top:-110px;
+  margin-left:1120px;
+}
+.mr8 p{
+  margin-top:-10px;
+  margin-left:890px;
+}
+
+.mr9 img{
+  margin-top:-250px;
+  margin-left:1230px;
+}
+.mr9 p{
+  margin-top:-10px;
+  margin-left:1100px;
+}
+
+#jf{
+  margin-top:100px;
 }
 
 /*originally with the theme*/
