@@ -189,6 +189,19 @@ a.sidebar-nav-item:focus {
    line-height:20px;
  }
 
+ #dv-title{
+   margin-left:25px;
+ }
+ #ks-title{
+   margin-left:600px;
+ }
+ #ca-title{
+   margin-left:100px;
+ }
+ #mr-title{
+   margin-left:0px;
+ }
+
 /*for donut chart*/
 .pie {
 margin: 20px;

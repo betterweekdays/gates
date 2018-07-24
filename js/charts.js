@@ -1,6 +1,6 @@
 //reusable vue component for bar chart
 Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight'],
   template:`
     <div>
       <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
@@ -19,16 +19,11 @@ Vue.component('bar-chart', {
       that.appendLabels();
     }
   },
-  created:function(){
-    console.log("inside created")
-    console.log(this.chartid)
-    console.log(this.chartWidth)
-  },
   methods:{
     prepareScales: function(){
       var that = this;
       var grid = d3.range(25).map(function(i){
-                                    return {'x1':0, 'y1':0, 'x2':0, 'y2':480};
+                                    return {'x1':0, 'y1':0, 'x2':0, 'y2':that.d3TranslateHor};
       });
       var tickVals = grid.map(function(d, i){
                                 if (i>0){
@@ -38,8 +33,8 @@ Vue.component('bar-chart', {
                                 }
       });
       var xScale = d3.scaleLinear()
-                      .domain([0, d3.max(that.d3Data, function(d) { return d.percent; })+10])
-                      .range([0, 722]);
+                      .domain([0, d3.max(that.d3Data, function(d) { return d.percent; })+5])
+                      .range([0, (that.chartWidth-that.d3Offset)-200]);
       var yScale = d3.scaleBand()
                       .domain(d3.range(0, 9))
                       .range([0, that.chartHeight/1.15]);
@@ -71,7 +66,7 @@ Vue.component('bar-chart', {
       that.checkDup(svg);
       var getAxis = that.prepareAxis();
       var xx = svg.append("g")
-                    .attr("transform", "translate("+that.d3Translate+", 480)")
+                    .attr("transform", "translate("+that.d3Translate+", "+that.d3TranslateHor+")")
                     .attr("id", "xaxis")
                     .call(getAxis.xAxis);
       var yx = svg.append("g")
@@ -202,9 +197,10 @@ var dvVue = new Vue({
   data(){
     return{
       chartid:"dv-chart",
-      chartWidth:900,
-      chartHeight:550,
+      chartWidth:800,
+      chartHeight:450,
       d3Translate:150,
+      d3TranslateHor:390,
       d3Data: {},
       vueSchool:[],
       vueProgram:[],
@@ -215,10 +211,10 @@ var dvVue = new Vue({
       vueAttendance:"",
       d3Offset:0,
       d3Des: dvDescription,
-      tooltipLeftMargin:1225,
-      tooltipTopMargin:1525,
+      tooltipLeftMargin:1050,
+      tooltipTopMargin:1675,
       tooltipWidth:350,
-      tooltipHeight:400
+      tooltipHeight:200
     }
   },
   computed:{
@@ -269,8 +265,8 @@ var ksVue = new Vue({
   data(){
     return{
       chartid:"ks-chart",
-      chartWidth:500,
-      chartHeight:300,
+      chartWidth:1500,
+      chartHeight:350,
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -279,8 +275,14 @@ var ksVue = new Vue({
       vueFirst:"",
       vueAttendance:"",
       d3Data: {},
-      d3Offset:1100,
-      d3Des: ksDescription
+      d3Offset:750,
+      d3Des: ksDescription,
+      d3Translate:600,
+      d3TranslateHor:305,
+      tooltipWidth:300,
+      tooltipHeight:250,
+      tooltipTopMargin:2500,
+      tooltipLeftMargin:375
     }
   },
   computed:{
@@ -331,8 +333,8 @@ var caVue = new Vue({
   data(){
     return{
       chartid:"ca-chart",
-      chartWidth:500,
-      chartHeight:300,
+      chartWidth:750,
+      chartHeight:350,
       d3Data: {},
       vueSchool:"",
       vueProgram:"",
@@ -341,8 +343,14 @@ var caVue = new Vue({
       vueIncome:"",
       vueFirst:"",
       vueAttendance:"",
-      d3Offset:1700,
-      d3Des: caDescription
+      d3Offset:0,
+      d3Des: caDescription,
+      d3Translate:220,
+      d3TranslateHor:305,
+      tooltipWidth:250,
+      tooltipHeight:250,
+      tooltipTopMargin:2900,
+      tooltipLeftMargin:1150
     }
   },
   computed:{
@@ -572,7 +580,13 @@ var mrVue = new Vue({
       vueIncome:"",
       vueFirst:"",
       vueAttendance:"",
-      d3Des: mrDescription
+      d3Des: mrDescription,
+      d3Translate:150,
+      d3TranslateHor:480,
+      tooltipWidth:350,
+      tooltipHeight:400,
+      tooltipTopMargin:2525,
+      tooltipLeftMargin:400
     }
   },
   computed:{
