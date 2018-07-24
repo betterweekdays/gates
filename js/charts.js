@@ -1,9 +1,9 @@
 //reusable vue component for bar chart
 Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset','d3Des', 'chartid'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight'],
   template:`
     <div>
-      <svg :id="chartid" width="900" height="550"></svg>
+      <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
       <div id="tooltip" class="hidden">
           <p><strong><span id="title"></span></strong></p>
           <p><span id="value"></span>%</p>
@@ -18,6 +18,11 @@ Vue.component('bar-chart', {
       that.tooltip(that.appendBars());
       that.appendLabels();
     }
+  },
+  created:function(){
+    console.log("inside created")
+    console.log(this.chartid)
+    console.log(this.chartWidth)
   },
   methods:{
     prepareScales: function(){
@@ -37,7 +42,7 @@ Vue.component('bar-chart', {
                       .range([0, 722]);
       var yScale = d3.scaleBand()
                       .domain(d3.range(0, 9))
-                      .range([0, 480]);
+                      .range([0, that.chartHeight/1.15]);
       return {xScale, yScale, tickVals};
     },
     prepareAxis: function(){
@@ -66,11 +71,11 @@ Vue.component('bar-chart', {
       that.checkDup(svg);
       var getAxis = that.prepareAxis();
       var xx = svg.append("g")
-                    .attr("transform", "translate(150, 480)")
+                    .attr("transform", "translate("+that.d3Translate+", 480)")
                     .attr("id", "xaxis")
                     .call(getAxis.xAxis);
       var yx = svg.append("g")
-                    .attr("transform", "translate(150, 0)")
+                    .attr("transform", "translate("+that.d3Translate+", 0)")
                     .attr("id", "yaxis")
                     .call(getAxis.yAxis);
     },
@@ -79,7 +84,7 @@ Vue.component('bar-chart', {
       var getScales = that.prepareScales();
       var svg = d3.select("#"+that.chartid);
       var bars = svg.append("g")
-            .attr("transform", "translate(150, 0)")
+            .attr("transform", "translate("+that.d3Translate+", 0)")
             .attr("id","bars")
             .attr("class", "bar")
             .selectAll("rect")
@@ -89,10 +94,10 @@ Vue.component('bar-chart', {
             .attr("width", function(d){
                               return getScales.xScale(d.percent);
             })
-            .attr("height", 32)
+            .attr("height", that.chartHeight/17.2)
             .attr("x", 1)
             .attr("y", function(d,i){
-                return getScales.yScale(i)+12; })
+                return getScales.yScale(i)+that.chartHeight/45.8; })
       return bars;
     },
     tooltip: function(bars){
@@ -100,8 +105,12 @@ Vue.component('bar-chart', {
       var getScales = that.prepareScales();
       bars.on("mouseover", function(d,i){
                   var tt = d3.select("#tooltip")
-                            .style("left", getScales.xScale(d.percent)+400+"px")
-                            .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
+                            .style("width", that.tooltipWidth+"px")
+                            .style("height", that.tooltipHeight+"px")
+                            .style("left", that.tooltipLeftMargin+"px")
+                            // .style("left", getScales.xScale(d.percent)+400+"px")
+                            .style("top", that.tooltipTopMargin+"px");
+                            // .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
                   tt.select("#value")
                     .text(d.percent);
                   tt.select("#title")
@@ -136,7 +145,7 @@ Vue.component('bar-chart', {
                         return d.percent+"%";
                       })
                       .attr("y", function(d,i){
-                        return getScales.yScale(i)+32;
+                        return getScales.yScale(i)+that.chartHeight/17.2;
                       })
                       .attr("x", function(d){
                         return getScales.xScale(d.percent)+10;
@@ -193,6 +202,9 @@ var dvVue = new Vue({
   data(){
     return{
       chartid:"dv-chart",
+      chartWidth:900,
+      chartHeight:550,
+      d3Translate:150,
       d3Data: {},
       vueSchool:[],
       vueProgram:[],
@@ -202,7 +214,11 @@ var dvVue = new Vue({
       vueFirst:"",
       vueAttendance:"",
       d3Offset:0,
-      d3Des: dvDescription
+      d3Des: dvDescription,
+      tooltipLeftMargin:1225,
+      tooltipTopMargin:1525,
+      tooltipWidth:350,
+      tooltipHeight:400
     }
   },
   computed:{
@@ -253,6 +269,8 @@ var ksVue = new Vue({
   data(){
     return{
       chartid:"ks-chart",
+      chartWidth:500,
+      chartHeight:300,
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -313,6 +331,8 @@ var caVue = new Vue({
   data(){
     return{
       chartid:"ca-chart",
+      chartWidth:500,
+      chartHeight:300,
       d3Data: {},
       vueSchool:"",
       vueProgram:"",
@@ -541,6 +561,8 @@ var mrVue = new Vue({
   data(){
     return{
       chartid:"mr-chart",
+      chartWidth:900,
+      chartHeight:550,
       d3Data: {},
       d3Offset:3250,
       vueSchool:"",

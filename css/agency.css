@@ -22,7 +22,7 @@
  /* The sidebar menu */
 .sidebar {
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 400px; /* Set the width of the sidebar */
+    width: 350px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
@@ -48,7 +48,7 @@
 
 /* Style page content */
 .main {
-    margin-left: 400px; /* Same as the width of the sidebar */
+    margin-left: 100px; /* Same as the width of the sidebar */
     padding: 0px 10px;
 }
 
@@ -167,8 +167,8 @@ a.sidebar-nav-item:focus {
  }
  #tooltip{
    position:absolute;
-   width:200px;
-   height:auto;
+   /* width:350px;
+   height:400px; /*auto*/ */
    padding:10px;
    background-color: white;
    -webkit-border-radius:10px;
@@ -382,7 +382,7 @@ fieldset[disabled] .btn-xl.active {
 .navbar-default {
     border-color: transparent;
     background-color: #222;
-    margin-left: 400px;
+    margin-left: 350px;
 }
 
 .navbar-default .navbar-brand {
@@ -560,11 +560,13 @@ section {
 section h2.section-heading {
     margin-top: 0;
     margin-bottom: 15px;
+    margin-left: 250px;
     font-size: 40px;
 }
 
 section h3.section-subheading {
     margin-bottom: 75px;
+    margin-left: 250px;
     text-transform: none;
     font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
