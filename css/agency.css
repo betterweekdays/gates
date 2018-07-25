@@ -235,6 +235,20 @@ font-size: 1em;
   margin-left:800px;
 }
 
+#oc-title{
+  margin-left:-450px;
+}
+
+#in-title{
+  margin-top:-480px;
+  margin-left:250px;
+}
+
+#og-title{
+  margin-top:-480px;
+  margin-left:950px;
+}
+
 /*for model role section*/
 .mr1 img{
   margin-left:350px;

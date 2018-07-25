@@ -282,29 +282,38 @@
     </div>
 
     <div class="row" id="oc">
-      <h3 class="section-heading">Organization Culture</h3>
+      <h3 class="section-heading" id="oc-title">Organization Culture</h3>
       <donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
-        :chartid="chartid">
+        :chartid="chartid"
+        :inner-radius="innerRadius"
+        :outer-radius="outerRadius"
+        :move="move">
       </donut-chart>
     </div>
 
     <div class="row" id="in">
-      <h3 class="section-heading">Industries</h3>
+      <h3 class="section-heading" id="in-title">Industries</h3>
       <donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
-        :chartid="chartid">
+        :chartid="chartid"
+        :inner-radius="innerRadius"
+        :outer-radius="outerRadius"
+        :move="move">
       </donut-chart>
     </div>
 
     <div class="row" id="og">
-      <h3 class="section-heading">Organizations</h3>
+      <h3 class="section-heading" id="og-title">Organizations</h3>
       <donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
-        :chartid="chartid">
+        :chartid="chartid"
+        :inner-radius="innerRadius"
+        :outer-radius="outerRadius"
+        :move="move">
       </donut-chart>
     </div>
   </div>

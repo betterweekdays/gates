@@ -711,7 +711,10 @@ var ocVue = new Vue({
       vueIncome:"",
       vueFirst:"",
       vueAttendance:"",
-      chartid: "oc-chart"
+      chartid: "oc-chart",
+      innerRadius:100,
+      outerRadius:140,
+      move:"translate(-225,0)"
     }
   },
   computed:{
@@ -770,7 +773,10 @@ var inVue = new Vue({
       vueIncome:"",
       vueFirst:"",
       vueAttendance:"",
-      chartid: "in-chart"
+      chartid: "in-chart",
+      innerRadius:100,
+      outerRadius:140,
+      move:"translate(125,0)"
     }
   },
   computed:{
@@ -829,7 +835,10 @@ var ogVue = new Vue({
       vueIncome:"",
       vueFirst:"",
       vueAttendance:"",
-      chartid: "og-chart"
+      chartid: "og-chart",
+      innerRadius:100,
+      outerRadius:140,
+      move:"translate(475,0)"
     }
   },
   computed:{
