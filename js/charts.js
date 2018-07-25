@@ -1,6 +1,6 @@
 //reusable vue component for bar chart
 Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color'],
   template:`
     <div>
       <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
@@ -8,6 +8,9 @@ Vue.component('bar-chart', {
           <p><strong><span id="title"></span></strong></p>
           <p><span id="value"></span>%</p>
           <p><span id="text"></span></p>
+      </div>
+      <div id="pseudo-tooltip">
+        <p>image to be inserted</p>
       </div>
     </div>
   `,
@@ -76,6 +79,10 @@ Vue.component('bar-chart', {
     },
     appendBars: function(){
       var that = this;
+      // var color = ["#b50804","#eaa612","#85860f","#83bcc3","#3e4079"];
+      // var colorFunction = d3.scaleOrdinal(color);
+      // console.log(that.d3Color[3])
+      // console.log(that.d3Color)
       var getScales = that.prepareScales();
       var svg = d3.select("#"+that.chartid);
       var bars = svg.append("g")
@@ -93,6 +100,7 @@ Vue.component('bar-chart', {
             .attr("x", 1)
             .attr("y", function(d,i){
                 return getScales.yScale(i)+that.chartHeight/45.8; })
+            .attr("fill", (d,i)=>that.d3Color[i])
       return bars;
     },
     tooltip: function(bars){
@@ -104,8 +112,9 @@ Vue.component('bar-chart', {
                             .style("height", that.tooltipHeight+"px")
                             .style("left", that.tooltipLeftMargin+"px")
                             // .style("left", getScales.xScale(d.percent)+400+"px")
-                            .style("top", that.tooltipTopMargin+"px");
+                            .style("top", that.tooltipTopMargin+"px")
                             // .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
+                            .style("background-color", (d,i)=>that.d3Color[i]);
                   tt.select("#value")
                     .text(d.percent);
                   tt.select("#title")
@@ -124,6 +133,11 @@ Vue.component('bar-chart', {
           .on("mouseout", function(){
                   d3.select("#tooltip").classed("hidden", true);
           });
+      var test = d3.select("#pseudo-tooltip")
+                  .style("width", that.tooltipWidth+"px")
+                  .style("height", that.tooltipHeight+"px")
+                  .style("left", that.tooltipLeftMargin+"px")
+                  .style("top", that.tooltipTopMargin+"px");
     },
     appendLabels: function(){
       var that = this;
@@ -144,7 +158,8 @@ Vue.component('bar-chart', {
                       })
                       .attr("x", function(d){
                         return getScales.xScale(d.percent)+10;
-                      });
+                      })
+                      .attr("fill", (d,i)=>that.d3Color[i]);
     }
   }
 })
@@ -199,7 +214,7 @@ var dvVue = new Vue({
       chartid:"dv-chart",
       chartWidth:800,
       chartHeight:450,
-      d3Translate:150,
+      d3Translate:170,
       d3TranslateHor:390,
       d3Data: {},
       vueSchool:[],
@@ -211,10 +226,11 @@ var dvVue = new Vue({
       vueAttendance:"",
       d3Offset:0,
       d3Des: dvDescription,
-      tooltipLeftMargin:1050,
-      tooltipTopMargin:1675,
-      tooltipWidth:350,
-      tooltipHeight:200
+      tooltipLeftMargin:1170,
+      tooltipTopMargin:1025,
+      tooltipWidth:225,
+      tooltipHeight:350,
+      d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"]
     }
   },
   computed:{
@@ -404,6 +420,7 @@ Vue.component('donut-chart', {
     prepareElements: function(){
       var that = this;
       var color = d3.scaleOrdinal(d3.schemeBlues[9]);
+      // console.log(color)
 
       var arc = d3.arc()
                   .innerRadius(that.innerRadius) //radius-thickness

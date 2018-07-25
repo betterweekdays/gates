@@ -170,18 +170,39 @@ a.sidebar-nav-item:focus {
    stroke: #000;
  }
  #xaxis text, #yaxis text{
-   font-size: 12px;
+   font-size: 13px;
+   font-family: Futura;
  }
- #bars {
+ /* #bars {
    fill: #00a8ff;
- }
+ } */
  rect:hover{
    fill:#fed136;
  }
  #tooltip{
    position:absolute;
-   /* width:350px;
-   height:400px; /*auto*/ */
+   padding:10px;
+   -webkit-border-radius:10px;
+   -moz-border-radius:10px;
+   border-radius: 10px;
+   -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+   -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+   pointer-events: none;
+   z-index:1;
+ }
+ #tooltip.hidden{
+   display: none;
+ }
+ #tooltip p{
+   margin:0;
+   font-family:Futura;
+   font-size:16px;
+   line-height:20px;
+ }
+
+ #pseudo-tooltip{
+   position:absolute;
    padding:10px;
    background-color: white;
    -webkit-border-radius:10px;
@@ -191,11 +212,9 @@ a.sidebar-nav-item:focus {
    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
    pointer-events: none;
+   z-index:0;
  }
- #tooltip.hidden{
-   display: none;
- }
- #tooltip p{
+ #pseudo-tooltip p{
    margin:0;
    font-family:Futura;
    font-size:16px;
@@ -656,7 +675,7 @@ header {
 
 header .intro-text {
     margin-left:350px;
-    padding-top: 50px;
+    padding-top: 100px;
     color:#fff;
     padding-bottom: 20px;
 }
@@ -683,7 +702,7 @@ header .intro-text .hero-bold {
 @media(min-width:768px) {
     header .intro-text {
         margin-left:350px;
-        padding-top: 50px;
+        padding-top: 125px;
         padding-bottom: 20px;
         color:#fff;
     }
@@ -709,29 +728,31 @@ header .intro-text .hero-bold {
 }
 
 section {
-    padding: 100px 0;
+    padding: 50px 0;
 }
 
 section h2.section-heading {
     margin-top: 0;
     margin-bottom: 15px;
     margin-left: 250px;
-    font-size: 40px;
+    font-size: 35px;
 }
 
 section h3.section-subheading {
-    margin-bottom: 75px;
-    margin-left: 250px;
+    margin-bottom: 50px;
+    margin-left: 350px;
+    margin-right: 100px;
     text-transform: none;
-    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 16px;
+    /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
+    font-family:Futura;
+    font-size: 20px;
     font-style: italic;
     font-weight: 400;
 }
 
 @media(min-width:768px) {
     section {
-        padding: 150px 0;
+        padding: 75px 0;
     }
 }
 
