@@ -1163,6 +1163,7 @@ section#contact .text-success {
 footer {
     padding: 25px 0;
     text-align: center;
+    margin-left:350px;
 }
 
 footer span.copyright {
