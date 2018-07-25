@@ -337,12 +337,10 @@
     </div>
 
     <div class="row" id="as">
-      <h3 class="section-heading">Areas of Study</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid">
-      </donut-chart>
+      <h3 class="section-heading" id="as-title">Areas of Study</h3>
+      <list-chart
+        :d3-data="d3Data">
+      </list-chart>
     </div>
   </div>
 </div>

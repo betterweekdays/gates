@@ -873,63 +873,63 @@ var ogVue = new Vue({
 })
 
 //customized vue instance for areas of study (as)
-var asdescription = [
-  {"name":"Accomplishment-oriented","dx":"areas of study"},
-  {"name":"Kind-hearted","dx":"areas of study"},
-  {"name":"Change-oriented","dx":"areas of study"},
-  {"name":"test1","dx":"des"},
-  {"name":"test2","dx":"des"},
-  {"name":"test3","dx":"des"},
-  {"name":"test4","dx":"des"},
-  {"name":"test5","dx":"des"},
-  {"name":"test6","dx":"des"}];
-
-var asVue = new Vue({
-  el: '#as',
-  data(){
-    return{
-      d3Data: {},
-      d3Des: asdescription,
-      vueSchool:"",
-      vueProgram:"",
-      vueRace:"",
-      vueGender:"",
-      vueIncome:"",
-      vueFirst:"",
-      vueAttendance:"",
-      chartid: "as-chart"
-    }
-  },
-  computed:{
-    isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-    }
-  },
-  watch: {
-    isChanged() {
-      // console.log("asVue watch")
-      this.fetchData();
-    }
-  },
-  created: function(){
-    // console.log("asVue created")
-    this.fetchData();
-  },
-  // mounted: function(){
-    // console.log("asVue mounted")
-  // },
-  methods: {
-    fetchData: function(){
-      // console.log("asVue methods fetchData")
-      var link = window.produceLink(this);
-      fetch(link)
-          .then(response => response.json())
-          .then(json => {
-            this.d3Data = json.data["0"]["Areas of Study"]
-          })
-    }
-  }
-})
+// var asdescription = [
+//   {"name":"Accomplishment-oriented","dx":"areas of study"},
+//   {"name":"Kind-hearted","dx":"areas of study"},
+//   {"name":"Change-oriented","dx":"areas of study"},
+//   {"name":"test1","dx":"des"},
+//   {"name":"test2","dx":"des"},
+//   {"name":"test3","dx":"des"},
+//   {"name":"test4","dx":"des"},
+//   {"name":"test5","dx":"des"},
+//   {"name":"test6","dx":"des"}];
+//
+// var asVue = new Vue({
+//   el: '#as',
+//   data(){
+//     return{
+//       d3Data: {},
+//       d3Des: asdescription,
+//       vueSchool:"",
+//       vueProgram:"",
+//       vueRace:"",
+//       vueGender:"",
+//       vueIncome:"",
+//       vueFirst:"",
+//       vueAttendance:"",
+//       chartid: "as-chart"
+//     }
+//   },
+//   computed:{
+//     isChanged(){
+//       return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+//     }
+//   },
+//   watch: {
+//     isChanged() {
+//       // console.log("asVue watch")
+//       this.fetchData();
+//     }
+//   },
+//   created: function(){
+//     // console.log("asVue created")
+//     this.fetchData();
+//   },
+//   // mounted: function(){
+//     // console.log("asVue mounted")
+//   // },
+//   methods: {
+//     fetchData: function(){
+//       // console.log("asVue methods fetchData")
+//       var link = window.produceLink(this);
+//       fetch(link)
+//           .then(response => response.json())
+//           .then(json => {
+//             this.d3Data = json.data["0"]["Areas of Study"]
+//           })
+//     }
+//   }
+// })
 
 //reusable vue component for picture chart
 Vue.component('picture-chart', {
@@ -1034,6 +1034,71 @@ var mrVue = new Vue({
           .then(response => response.json())
           .then(json => {
             this.d3Data = json.data["0"]["Model Roles"]
+          })
+    }
+  }
+})
+
+Vue.component('list-chart',{
+  props:['d3Data'],
+  delimiters:["<%","%>"],
+  template:`
+    <div>
+      <ol>
+        <li>1. <% d3Data["0"]["name"] %> <% d3Data["0"]["percent"] %>%</li>
+        <li>2. <% d3Data["1"]["name"] %> <% d3Data["1"]["percent"] %>%</li>
+        <li>3. <% d3Data["2"]["name"] %> <% d3Data["2"]["percent"] %>%</li>
+        <li>4. <% d3Data["3"]["name"] %> <% d3Data["3"]["percent"] %>%</li>
+        <li>5. <% d3Data["4"]["name"] %> <% d3Data["4"]["percent"] %>%</li>
+        <li>6. <% d3Data["5"]["name"] %> <% d3Data["5"]["percent"] %>%</li>
+        <li>7. <% d3Data["6"]["name"] %> <% d3Data["6"]["percent"] %>%</li>
+        <li>8. <% d3Data["7"]["name"] %> <% d3Data["7"]["percent"] %>%</li>
+        <li>9. <% d3Data["8"]["name"] %> <% d3Data["8"]["percent"] %>%</li>
+      </ol>
+    </div>
+  `
+})
+
+var asVue = new Vue({
+  el: '#as',
+  data(){
+    return{
+      d3Data: {},
+      vueSchool:"",
+      vueProgram:"",
+      vueRace:"",
+      vueGender:"",
+      vueIncome:"",
+      vueFirst:"",
+      vueAttendance:""
+    }
+  },
+  computed:{
+    isChanged(){
+      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+    }
+  },
+  watch: {
+    isChanged() {
+      // console.log("asVue watch")
+      this.fetchData();
+    }
+  },
+  created: function(){
+    // console.log("asVue created")
+    this.fetchData();
+  },
+  // mounted: function(){
+    // console.log("asVue mounted")
+  // },
+  methods: {
+    fetchData: function(){
+      // console.log("asVue methods fetchData")
+      var link = window.produceLink(this);
+      fetch(link)
+          .then(response => response.json())
+          .then(json => {
+            this.d3Data = json.data["0"]["Areas of Study"]
           })
     }
   }

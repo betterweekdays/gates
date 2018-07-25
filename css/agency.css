@@ -249,6 +249,10 @@ font-size: 1em;
   margin-left:950px;
 }
 
+#as-title{
+  margin-left:250px;
+}
+
 /*for model role section*/
 .mr1 img{
   margin-left:350px;
@@ -332,6 +336,12 @@ font-size: 1em;
 
 #jf{
   margin-top:100px;
+}
+
+/*for as-list*/
+ol {
+  margin-left:200px;
+  /* list-style-image: url(img/bullet.png); */
 }
 
 /*originally with the theme*/
