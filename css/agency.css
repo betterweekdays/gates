@@ -12,6 +12,21 @@
  .navbar-default
  */
 
+ /*vue select css*/
+ .dropdown-menu li a{
+   font-size: 15px;
+   font-family:Futura;
+ }
+
+ .selected-tag {
+   font-family:Futura;
+ }
+
+/* .v-select .selected-tag { */
+ .v-select.single .selected-tag {
+   color:#2c3e5099;
+ }
+
  /*
  * Sidebar
  *
@@ -27,7 +42,7 @@
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #00a8ff;
+    background-color: #66ccff; /*#66ccff; #00a8ff*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
@@ -81,11 +96,8 @@
   color: #fff;
 }
 
-/* About section */
-.sidebar-about h1 {
-  color: #fff;
-  margin-top: 0;
-  font-weight:300;
+.sidebar h4 {
+  color: #2c3e5099;
 }
 
 /* Sidebar nav */

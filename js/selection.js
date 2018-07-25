@@ -86,25 +86,25 @@ var maincpo = Vue.component('main-cpo',{
   delimiters:["<%","%>"],
   template:`
     <div>
-      <h1>School:</h1>
+      <h4>School:</h4>
       <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false" :no-drop="schoolnodrop"></v-select>
 
-      <h1> Program of Study: </h1>
+      <h4> Program of Study: </h4>
       <v-select multiple v-model="program_selected" :options="programoptions" @input="updateProgram" :close-on-select="false" :no-drop="programnodrop"></v-select>
 
-      <h1> Race: </h1>
+      <h4> Race: </h4>
       <v-select multiple v-model="race_selected" :options="raceoptions" @input="updateRace" :close-on-select="false" :no-drop="racenodrop"></v-select>
 
-      <h1> Gender: </h1>
+      <h4> Gender: </h4>
       <v-select v-model="gender_selected" :options="genderoptions" @input="updateGender" :no-drop="gendernodrop"></v-select>
 
-      <h1> Income Status: </h1>
+      <h4> Income Status: </h4>
       <v-select v-model="income_selected" :options="incomeoptions" @input="updateIncome" :no-drop="incomenodrop"></v-select>
 
-      <h1> First Generation Status: </h1>
+      <h4> First Generation Status: </h4>
       <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst" :no-drop="firstnodrop"></v-select>
 
-      <h1> Attendance Intensity: </h1>
+      <h4> Attendance Intensity: </h4>
       <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
     </div>
   `,
@@ -345,7 +345,7 @@ var app = new Vue({
         id:'selectapp'
       }
     },[
-      h('h1','Soft Skills & Values Assessment'),
+      // h('h1','Soft Skills & Values Assessment'),
       h('router-view')
     ])
   }
