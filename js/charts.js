@@ -1,6 +1,6 @@
 //reusable vue component for bar chart
 Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color','tooltipid','tooltipsrc'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color','tooltipid','tooltipsrc','boxid'],
   template:`
     <div>
       <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
@@ -9,7 +9,7 @@ Vue.component('bar-chart', {
           <p><span id="value"></span>%</p>
           <p><span id="text"></span></p>
       </div>
-      <div id="pseudo-tooltip">
+      <div :id="boxid">
         <img :id="tooltipid" :src="tooltipsrc">
       </div>
     </div>
@@ -135,11 +135,6 @@ Vue.component('bar-chart', {
           .on("mouseout", function(){
                   d3.select("#tooltip").classed("hidden", true);
           });
-      d3.select("#pseudo-tooltip")
-        .style("width", that.tooltipWidth+"px")
-        .style("height", that.tooltipHeight+"px")
-        .style("left", that.tooltipLeftMargin+"px")
-        .style("top", that.tooltipTopMargin+"px");
     },
     appendLabels: function(){
       var that = this;
@@ -232,9 +227,12 @@ var dvVue = new Vue({
       tooltipTopMargin:1025,
       tooltipWidth:225,
       tooltipHeight:350,
+      ptooltipTopMargin:1200,
+      ptooltipLeftMargin:1000,
       d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"],
       tooltipid:"dv-tooltip",
-      tooltipsrc:"img/overview.png"
+      tooltipsrc:"img/overview.png",
+      boxid:"dv-box"
     }
   },
   computed:{
@@ -300,9 +298,13 @@ var ksVue = new Vue({
       d3Translate:800,
       d3TranslateHor:305,
       tooltipWidth:300,
-      tooltipHeight:250,
-      tooltipTopMargin:2500,
-      tooltipLeftMargin:375
+      tooltipHeight:275,
+      tooltipTopMargin:1850,
+      tooltipLeftMargin:375,
+      d3Color: ["#003B46","#044951","#07575B","#176469","#377E84","#56989F","#66A5AD","#95C2CA","#C4DFE6"],
+      tooltipid:"ks-tooltip",
+      tooltipsrc:"img/keystrength.png",
+      boxid:"ks-box"
     }
   },
   computed:{
@@ -353,7 +355,7 @@ var caVue = new Vue({
   data(){
     return{
       chartid:"ca-chart",
-      chartWidth:750,
+      chartWidth:830,
       chartHeight:350,
       d3Data: {},
       vueSchool:"",
@@ -365,12 +367,16 @@ var caVue = new Vue({
       vueAttendance:"",
       d3Offset:0,
       d3Des: caDescription,
-      d3Translate:220,
+      d3Translate:240,
       d3TranslateHor:305,
-      tooltipWidth:250,
-      tooltipHeight:250,
-      tooltipTopMargin:2900,
-      tooltipLeftMargin:1150
+      tooltipWidth:220,
+      tooltipHeight:275,
+      tooltipTopMargin:2255,
+      tooltipLeftMargin:1200,
+      d3Color: ["#021C1E","#013032","#004445","#074D4D","#165E5C","#256F6B","#2C7873","#4E9981","#6FB98F"],
+      tooltipid:"ca-tooltip",
+      tooltipsrc:"img/cautionareas.png",
+      boxid:"ca-box"
     }
   },
   computed:{
