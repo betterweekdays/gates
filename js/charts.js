@@ -1224,16 +1224,17 @@ Vue.component('list-chart',{
   template:`
     <div>
       <ol>
-        <li>1. <% d3Data["0"]["name"] %> <% d3Data["0"]["percent"] %>%</li>
-        <li>2. <% d3Data["1"]["name"] %> <% d3Data["1"]["percent"] %>%</li>
-        <li>3. <% d3Data["2"]["name"] %> <% d3Data["2"]["percent"] %>%</li>
-        <li>4. <% d3Data["3"]["name"] %> <% d3Data["3"]["percent"] %>%</li>
-        <li>5. <% d3Data["4"]["name"] %> <% d3Data["4"]["percent"] %>%</li>
-        <li>6. <% d3Data["5"]["name"] %> <% d3Data["5"]["percent"] %>%</li>
-        <li>7. <% d3Data["6"]["name"] %> <% d3Data["6"]["percent"] %>%</li>
-        <li>8. <% d3Data["7"]["name"] %> <% d3Data["7"]["percent"] %>%</li>
-        <li>9. <% d3Data["8"]["name"] %> <% d3Data["8"]["percent"] %>%</li>
+        <li><% d3Data["0"]["name"] %> <% d3Data["0"]["percent"] %>%</li>
+        <li><% d3Data["1"]["name"] %> <% d3Data["1"]["percent"] %>%</li>
+        <li><% d3Data["2"]["name"] %> <% d3Data["2"]["percent"] %>%</li>
+        <li><% d3Data["3"]["name"] %> <% d3Data["3"]["percent"] %>%</li>
+        <li><% d3Data["4"]["name"] %> <% d3Data["4"]["percent"] %>%</li>
+        <li><% d3Data["5"]["name"] %> <% d3Data["5"]["percent"] %>%</li>
+        <li><% d3Data["6"]["name"] %> <% d3Data["6"]["percent"] %>%</li>
+        <li><% d3Data["7"]["name"] %> <% d3Data["7"]["percent"] %>%</li>
+        <li><% d3Data["8"]["name"] %> <% d3Data["8"]["percent"] %>%</li>
       </ol>
+      <img id="as-img" src="img/areasofstudy.png">
     </div>
   `
 })
