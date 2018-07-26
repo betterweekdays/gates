@@ -343,6 +343,7 @@ font-size: 1em;
   margin-left:350px;
 }
 .mr1 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:-650px;
 }
@@ -352,6 +353,7 @@ font-size: 1em;
   margin-left:460px;
 }
 .mr2 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:-430px;
 }
@@ -361,15 +363,17 @@ font-size: 1em;
   margin-left:570px;
 }
 .mr3 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:-210px;
 }
 
 .mr4 img{
-  margin-top:-75px;
+  margin-top:-100px;
   margin-left:680px;
 }
 .mr4 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:10px;
 }
@@ -379,6 +383,7 @@ font-size: 1em;
   margin-left:790px;
 }
 .mr5 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:230px;
 }
@@ -388,15 +393,17 @@ font-size: 1em;
   margin-left:900px;
 }
 .mr6 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:450px;
 }
 
 .mr7 img{
-  margin-top:-210px;
+  margin-top:-240px;
   margin-left:1010px;
 }
 .mr7 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:670px;
 }
@@ -406,6 +413,7 @@ font-size: 1em;
   margin-left:1120px;
 }
 .mr8 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:890px;
 }
@@ -415,6 +423,7 @@ font-size: 1em;
   margin-left:1230px;
 }
 .mr9 p{
+  font-size: 16px;
   margin-top:-10px;
   margin-left:1100px;
 }
