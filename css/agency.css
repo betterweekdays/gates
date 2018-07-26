@@ -295,20 +295,33 @@ margin: 20px;
 
 .pie text {
 font-family: "Verdana";
-fill: #888;
+}
+
+.pie .filled-name-text{
+font-size: 1.5em;
+font-weight: bold;
+line-height: 2em;
+fill: #fff;
 }
 
 .pie .name-text{
 font-size: 1.5em;
 font-weight: bold;
+fill: #888;
 }
 
 .pie .value-text{
 font-size: 1em;
+fill: #888;
 }
 
 .pie .description-text{
 font-size: 1em;
+fill: #888;
+}
+
+#test{
+  /* margin-left:500px; */
 }
 
 #jf-title{
@@ -325,12 +338,12 @@ font-size: 1em;
 }
 
 #in-title{
-  margin-top:-480px;
+  margin-top:-361px;
   margin-left:250px;
 }
 
 #og-title{
-  margin-top:-480px;
+  margin-top:-361px;
   margin-left:950px;
 }
 

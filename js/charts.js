@@ -719,6 +719,149 @@ var rpVue = new Vue({
     }
   })
 
+//reusable vue compoenent for filled donut chart
+Vue.component('filled-donut-chart', {
+  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move','d3Color'],
+  template:`
+    <div>
+      <svg class="pie" width="280" height="280" :transform="move">
+        <g :id="chartid" transform="translate(140,140)"></g>
+      </svg>
+    </div>
+  `,
+  watch:{
+    d3Data(){
+      var that = this;
+      that.appendPath();
+      // that.appendTooltip();
+    }
+  },
+  methods:{
+    prepareElements: function(){
+      var that = this;
+      // var color = d3.scaleOrdinal(d3.schemeBlues[9]);
+      // console.log(color)
+
+      var arc = d3.arc()
+                  .innerRadius(that.innerRadius) //radius-thickness
+                  .outerRadius(that.outerRadius); //radius
+
+      var pie = d3.pie()
+                  .value(function(d) { return d.percent; })
+                  .sort(null);
+
+      // return {color, arc, pie};
+      return {arc, pie}
+    },
+    checkDup: function(element){
+      if (!element.selectAll("*").empty()){
+        element.selectAll("*").remove();
+      }
+    },
+    appendPath: function(){
+      var that = this;
+      var elements = that.prepareElements();
+      var pie = elements.pie;
+      // var color = elements.color;
+      var arc = elements.arc;
+      var gout = d3.select("#"+that.chartid);
+      that.checkDup(gout);
+
+      var path = gout.selectAll('path')
+                  .data(pie(that.d3Data))
+                  .enter()
+                  .append("g")
+                  .on("mouseover", function(d,i) {
+                        let g = d3.select(this)
+                                  .style("cursor", "pointer")
+                                  // .style("fill", "#66ccff")
+                                  .append("g")
+                                  .attr("class", "text-group");
+
+                        // var textbox = g.append("div")
+                        //                 .attr("id","test")
+                        //                 .attr("width", 200)
+                        //                 .attr("height", 200)
+
+                        g.append("circle")
+                          .attr("class","donut-circle")
+                          .attr("r",100)
+                          .attr("fill",that.d3Color[i])
+
+                        var circletextarray = [];
+                        if (d.data.name.includes('/')||d.data.name.includes('&')||d.data.name.includes(' ')){
+                          circletextarray = d.data.name.split(/[\s/&]+/);
+                          // circletextarray = d.data.name.split(" ");
+                        } else {
+                          circletextarray.push(d.data.name);
+                        }
+                        // console.log(circletextarray)
+
+                        for (i=0; i<circletextarray.length; i++){
+                          g.append("text")
+                            .attr("class", "filled-name-text")
+                            .text(circletextarray[i])
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', -1+1.3*i+'em')
+                        }
+
+                        // g.append("text")
+                        //   .attr("class", "value-text")
+                        //   .text(d.data.percent+"%")
+                        //   .attr('text-anchor', 'middle')
+                        //   .attr('dy', '.6em');
+                        //
+                        // g.append("text")
+                        //   .attr("class", "description-text")
+                        //   .text(function() {
+                        //           for (a = 0; a < that.d3Des.length; a++) {
+                        //             if (that.d3Des[a].name == d.data.name){
+                        //               return that.d3Des[a].dx;
+                        //             }
+                        //           }
+                        //           return "No pre-set description found"; })
+                        //   .attr('text-anchor', 'middle')
+                        //   .attr('dy', '1.8em');
+
+                        // d3.select("#donut-tooltip").classed("hidden", false);
+                    })
+              .on("mouseout", function(d) {
+                                  d3.select(this)
+                                    .style("cursor", "none")
+                                    .style("fill", that.d3Color[this._current])
+                                    .select(".text-group").remove();
+
+                                  // d3.select("#donut-tooltip").classed("hidden", true);
+                              })
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', (d,i) => that.d3Color[i])
+              .on("mouseover", function(d) {
+                  d3.select(this)
+                    .style("cursor", "pointer");
+                    // .style("fill", "#66ccff");
+                })
+              .on("mouseout", function(d) {
+                  d3.select(this)
+                    .style("cursor", "none")
+                    .style("fill", that.d3Color[this._current]);
+                })
+              .each(function(d, i) { this._current = i; });
+
+          var text = "";
+          gout.append('text')
+              .attr('text-anchor', 'middle')
+              .attr('dy', '.35em')
+              .text(text);
+      // return path;
+    }
+    // },
+    // appendTooltip:function(path){
+    //   path.on("")
+    // }
+  }
+})
+
 //customized vue instance for Organization Culture (oc)
 var ocdescription = [
   {"name":"Accomplishment-oriented","dx":"OC"},
@@ -748,7 +891,7 @@ var ocVue = new Vue({
       innerRadius:100,
       outerRadius:140,
       move:"translate(-225,0)",
-      d3Color:["#d6c700","#c7d800","#a1c001","#7aa802","#8fa309","#e29026","#f78b2d","#eea117","#e4b600"]
+      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"]
     }
   },
   computed:{
@@ -874,7 +1017,7 @@ var ogVue = new Vue({
       innerRadius:100,
       outerRadius:140,
       move:"translate(475,0)",
-      d3Color:["#7a858b","#f47d4a","#eb5753","#e1315b","#f08f5c","#ffec5c","#aacc81","#55ada6","#008dcb"]
+      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"]
     }
   },
   computed:{

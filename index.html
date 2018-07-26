@@ -293,13 +293,13 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">4. Companies</h2>
-        <h3 class="section-subheading text-muted">Description of the company section of the assessment</h3>
+        <h3 class="section-subheading text-muted">There are many different types of organizations. Certain organizations are better suited for you and offer work that is likely to be more appealing to you. Likewise, all organizations operate within a particular cultural framework.</h3>
       </div>
     </div>
 
     <div class="row" id="oc">
       <h3 class="section-heading" id="oc-title">Organization Culture</h3>
-      <donut-chart
+      <filled-donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
         :chartid="chartid"
@@ -307,12 +307,12 @@
         :outer-radius="outerRadius"
         :move="move"
         :d3-color="d3Color">
-      </donut-chart>
+      </filled-donut-chart>
     </div>
 
     <div class="row" id="in">
       <h3 class="section-heading" id="in-title">Industries</h3>
-      <donut-chart
+      <filled-donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
         :chartid="chartid"
@@ -320,12 +320,12 @@
         :outer-radius="outerRadius"
         :move="move"
         :d3-color="d3Color">
-      </donut-chart>
+      </filled-donut-chart>
     </div>
 
     <div class="row" id="og">
       <h3 class="section-heading" id="og-title">Organizations</h3>
-      <donut-chart
+      <filled-donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
         :chartid="chartid"
@@ -333,7 +333,7 @@
         :outer-radius="outerRadius"
         :move="move"
         :d3-color="d3Color">
-      </donut-chart>
+      </filled-donut-chart>
     </div>
   </div>
 </div>
