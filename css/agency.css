@@ -197,8 +197,9 @@ a.sidebar-nav-item:focus {
  #tooltip p{
    margin:0;
    font-family:Futura;
-   font-size:16px;
-   line-height:20px;
+   font-size:20px;
+   line-height:30px;
+   color: #fff;
  }
 
  #pseudo-tooltip{
@@ -219,6 +220,13 @@ a.sidebar-nav-item:focus {
    font-family:Futura;
    font-size:16px;
    line-height:20px;
+ }
+
+ #dv-tooltip{
+   margin-left:5px;
+   margin-top:50px;
+   width:200px;
+   height:200px;
  }
 
  #dv-title{

@@ -1,6 +1,6 @@
 //reusable vue component for bar chart
 Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color','tooltipid','tooltipsrc'],
   template:`
     <div>
       <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
@@ -10,7 +10,7 @@ Vue.component('bar-chart', {
           <p><span id="text"></span></p>
       </div>
       <div id="pseudo-tooltip">
-        <p>image to be inserted</p>
+        <img :id="tooltipid" :src="tooltipsrc">
       </div>
     </div>
   `,
@@ -107,6 +107,7 @@ Vue.component('bar-chart', {
       var that = this;
       var getScales = that.prepareScales();
       bars.on("mouseover", function(d,i){
+                  console.log("i: "+i)
                   var tt = d3.select("#tooltip")
                             .style("width", that.tooltipWidth+"px")
                             .style("height", that.tooltipHeight+"px")
@@ -114,7 +115,8 @@ Vue.component('bar-chart', {
                             // .style("left", getScales.xScale(d.percent)+400+"px")
                             .style("top", that.tooltipTopMargin+"px")
                             // .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
-                            .style("background-color", (d,i)=>that.d3Color[i]);
+                            .style("background-color", that.d3Color[i]);
+                  console.log("that.d3Color[i]: "+that.d3Color[i])
                   tt.select("#value")
                     .text(d.percent);
                   tt.select("#title")
@@ -133,11 +135,11 @@ Vue.component('bar-chart', {
           .on("mouseout", function(){
                   d3.select("#tooltip").classed("hidden", true);
           });
-      var test = d3.select("#pseudo-tooltip")
-                  .style("width", that.tooltipWidth+"px")
-                  .style("height", that.tooltipHeight+"px")
-                  .style("left", that.tooltipLeftMargin+"px")
-                  .style("top", that.tooltipTopMargin+"px");
+      d3.select("#pseudo-tooltip")
+        .style("width", that.tooltipWidth+"px")
+        .style("height", that.tooltipHeight+"px")
+        .style("left", that.tooltipLeftMargin+"px")
+        .style("top", that.tooltipTopMargin+"px");
     },
     appendLabels: function(){
       var that = this;
@@ -199,10 +201,10 @@ function produceLink(that){
 var dvDescription = [
       {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
       {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
-      {"name":"Entrepreneurial Challenge","dx":"Description for Entrepreneurial Challenge"},
+      {"name":"Entrepreneurial Challenge","dx":"Taking Risks: You are excited by challenging entrepreneurial circumstances."},
       {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
-      {"name":"Production Efficiency","dx":"Description for Production Efficiency"},
-      {"name":"Artistic Creativity","dx":"Description for Artistic Creativity"},
+      {"name":"Production Efficiency","dx":"Getting Things Done: You are action-oriented, motivated by hard work and determination to get things done; a classic “doer” who can be counted on."},
+      {"name":"Artistic Creativity","dx":"Creating New Things: You have a desire to be creative and artistic leading to innovative designs, products and works of art."},
       {"name":"Human Development","dx":"Description for Human Development"},
       {"name":"Societal Change","dx":"Description for Societal Change"},
       {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
@@ -230,7 +232,9 @@ var dvVue = new Vue({
       tooltipTopMargin:1025,
       tooltipWidth:225,
       tooltipHeight:350,
-      d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"]
+      d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"],
+      tooltipid:"dv-tooltip",
+      tooltipsrc:"img/overview.png"
     }
   },
   computed:{
