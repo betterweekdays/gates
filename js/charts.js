@@ -721,19 +721,23 @@ var rpVue = new Vue({
 
 //reusable vue compoenent for filled donut chart
 Vue.component('filled-donut-chart', {
-  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move','d3Color'],
+  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move','d3Color', 'd3Offset','d3OffsetHor'],
+  delimiters:["<%","%>"],
   template:`
     <div>
       <svg class="pie" width="280" height="280" :transform="move">
         <g :id="chartid" transform="translate(140,140)"></g>
       </svg>
+      <div id="dooldip"  class="hidden">
+        <p id="dooldipname"></p>
+        <p id="dooldippercent"></p>
+      </div>
     </div>
   `,
   watch:{
     d3Data(){
       var that = this;
-      that.appendPath();
-      // that.appendTooltip();
+      that.appendTooltip(that.appendPath());
     }
   },
   methods:{
@@ -771,68 +775,68 @@ Vue.component('filled-donut-chart', {
                   .data(pie(that.d3Data))
                   .enter()
                   .append("g")
-                  .on("mouseover", function(d,i) {
-                        let g = d3.select(this)
-                                  .style("cursor", "pointer")
-                                  // .style("fill", "#66ccff")
-                                  .append("g")
-                                  .attr("class", "text-group");
-
-                        // var textbox = g.append("div")
-                        //                 .attr("id","test")
-                        //                 .attr("width", 200)
-                        //                 .attr("height", 200)
-
-                        g.append("circle")
-                          .attr("class","donut-circle")
-                          .attr("r",100)
-                          .attr("fill",that.d3Color[i])
-
-                        var circletextarray = [];
-                        if (d.data.name.includes('/')||d.data.name.includes('&')||d.data.name.includes(' ')){
-                          circletextarray = d.data.name.split(/[\s/&]+/);
-                          // circletextarray = d.data.name.split(" ");
-                        } else {
-                          circletextarray.push(d.data.name);
-                        }
-                        // console.log(circletextarray)
-
-                        for (i=0; i<circletextarray.length; i++){
-                          g.append("text")
-                            .attr("class", "filled-name-text")
-                            .text(circletextarray[i])
-                            .attr('text-anchor', 'middle')
-                            .attr('dy', -1+1.3*i+'em')
-                        }
-
-                        // g.append("text")
-                        //   .attr("class", "value-text")
-                        //   .text(d.data.percent+"%")
-                        //   .attr('text-anchor', 'middle')
-                        //   .attr('dy', '.6em');
-                        //
-                        // g.append("text")
-                        //   .attr("class", "description-text")
-                        //   .text(function() {
-                        //           for (a = 0; a < that.d3Des.length; a++) {
-                        //             if (that.d3Des[a].name == d.data.name){
-                        //               return that.d3Des[a].dx;
-                        //             }
-                        //           }
-                        //           return "No pre-set description found"; })
-                        //   .attr('text-anchor', 'middle')
-                        //   .attr('dy', '1.8em');
-
-                        // d3.select("#donut-tooltip").classed("hidden", false);
-                    })
-              .on("mouseout", function(d) {
-                                  d3.select(this)
-                                    .style("cursor", "none")
-                                    .style("fill", that.d3Color[this._current])
-                                    .select(".text-group").remove();
-
-                                  // d3.select("#donut-tooltip").classed("hidden", true);
-                              })
+                  // .on("mouseover", function(d,i) {
+                  //       let g = d3.select(this)
+                  //                 .style("cursor", "pointer")
+                  //                 // .style("fill", "#66ccff")
+                  //                 .append("g")
+                  //                 .attr("class", "text-group");
+                  //
+                  //       // var textbox = g.append("div")
+                  //       //                 .attr("id","test")
+                  //       //                 .attr("width", 200)
+                  //       //                 .attr("height", 200)
+                  //
+                  //       // g.append("circle")
+                  //       //   .attr("class","donut-circle")
+                  //       //   .attr("r",100)
+                  //       //   .attr("fill",that.d3Color[i])
+                  //       //
+                  //       // var circletextarray = [];
+                  //       // if (d.data.name.includes('/')||d.data.name.includes('&')||d.data.name.includes(' ')){
+                  //       //   circletextarray = d.data.name.split(/[\s/&]+/);
+                  //       //   // circletextarray = d.data.name.split(" ");
+                  //       // } else {
+                  //       //   circletextarray.push(d.data.name);
+                  //       // }
+                  //       // // console.log(circletextarray)
+                  //       //
+                  //       // for (i=0; i<circletextarray.length; i++){
+                  //       //   g.append("text")
+                  //       //     .attr("class", "filled-name-text")
+                  //       //     .text(circletextarray[i])
+                  //       //     .attr('text-anchor', 'middle')
+                  //       //     .attr('dy', -1+1.3*i+'em')
+                  //       // }
+                  //
+                  //       // g.append("text")
+                  //       //   .attr("class", "value-text")
+                  //       //   .text(d.data.percent+"%")
+                  //       //   .attr('text-anchor', 'middle')
+                  //       //   .attr('dy', '.6em');
+                  //       //
+                  //       // g.append("text")
+                  //       //   .attr("class", "description-text")
+                  //       //   .text(function() {
+                  //       //           for (a = 0; a < that.d3Des.length; a++) {
+                  //       //             if (that.d3Des[a].name == d.data.name){
+                  //       //               return that.d3Des[a].dx;
+                  //       //             }
+                  //       //           }
+                  //       //           return "No pre-set description found"; })
+                  //       //   .attr('text-anchor', 'middle')
+                  //       //   .attr('dy', '1.8em');
+                  //
+                  //       // d3.select("#donut-tooltip").classed("hidden", false);
+                  //   })
+              // .on("mouseout", function(d) {
+              //                     d3.select(this)
+              //                       .style("cursor", "none")
+              //                       .style("fill", that.d3Color[this._current])
+              //                       .select(".text-group").remove();
+              //
+              //                     // d3.select("#donut-tooltip").classed("hidden", true);
+              //                 })
               .append('path')
               .attr('d', arc)
               .attr('fill', (d,i) => that.d3Color[i])
@@ -848,17 +852,39 @@ Vue.component('filled-donut-chart', {
                 })
               .each(function(d, i) { this._current = i; });
 
-          var text = "";
-          gout.append('text')
-              .attr('text-anchor', 'middle')
-              .attr('dy', '.35em')
-              .text(text);
-      // return path;
-    }
-    // },
-    // appendTooltip:function(path){
-    //   path.on("")
+          // var text = "";
+          // gout.append('text')
+          //     .attr('text-anchor', 'middle')
+          //     .attr('dy', '.35em')
+          //     .text(text);
+      return path;
     // }
+    },
+    appendTooltip:function(path){
+      var that = this;
+      path.on("mouseover", function(d,i){
+            var coordinates = d3.mouse(d3.event.currentTarget);
+            // console.log(coordinates);
+            // console.log(d3.select("#dooldip"))
+            var tooltip = d3.select("#dooldip")
+                            .style("width", "280px")
+                            .style("height", "90px")
+                            .style("left", 410+that.d3OffsetHor+"px")
+                            .style("top", 4435+that.d3Offset+"px")
+                            .style("background-color", that.d3Color[i]);
+            // console.log(d)
+            tooltip.select("#dooldipname")
+                  .text(d.data.name);
+            // console.log(tooltip.select("#dooldipname"));
+            // console.log(text(d.name));
+            tooltip.select("#dooldippercent")
+                  .text(d.data.percent+"%");
+            d3.select("#dooldip").classed("hidden", false);
+          })
+          .on("mouseout", function(){
+            d3.select("#dooldip").classed("hidden", true);
+          })
+    }
   }
 })
 
@@ -888,10 +914,12 @@ var ocVue = new Vue({
       vueFirst:"",
       vueAttendance:"",
       chartid: "oc-chart",
-      innerRadius:100,
+      innerRadius:0,
       outerRadius:140,
-      move:"translate(-225,0)",
-      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"]
+      move:"translate(-225,-10)",
+      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
+      d3Offset:0,
+      d3OffsetHor:0
     }
   },
   computed:{
@@ -951,10 +979,12 @@ var inVue = new Vue({
       vueFirst:"",
       vueAttendance:"",
       chartid: "in-chart",
-      innerRadius:100,
+      innerRadius:0,
       outerRadius:140,
-      move:"translate(125,0)",
-      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"]
+      move:"translate(125,-10)",
+      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
+      d3Offset:0,
+      d3OffsetHor:350
     }
   },
   computed:{
@@ -1014,10 +1044,12 @@ var ogVue = new Vue({
       vueFirst:"",
       vueAttendance:"",
       chartid: "og-chart",
-      innerRadius:100,
+      innerRadius:0,
       outerRadius:140,
-      move:"translate(475,0)",
-      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"]
+      move:"translate(475,-10)",
+      d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
+      d3Offset:0,
+      d3OffsetHor:700
     }
   },
   computed:{
