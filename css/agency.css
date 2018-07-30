@@ -809,6 +809,17 @@ header .intro-text .hero-italic {
     line-height: 22px;
 }
 
+header .intro-text .hero-italic-title {
+    text-align: center;
+    margin-bottom: 10px;
+    /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
+    font-family:Futura;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 22px;
+    font-weight: bold;
+}
+
 header .intro-text .hero-bold {
     margin-bottom: 25px;
     text-transform: uppercase;

@@ -192,9 +192,9 @@ function produceLink(that){
   return link;
 }
 
-//customized info for dominant value (dv)
+//customized info for dominant value (dv) dvDescription taken from JobScript sample report
 var dvDescription = [
-      {"name":"Motivational Energy","dx":"Description for Motivational Energy"},
+      {"name":"Motivational Energy","dx":"Individual has tremendous enthusiasm and motivation to share excitement with others, often gets people to enjoy the moment."},
       {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
       {"name":"Entrepreneurial Challenge","dx":"Taking Risks: You are excited by challenging entrepreneurial circumstances."},
       {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
