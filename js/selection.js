@@ -2,6 +2,9 @@ var selectcpo = Vue.component('v-select', VueSelect.VueSelect)
 
 var maincpo = Vue.component('main-cpo',{
   props:{
+    institution:{
+      default:'A'
+    },
     school:{
       default: function () {
         return ["A"]
@@ -58,6 +61,7 @@ var maincpo = Vue.component('main-cpo',{
   },
   data(){
     return{
+      institution_selected:this.institution,
       school_selected:this.school,
       program_selected:this.program,
       race_selected:this.race,
@@ -65,6 +69,7 @@ var maincpo = Vue.component('main-cpo',{
       income_selected:this.income,
       first_selected:this.first,
       attendance_selected:this.attendance,
+      institutionoptions:['A','B','C'],
       schooloptions:[],
       programoptions:['A','B','C'],
       genderoptions:['A','B','C'],
@@ -72,12 +77,21 @@ var maincpo = Vue.component('main-cpo',{
       incomeoptions:['A','B','C'],
       firstoptions:['A','B','C'],
       attendanceoptions:['A','B','C'],
-      schoolnodrop: false,
-      programnodrop: false,
-      racenodrop: false,
-      gendernodrop: false,
-      firstnodrop: false,
-      incomenodrop: false
+      // schoolnodrop: false,
+      // programnodrop: false,
+      // racenodrop: false,
+      // gendernodrop: false,
+      // firstnodrop: false,
+      // incomenodrop: false,
+      // attendancenodrop: false,
+      institutionnodrop: false,
+      schoolnodrop: true,
+      programnodrop: true,
+      racenodrop: true,
+      gendernodrop: true,
+      firstnodrop: true,
+      incomenodrop: true,
+      attendancenodrop: true
     }
   },
   components:{
@@ -86,6 +100,9 @@ var maincpo = Vue.component('main-cpo',{
   delimiters:["<%","%>"],
   template:`
     <div>
+      <h4> Institution: </h4>
+      <v-select v-model="institution_selected" :options="institutionoptions" @input="updateInstitution" :no-drop="institutionnodrop"></v-select>
+
       <h4>School:</h4>
       <v-select multiple v-model="school_selected" :options="schooloptions" @input="updateSchool" :close-on-select="false" :no-drop="schoolnodrop"></v-select>
 
@@ -105,7 +122,7 @@ var maincpo = Vue.component('main-cpo',{
       <v-select v-model="first_selected" :options="firstoptions" @input="updateFirst" :no-drop="firstnodrop"></v-select>
 
       <h4> Attendance Intensity: </h4>
-      <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance"></v-select>
+      <v-select v-model="attendance_selected" :options="attendanceoptions" @input="updateAttendance" :no-drop="attendancenodrop"></v-select>
     </div>
   `,
   computed:{
@@ -150,6 +167,26 @@ var maincpo = Vue.component('main-cpo',{
       } else{
         return str
       }
+    },
+    updateInstitution(target){
+      // console.log("*******updateInstitution*******")
+      target=this.checkIfNull(target)
+      this.$router.replace({
+        query:{
+          ...this.$route.query,
+          institution: target
+        }
+      })
+      dvVue.vueInstitution=target;
+      ksVue.vueInstitution=target;
+      caVue.vueInstitution=target;
+      jfVue.vueInstitution=target;
+      mrVue.vueInstitution=target;
+      rpVue.vueInstitution=target;
+      ocVue.vueInstitution=target;
+      inVue.vueInstitution=target;
+      ogVue.vueInstitution=target;
+      asVue.vueInstitution=target;
     },
     updateSchool(target){
       // console.log("*******updateSchool*******")
@@ -322,6 +359,7 @@ var router = new VueRouter({
     path:'*',
     component:maincpo,
     props: (route)=>({
+      institution:route.query.institution,
       school:route.query.school,
       program:route.query.program,
       race:route.query.race,

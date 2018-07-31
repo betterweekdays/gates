@@ -162,33 +162,35 @@ Vue.component('bar-chart', {
 })
 
 function produceLink(that){
-  if (that.vueSchool.constructor === Array) that.vueSchool.sort();
-  if (that.vueProgram.constructor === Array) that.vueProgram.sort();
-  if (that.vueRace.constructor === Array) that.vueRace.sort();
-
+  // if (that.vueSchool.constructor === Array) that.vueSchool.sort();
+  // if (that.vueProgram.constructor === Array) that.vueProgram.sort();
+  // if (that.vueRace.constructor === Array) that.vueRace.sort();
+  //
   var prelink = "https://betterweekdays.github.io/gates/data/";
+  //
+  // for (i=0; i<that.vueSchool.length;i++){
+  //   prelink = prelink + "school=" + that.vueSchool[i]+"&"
+  // }
+  //
+  // for (i=0; i<that.vueProgram.length;i++){
+  //   prelink = prelink + "program=" + that.vueProgram[i]+"&"
+  // }
+  //
+  // for (i=0; i<that.vueRace.length;i++){
+  //   prelink = prelink + "race=" + that.vueRace[i]+"&"
+  // }
 
-  for (i=0; i<that.vueSchool.length;i++){
-    prelink = prelink + "school=" + that.vueSchool[i]+"&"
-  }
-
-  for (i=0; i<that.vueProgram.length;i++){
-    prelink = prelink + "program=" + that.vueProgram[i]+"&"
-  }
-
-  for (i=0; i<that.vueRace.length;i++){
-    prelink = prelink + "race=" + that.vueRace[i]+"&"
-  }
-
-  if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
-  if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
-  if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
-  if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
+  if (that.vueInstitution) prelink = prelink + "institution=" + that.vueInstitution+"&"
+  // if (that.vueGender) prelink = prelink + "gender=" + that.vueGender+"&"
+  // if (that.vueIncome) prelink = prelink + "income=" + that.vueIncome+"&"
+  // if (that.vueFirst) prelink = prelink + "first=" + that.vueFirst+"&"
+  // if (that.vueAttendance) prelink = prelink + "attendance=" + that.vueAttendance+"&"
   var link = prelink.substring(0, prelink.length-1)+".json"
   //for testing purpose
   if (link !== "https://betterweekdays.github.io/gates/data/school=A&program=B&race=C&gender=A&income=B&first=C&attendance=A.json" && link !== "https://betterweekdays.github.io/gates/data/school=B&program=B&race=C&gender=C&income=A&first=A&attendance=A.json"){
     link = "https://betterweekdays.github.io/gates/data/testdata.json";
   }
+  console.log(link)
   return link;
 }
 
@@ -214,6 +216,7 @@ var dvVue = new Vue({
       d3Translate:170,
       d3TranslateHor:390,
       d3Data: {},
+      vueInstitution:"",
       vueSchool:[],
       vueProgram:[],
       vueRace:[],
@@ -283,6 +286,7 @@ var ksVue = new Vue({
       chartid:"ks-chart",
       chartWidth:1500,
       chartHeight:350,
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -356,6 +360,7 @@ var caVue = new Vue({
       chartWidth:830,
       chartHeight:350,
       d3Data: {},
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -543,6 +548,7 @@ var jfVue = new Vue({
     return{
       d3Data: {},
       d3Des: jfdescription,
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -674,6 +680,7 @@ var rpVue = new Vue({
       return{
         d3Data: {},
         d3Des: rpdescription,
+        vueInstitution:"",
         vueSchool:"",
         vueProgram:"",
         vueRace:"",
@@ -906,6 +913,7 @@ var ocVue = new Vue({
     return{
       d3Data: {},
       d3Des: ocdescription,
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -971,6 +979,7 @@ var inVue = new Vue({
     return{
       d3Data: {},
       d3Des: indescription,
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -1036,6 +1045,7 @@ var ogVue = new Vue({
     return{
       d3Data: {},
       d3Des: ogdescription,
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -1210,6 +1220,7 @@ var mrVue = new Vue({
   data(){
     return{
       d3Data: {},
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
@@ -1276,6 +1287,7 @@ var asVue = new Vue({
   data(){
     return{
       d3Data: {},
+      vueInstitution:"",
       vueSchool:"",
       vueProgram:"",
       vueRace:"",
