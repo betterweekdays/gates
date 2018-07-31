@@ -195,14 +195,14 @@ function produceLink(that){
 //customized info for dominant value (dv) dvDescription taken from JobScript sample report
 var dvDescription = [
       {"name":"Motivational Energy","dx":"Individual has tremendous enthusiasm and motivation to share excitement with others, often gets people to enjoy the moment."},
-      {"name":"Strategic Decisions","dx":"Description for Strategic Decisions"},
-      {"name":"Entrepreneurial Challenge","dx":"Taking Risks: You are excited by challenging entrepreneurial circumstances."},
-      {"name":"Natural Appreciation","dx":"Description for Natural Appreciation"},
-      {"name":"Production Efficiency","dx":"Getting Things Done: You are action-oriented, motivated by hard work and determination to get things done; a classic “doer” who can be counted on."},
-      {"name":"Artistic Creativity","dx":"Creating New Things: You have a desire to be creative and artistic leading to innovative designs, products and works of art."},
-      {"name":"Human Development","dx":"Description for Human Development"},
-      {"name":"Societal Change","dx":"Description for Societal Change"},
-      {"name":"Theoretical Discovery","dx":"Description for Theoretical Discovery"}];
+      {"name":"Strategic Decisions","dx":"Individual’s capacity to see the big picture and develop logical and effective strategies positions them to manage and advise."},
+      {"name":"Entrepreneurial Challenge","dx":"Individual is motivated by excitement and competition, entrepreneurial and challenging circumstances."},
+      {"name":"Natural Appreciation","dx":"Individual is a keen observer of life who wants to ensure the natural order is respected and maintained."},
+      {"name":"Production Efficiency","dx":"Individual is action-oriented and motivated by hard work and determination to get things done, the classic “doer” who can be counted on."},
+      {"name":"Artistic Creativity","dx":"Individual has a desire to be creative, has insight and an artistic nature leading to innovative designs, products and works of art."},
+      {"name":"Human Development","dx":"Individual is compassionate and service oriented, responds to the developmental needs of those around them."},
+      {"name":"Societal Change","dx":"Individual cares about things that affect society and wants to work to effect change and influence opinions toward the common good."},
+      {"name":"Theoretical Discovery","dx":"Individual seeks out underlying reasons things happen and likes to investigate and solve complex problems."}];
 
 var dvVue = new Vue({
   el: '#dv',
