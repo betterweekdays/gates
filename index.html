@@ -115,10 +115,18 @@
     <div class="container">
       <div class="intro-text">
         <div class="hero-bold">Soft Skills & Values Assessment</div>
-        <div class="hero-italic-title">What is Soft Skills & Values Assessment?</div>
-        <div class="hero-italic">The Soft Skills & Values Assessment provides robust insight into a student’s strengths and values that helps them discover a personalized course-to-career path from freshman orientation to their first job.</div>
-        <div class="hero-italic">Built on a convergence model that has been proven to measure job performance, the Soft Skills & Values Assessment connects the dots between a student’s motivation, abilities and personality (MAP) to industries, companies, and roles that they might naturally prefer.</div>
-        <div class="hero-italic-title">How to use this site?</div>
+        <div class="hero-italic-title">Assessment Results Summary</div>
+        
+        <div id="summaryapp">
+          <sum
+            :pv="pv"
+            :ks="ks"
+            :ca="ca"
+            :total="total">
+          </sum>
+        </div>
+        
+        <div class="hero-italic-title">Site Directory</div>
         <div class="hero-italic">You can use the filters on the left to obtain a desirable combination of qualities and explore the five aspects of soft skills and values covered in the Assessment from the top navigation bar.</div>
       </div>
     </div>
@@ -442,6 +450,9 @@
 
 <!-- Custom Theme -->
 <script src="https://betterweekdays.github.io/gates/js/selection.js"></script>
+
+<!-- Custom Theme -->
+<script src="https://betterweekdays.github.io/gates/js/summary.js"></script>
 
 
 

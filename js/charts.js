@@ -238,7 +238,7 @@ var dvVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -311,7 +311,7 @@ var ksVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -384,7 +384,7 @@ var caVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -565,7 +565,7 @@ var jfVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -697,7 +697,7 @@ var rpVue = new Vue({
     },
     computed:{
       isChanged(){
-        return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+        return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
       }
     },
     watch: {
@@ -932,7 +932,7 @@ var ocVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -998,7 +998,7 @@ var inVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -1064,7 +1064,7 @@ var ogVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -1232,7 +1232,7 @@ var mrVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {
@@ -1299,7 +1299,7 @@ var asVue = new Vue({
   },
   computed:{
     isChanged(){
-      return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+      return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
     }
   },
   watch: {

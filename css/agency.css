@@ -809,6 +809,10 @@ header .intro-text .hero-italic {
     line-height: 22px;
 }
 
+header .intro-text .hero-italic p {
+    font-size: 18px;
+}
+
 header .intro-text .hero-italic-title {
     text-align: center;
     margin-bottom: 10px;
