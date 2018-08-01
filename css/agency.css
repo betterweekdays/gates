@@ -799,8 +799,8 @@ header .intro-text .hero-italic {
     text-align: justify;
     margin-bottom: 25px;
     /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
-    font-family:Futura;
-    font-size: 22px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 18px;
     font-style: italic;
     line-height: 22px;
 }
@@ -841,8 +841,8 @@ header .intro-text .hero-bold {
         text-align: justify;
         margin-bottom: 25px;
         /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
-        font-family:Futura;
-        font-size: 20px;
+        font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 18px;
         font-style: italic;
         line-height: 30px;
     }
@@ -885,8 +885,7 @@ section h3.section-subheading {
     margin-left: 350px;
     margin-right: 100px;
     text-transform: none;
-    /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
-    font-family:Futura;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-style: italic;
     font-weight: 400;
@@ -901,6 +900,16 @@ section h3.section-subheading {
 .service-heading {
     margin: 15px 0;
     text-transform: none;
+}
+
+label.pos-label {
+  font-weight:bold;
+  color:#ec96a4;
+}
+
+label.neg-label {
+  font-weight:bold;
+  color:#f4cc70;
 }
 
 #portfolio .portfolio-item {
