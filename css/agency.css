@@ -302,7 +302,7 @@ a.sidebar-nav-item:focus {
  }
 
  #dv-title{
-   margin-left:25px;
+   margin-left:150px;
  }
  #ks-title{
    margin-left:600px;
@@ -876,6 +876,18 @@ section h3.section-subheading {
     /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
     font-family:Futura;
     font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.elab {
+    margin-bottom: 25px;
+    margin-left: 350px;
+    margin-right: 100px;
+    text-transform: none;
+    /* font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; */
+    font-family:Futura;
+    font-size: 16px;
     font-style: italic;
     font-weight: 400;
 }
