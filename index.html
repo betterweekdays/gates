@@ -77,20 +77,16 @@
 
         
           <li>
-            <a class="page-scroll" href="#about">3. Roles</a>
+            <a class="page-scroll" href="#about">3. Roles &amp; Companies</a>
           </li>
         
 
         
           <li>
-            <a class="page-scroll" href="#team">4. Companies</a>
+            <a class="page-scroll" href="#team">4. Personal Growth</a>
           </li>
         
 
-        
-          <li>
-            <a class="page-scroll" href="#contact">5. Personal Growth</a>
-          </li>
         
 
         
@@ -252,7 +248,7 @@
   <div class="main">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading">3. Roles</h2>
+        <h2 class="section-heading">3. Roles & Companies</h2>
         <h3 class="section-subheading text-muted">Knowing the types of roles that motivate you, those in which you excel, and those reflected in your personality, enable you to make better professional and personal choices. Your Model Roles reflect the intersection of your motivations, abilities and personality.</h3>
       </div>
     </div>
@@ -277,8 +273,8 @@
       </donut-chart>
     </div>
 
-    <div class="row" id="rp">
-      <h3 class="section-heading" id="rp-title">Roles & Positions</h3>
+    <div class="row" id="oc">
+      <h3 class="section-heading" id="oc-title">Organizational Culture</h3>
       <donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
@@ -302,13 +298,15 @@
   <div class="main">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading">4. Companies</h2>
+        <h2 class="section-heading">4. Personal Growth</h2>
         <h3 class="section-subheading text-muted">There are many different types of organizations. Certain organizations are better suited for you and offer work that is likely to be more appealing to you. Likewise, all organizations operate within a particular cultural framework.</h3>
       </div>
     </div>
 
-    <div class="row" id="oc">
-      <h3 class="section-heading" id="oc-title">Organization Culture</h3>
+    
+
+    <div class="row" id="la">
+      <h3 class="section-heading" id="la-title">Leadership Anchors</h3>
       <filled-donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
@@ -322,23 +320,8 @@
       </filled-donut-chart>
     </div>
 
-    <div class="row" id="in">
-      <h3 class="section-heading" id="in-title">Industries</h3>
-      <filled-donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid"
-        :inner-radius="innerRadius"
-        :outer-radius="outerRadius"
-        :move="move"
-        :d3-color="d3Color"
-        :d3-offset="d3Offset"
-        :d3-offset-hor="d3OffsetHor">
-      </filled-donut-chart>
-    </div>
-
-    <div class="row" id="og">
-      <h3 class="section-heading" id="og-title">Organizations</h3>
+    <div class="row" id="sk">
+      <h3 class="section-heading" id="sk-title">Success Keys</h3>
       <filled-donut-chart
         :d3-data="d3Data"
         :d3-des="d3Des"
@@ -358,28 +341,6 @@
     
 
     
-
-    
-      <!-- Contact Section -->
-<section id="contact">
-  <div class="container">
-  <div class="main">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">5. Personal Growth</h2>
-        <h3 class="section-subheading text-muted">We recommend that you use the content of this report in two ways – reflect on what has been captured from a validated process, and leverage what you learn to increase your overall effectiveness.</h3>
-      </div>
-    </div>
-
-    <div class="row" id="as">
-      <h3 class="section-heading" id="as-title">Areas of Study</h3>
-      <list-chart
-        :d3-data="d3Data">
-      </list-chart>
-    </div>
-  </div>
-</div>
-</section>
 
     
 

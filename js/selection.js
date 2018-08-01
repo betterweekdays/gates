@@ -184,8 +184,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueInstitution=target;
       rpVue.vueInstitution=target;
       ocVue.vueInstitution=target;
-      inVue.vueInstitution=target;
-      ogVue.vueInstitution=target;
+      laVue.vueInstitution=target;
+      skVue.vueInstitution=target;
       asVue.vueInstitution=target;
     },
     updateSchool(target){
@@ -204,8 +204,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueSchool=target;
       rpVue.vueSchool=target;
       ocVue.vueSchool=target;
-      inVue.vueSchool=target;
-      ogVue.vueSchool=target;
+      laVue.vueSchool=target;
+      skVue.vueSchool=target;
       asVue.vueSchool=target;
     },
     updateProgram(target){
@@ -224,8 +224,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueProgram=target;
       rpVue.vueProgram=target;
       ocVue.vueProgram=target;
-      inVue.vueProgram=target;
-      ogVue.vueProgram=target;
+      laVue.vueProgram=target;
+      skVue.vueProgram=target;
       asVue.vueProgram=target;
     },
     updateRace(target){
@@ -244,8 +244,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueRace=target;
       rpVue.vueRace=target;
       ocVue.vueRace=target;
-      inVue.vueRace=target;
-      ogVue.vueRace=target;
+      laVue.vueRace=target;
+      skVue.vueRace=target;
       asVue.vueRace=target;
     },
     updateGender(target){
@@ -264,8 +264,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueGender=target;
       rpVue.vueGender=target;
       ocVue.vueGender=target;
-      inVue.vueGender=target;
-      ogVue.vueGender=target;
+      laVue.vueGender=target;
+      skVue.vueGender=target;
       asVue.vueGender=target;
     },
     updateIncome(target){
@@ -284,8 +284,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueIncome=target;
       rpVue.vueIncome=target;
       ocVue.vueIncome=target;
-      inVue.vueIncome=target;
-      ogVue.vueIncome=target;
+      laVue.vueIncome=target;
+      skVue.vueIncome=target;
       asVue.vueIncome=target;
     },
     updateFirst(target){
@@ -304,8 +304,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueFirst=target;
       rpVue.vueFirst=target;
       ocVue.vueFirst=target;
-      inVue.vueFirst=target;
-      ogVue.vueFirst=target;
+      laVue.vueFirst=target;
+      skVue.vueFirst=target;
       asVue.vueFirst=target;
     },
     updateAttendance(target){
@@ -324,8 +324,8 @@ var maincpo = Vue.component('main-cpo',{
       mrVue.vueAttendance=target;
       rpVue.vueAttendance=target;
       ocVue.vueAttendance=target;
-      inVue.vueAttendance=target;
-      ogVue.vueAttendance=target;
+      laVue.vueAttendance=target;
+      skVue.vueAttendance=target;
       asVue.vueAttendance=target;
     },
     disableUponAttendance(){
