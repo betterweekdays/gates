@@ -1,5 +1,5 @@
 var sum = Vue.component('sum',{
-  props:['pv','ks','ca',"total"],
+  props:['pv','ks','ca','jf','mr','oc','la','sk',"total"],
   delimiters:["<%", "%>"],
   template:`
     <div class="hero-italic">
@@ -43,6 +43,11 @@ var sumapp = new Vue({
       pv:{},
       ks:{},
       ca:{},
+      jf:{},
+      mr:{},
+      oc:{},
+      la:{},
+      sk:{},
       total:0,
       vueInstitution:"",
       vueSchool:[],
@@ -61,9 +66,9 @@ var sumapp = new Vue({
   },
   watch: {
     isChanged() {
-      console.log("sumapp isChanged")
+      // console.log("sumapp isChanged")
       this.fetchData();
-      console.log("sumapp isChanged after fetchData")
+      // console.log("sumapp isChanged after fetchData")
       // console.log(this.pv)
       // console.log(dvVue.d3Data)
       // dvVue.d3Data = this.pv;
@@ -87,13 +92,25 @@ var sumapp = new Vue({
         .then(json=>{
           console.log("sumapp fetchData method")
           this.pv = json.data["0"]["Dominant Values"]
-          console.log(this.pv)
-          console.log(dvVue.d3Data)
-          dvVue.d3Data = this.pv;
-          console.log(this.pv)
-          console.log(dvVue.d3Data)
+          // console.log(this.pv)
+          // console.log(dvVue.d3Data)
+          dvVue.d3Data = this.pv
+          // console.log(this.pv)
+          // console.log(dvVue.d3Data)
           this.ks = json.data["0"]["Key Strengths"]
+          ksVue.d3Data = this.ks
           this.ca = json.data["0"]["Caution Areas"]
+          caVue.d3Data = this.ca
+          this.jf = json.data["0"]["Job Functions"]
+          jfVue.d3Data = this.jf
+          this.mr = json.data["0"]["Model Roles"]
+          mrVue.d3Data = this.mr
+          this.oc = json.data["0"]["Organization Culture"]
+          ocVue.d3Data = this.oc
+          this.la = json.data["0"]["Leadership Anchors"]
+          laVue.d3Data = this.la
+          this.sk = json.data["0"]["Success Keys"]
+          skVue.d3Data = this.sk
           this.total = json.data["0"]["total"]
         })
     }
