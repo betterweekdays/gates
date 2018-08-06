@@ -1,6 +1,6 @@
 //reusable vue component for bar chart
 var barcpo = Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color','tooltipid','tooltipsrc','boxid'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color'],
   template:`
     <div>
       <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
@@ -8,9 +8,6 @@ var barcpo = Vue.component('bar-chart', {
           <p><strong><span id="title"></span></strong></p>
           <p><span id="value"></span>%</p>
           <p><span id="text"></span></p>
-      </div>
-      <div :id="boxid">
-        <img :id="tooltipid" :src="tooltipsrc">
       </div>
     </div>
   `,
@@ -111,9 +108,9 @@ var barcpo = Vue.component('bar-chart', {
                   var tt = d3.select("#tooltip")
                             .style("width", that.tooltipWidth+"px")
                             .style("height", that.tooltipHeight+"px")
-                            .style("left", that.tooltipLeftMargin+"px")
+                            .style("left", that.tooltipLeftMargin+"%")
                             // .style("left", getScales.xScale(d.percent)+400+"px")
-                            .style("top", that.tooltipTopMargin+"px")
+                            .style("top", that.tooltipTopMargin+"%")
                             // .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
                             .style("background-color", that.d3Color[i]);
                   // console.log("that.d3Color[i]: "+that.d3Color[i])

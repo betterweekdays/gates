@@ -30,14 +30,11 @@ var dvVue = new Vue({
       vueAttendance:"",
       d3Offset:0,
       d3Des: dvDescription,
-      tooltipLeftMargin:1170,
-      tooltipTopMargin:1025,
+      tooltipLeftMargin:115,/*1170,*/
+      tooltipTopMargin:-100,/*1025,*/
       tooltipWidth:225,
       tooltipHeight:350,
-      d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"],
-      tooltipid:"dv-tooltip",
-      tooltipsrc:"img/overview.png",
-      boxid:"dv-box"
+      d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"]
     }
   }
   // computed:{

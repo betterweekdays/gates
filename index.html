@@ -109,37 +109,42 @@
   <section id="hero">
   <div class="main">
     <div class="container">
-      <div class="intro-text">
-        <div class="hero-bold">Soft Skills & Values Assessment</div>
-        <div class="hero-italic-title">About the Assessment</div>
-        <div class="hero-italic">The Assessment is a scientifically validated online assessment that captures career competencies to help students with their career discovery and engage in relevant career pathways.</div>
-        <div class="hero-italic-title">Assessment Results Summary</div>
-        
-        
+      <div class="row">
+        <div class="col-3 col-sm-3 col-md-3 col-lg-3"></div>
+        <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+          <div class="intro-text">
+            <div class="hero-bold">Soft Skills & Values Assessment</div>
+            <div class="hero-italic-title">About the Assessment</div>
+            <div class="hero-italic">The Assessment is a scientifically validated online assessment that captures career competencies to help students with their career discovery and engage in relevant career pathways.</div>
+            <div class="hero-italic-title">Assessment Results Summary</div>
+            
+            
 
-        
+            
 
-        <div id="summaryapp">
-          <sum
-            :pv="pv"
-            :ks="ks"
-            :ca="ca"
-            :jf="jf"
-            :mr="mr"
-            :oc="oc"
-            :la="la"
-            :sk="sk"
-            :total="total">
-          </sum>
+            <div id="summaryapp">
+              <sum
+                :pv="pv"
+                :ks="ks"
+                :ca="ca"
+                :jf="jf"
+                :mr="mr"
+                :oc="oc"
+                :la="la"
+                :sk="sk"
+                :total="total">
+              </sum>
+            </div>
+
+            
+
+            
+
+            
+            <div class="hero-italic-title">Site Directory</div>
+            <div class="hero-italic">You can use the filters on the left to obtain a desirable combination of qualities and explore the five aspects of soft skills and values covered in the Assessment from the top navigation bar.</div>
+          </div>
         </div>
-
-        
-
-        
-
-        
-        <div class="hero-italic-title">Site Directory</div>
-        <div class="hero-italic">You can use the filters on the left to obtain a desirable combination of qualities and explore the five aspects of soft skills and values covered in the Assessment from the top navigation bar.</div>
       </div>
     </div>
   </div>
@@ -163,33 +168,45 @@
   <div class="container">
    <div class="main">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">1. Overview</h2>
-    </div>
-
-    <div class="col-lg-10 col-md-10 col-sm-10">
-      <h3 class="section-heading text-center" id="dv-title">Professional Values</h3>
-      <h3 class="elab text-muted">Professional Values speak to a student’s motivations, abilities and personality traits within their role at your organization. Each professional value describes different types of challenges and opportunities in which a student is likely to perform well.</h3>
-    </div>
-    <div class="row" id="dv">
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :d3-translate="d3Translate"
-        :d3-translate-hor="d3TranslateHor"
-        :chartid="chartid"
-        :chart-width="chartWidth"
-        :chart-height="chartHeight"
-        :tooltip-left-margin="tooltipLeftMargin"
-        :tooltip-top-margin="tooltipTopMargin"
-        :tooltip-width="tooltipWidth"
-        :tooltip-height="tooltipHeight"
-        :d3-color="d3Color"
-        :tooltipid="tooltipid"
-        :tooltipsrc="tooltipsrc"
-        :boxid="boxid">
-      </bar-chart>
+      <div class="col-3 col-sm-3 col-md-3 col-lg-3"></div>
+      <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+            <h2 class="section-heading">1. Overview</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+            <h3 class="section-heading text-center" id="dv-title">Professional Values</h3>
+            <h3 class="elab text-muted">Professional Values speak to a student’s motivations, abilities and personality traits within their role at your organization. Each professional value describes different types of challenges and opportunities in which a student is likely to perform well.</h3>
+            <div id="dv">
+              <bar-chart
+                :d3-data="d3Data"
+                :d3-offset="d3Offset"
+                :d3-des="d3Des"
+                :d3-translate="d3Translate"
+                :d3-translate-hor="d3TranslateHor"
+                :chartid="chartid"
+                :chart-width="chartWidth"
+                :chart-height="chartHeight"
+                :tooltip-left-margin="tooltipLeftMargin"
+                :tooltip-top-margin="tooltipTopMargin"
+                :tooltip-width="tooltipWidth"
+                :tooltip-height="tooltipHeight"
+                :d3-color="d3Color"
+                :tooltipid="tooltipid"
+                :tooltipsrc="tooltipsrc"
+                :boxid="boxid">
+              </bar-chart>
+            </div>
+          </div>
+          <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+            <div id="dv-box">
+              <img id="dv-tooltip" src="img/overview.png">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
