@@ -30,8 +30,8 @@ var dvVue = new Vue({
       vueAttendance:"",
       d3Offset:0,
       d3Des: dvDescription,
-      tooltipLeftMargin:115,/*1170,*/
-      tooltipTopMargin:-100,/*1025,*/
+      tooltipLeftMargin:114, /*115, 1170,*/
+      tooltipTopMargin:150, /*-445, 1025,*/
       tooltipWidth:225,
       tooltipHeight:350,
       d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"]
@@ -85,7 +85,7 @@ var ksVue = new Vue({
   data(){
     return{
       chartid:"ks-chart",
-      chartWidth:1500,
+      chartWidth:700,
       chartHeight:350,
       // vueInstitution:"",
       // vueSchool:"",
@@ -96,18 +96,15 @@ var ksVue = new Vue({
       // vueFirst:"",
       // vueAttendance:"",
       d3Data: {},
-      d3Offset:750,
+      d3Offset:0,
       d3Des: ksDescription,
-      d3Translate:800,
+      d3Translate:160,
       d3TranslateHor:305,
-      tooltipWidth:300,
+      tooltipWidth:250,
       tooltipHeight:275,
-      tooltipTopMargin:1850,
-      tooltipLeftMargin:375,
-      d3Color: ["#003B46","#044951","#07575B","#176469","#377E84","#56989F","#66A5AD","#95C2CA","#C4DFE6"],
-      tooltipid:"ks-tooltip",
-      tooltipsrc:"img/keystrength.png",
-      boxid:"ks-box"
+      tooltipTopMargin:931, /*1850,*/
+      tooltipLeftMargin:3, /*375,*/
+      d3Color: ["#003B46","#044951","#07575B","#176469","#377E84","#56989F","#66A5AD","#95C2CA","#C4DFE6"]
     }
   }
   // computed:{
@@ -158,7 +155,7 @@ var caVue = new Vue({
   data(){
     return{
       chartid:"ca-chart",
-      chartWidth:830,
+      chartWidth:700,
       chartHeight:350,
       d3Data: {},
       // vueInstitution:"",
@@ -169,18 +166,15 @@ var caVue = new Vue({
       // vueIncome:"",
       // vueFirst:"",
       // vueAttendance:"",
-      d3Offset:0,
+      d3Offset:50,
       d3Des: caDescription,
       d3Translate:240,
       d3TranslateHor:305,
       tooltipWidth:220,
       tooltipHeight:275,
-      tooltipTopMargin:2255,
-      tooltipLeftMargin:1200,
-      d3Color: ["#1995ad","#46abbf","#74c0d0","#a1d6e2","#aacdd6","#b3c3ca","#b8bfc4","#bcbabe","#d7d6d8"],
-      tooltipid:"ca-tooltip",
-      tooltipsrc:"img/cautionareas.png",
-      boxid:"ca-box"
+      tooltipTopMargin:1422, /*2255,*/
+      tooltipLeftMargin:114, /*1200,*/
+      d3Color: ["#1995ad","#46abbf","#74c0d0","#a1d6e2","#aacdd6","#b3c3ca","#b8bfc4","#bcbabe","#d7d6d8"]
     }
   }
   // computed:{
@@ -216,15 +210,15 @@ var caVue = new Vue({
 
 //customized vue instance for job functions (jf)
 var jfdescription = [
-    {"name":"Creating","dx":"Developing; Designing; Inventing"},
-    {"name":"Marketing","dx":"Selling; Networking; Deal-making"},
-    {"name":"Strategizing","dx":"Integrating; Problem-Solving; Advising"},
-    {"name":"Explaining","dx":"des"},
-    {"name":"Researching","dx":"des"},
-    {"name":"Teaching","dx":"des"},
-    {"name":"Surveying","dx":"des"},
-    {"name":"Motivating","dx":"des"},
-    {"name":"Producing","dx":"des"}];
+    {"name":"Creating","dx":""},
+    {"name":"Marketing","dx":""},
+    {"name":"Strategizing","dx":""},
+    {"name":"Explaining","dx":""},
+    {"name":"Researching","dx":""},
+    {"name":"Teaching","dx":""},
+    {"name":"Surveying","dx":""},
+    {"name":"Motivating","dx":""},
+    {"name":"Producing","dx":""}];
 
 var jfVue = new Vue({
   el: '#jf',
@@ -241,9 +235,9 @@ var jfVue = new Vue({
       // vueFirst:"",
       // vueAttendance:"",
       chartid: "jf-chart",
-      innerRadius:150,
-      outerRadius:200,
-      move:"translate(-150,0)",
+      innerRadius:110,
+      outerRadius:150,
+      move:"translate(0,-50)",
       d3Color:["#afbf7c","#f4cc70","#e9a349","#de7a22","#7f8757","#209488","#399e8a","#51a788","#6ab187"]
     }
   }
@@ -362,7 +356,7 @@ var ocdescription = [
   {"name":"Professional/Strategic","dx":""},
   {"name":"Technical/Scientific","dx":""},
   {"name":"Multi-cultural/Democratic","dx":""},
-  {"name":"Hands-on/Structured","dx":""},
+  {"name":"Hands-On/Structured","dx":""},
   {"name":"Creative/Experimental","dx":""},
   {"name":"Entrepreneurial/High-Growth","dx":""},
   {"name":"Natural/Respectful & Concerned","dx":""},
@@ -384,9 +378,9 @@ var ocVue = new Vue({
         // vueFirst:"",
         // vueAttendance:"",
         chartid: "oc-chart",
-        innerRadius:150,
-        outerRadius:200,
-        move:"translate(400,0)",
+        innerRadius:110,
+        outerRadius:150,
+        move:"translate(0,-50)",
         d3Color:["#afbf7c","#f4cc70","#e9a349","#de7a22","#7f8757","#209488","#399e8a","#51a788","#6ab187"]
       }
     }
@@ -516,10 +510,10 @@ var laVue = new Vue({
       chartid: "la-chart",
       innerRadius:0,
       outerRadius:140,
-      move:"translate(125,-10)",
+      move:"translate(0,-10)",
       d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
-      d3Offset:0,
-      d3OffsetHor:350
+      d3Offset:93, //tooltip top margin
+      d3OffsetHor:20 //tooltip left margin
     }
   }
   // computed:{
@@ -582,10 +576,10 @@ var skVue = new Vue({
       chartid: "sk-chart",
       innerRadius:0,
       outerRadius:140,
-      move:"translate(475,-10)",
+      move:"translate(0,-10)",
       d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
-      d3Offset:0,
-      d3OffsetHor:700
+      d3Offset:93,
+      d3OffsetHor:120
     }
   }
   // computed:{
@@ -723,70 +717,3 @@ var mrVue = new Vue({
   //   }
   // }
 })
-
-Vue.component('list-chart',{
-  props:['d3Data'],
-  delimiters:["<%","%>"],
-  template:`
-    <div>
-      <ol>
-        <li><% d3Data["0"]["name"] %> <% d3Data["0"]["percent"] %>%</li>
-        <li><% d3Data["1"]["name"] %> <% d3Data["1"]["percent"] %>%</li>
-        <li><% d3Data["2"]["name"] %> <% d3Data["2"]["percent"] %>%</li>
-        <li><% d3Data["3"]["name"] %> <% d3Data["3"]["percent"] %>%</li>
-        <li><% d3Data["4"]["name"] %> <% d3Data["4"]["percent"] %>%</li>
-        <li><% d3Data["5"]["name"] %> <% d3Data["5"]["percent"] %>%</li>
-        <li><% d3Data["6"]["name"] %> <% d3Data["6"]["percent"] %>%</li>
-        <li><% d3Data["7"]["name"] %> <% d3Data["7"]["percent"] %>%</li>
-        <li><% d3Data["8"]["name"] %> <% d3Data["8"]["percent"] %>%</li>
-      </ol>
-      <img id="as-img" src="img/areasofstudy.png">
-    </div>
-  `
-})
-
-// var asVue = new Vue({
-//   el: '#as',
-//   data(){
-//     return{
-//       d3Data: {},
-//       vueInstitution:"",
-//       vueSchool:"",
-//       vueProgram:"",
-//       vueRace:"",
-//       vueGender:"",
-//       vueIncome:"",
-//       vueFirst:"",
-//       vueAttendance:""
-//     }
-//   },
-//   computed:{
-//     isChanged(){
-//       return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-//     }
-//   },
-//   watch: {
-//     isChanged() {
-//       // console.log("asVue watch")
-//       this.fetchData();
-//     }
-//   },
-//   created: function(){
-//     // console.log("asVue created")
-//     this.fetchData();
-//   },
-//   // mounted: function(){
-//     // console.log("asVue mounted")
-//   // },
-//   methods: {
-//     fetchData: function(){
-//       // console.log("asVue methods fetchData")
-//       var link = window.produceLink(this);
-//       fetch(link)
-//           .then(response => response.json())
-//           .then(json => {
-//             this.d3Data = json.data["0"]["Areas of Study"]
-//           })
-//     }
-//   }
-// })

@@ -193,10 +193,7 @@
                 :tooltip-top-margin="tooltipTopMargin"
                 :tooltip-width="tooltipWidth"
                 :tooltip-height="tooltipHeight"
-                :d3-color="d3Color"
-                :tooltipid="tooltipid"
-                :tooltipsrc="tooltipsrc"
-                :boxid="boxid">
+                :d3-color="d3Color">
               </bar-chart>
             </div>
           </div>
@@ -219,65 +216,75 @@
       <!-- Portfolio Grid Section -->
 <section id="portfolio" class="bg-light-gray">
   <div class="container">
-  <div class="main">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">2. Characteristics</h2>
-        
+    <div class="main">
+      <div class="row">
+        <div class="col-3 col-sm-3 col-md-3 col-lg-3"></div>
+        <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+              <h2 class="section-heading">2. Characteristics</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+              <div id="ks-box">
+                <img id="ks-tooltip" src="img/keystrength.png">
+              </div>
+            </div>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+              <h3 class="section-heading" id="ks-title">Key Strengths</h3>
+              <h3 class="elab text-muted">Key Strengths refer to students’ unique style and pattern of behavior. Students should capitalize on these Key Strengths to increase effectiveness.</h3>
+              <div id="ks">
+                <bar-chart
+                  :d3-data="d3Data"
+                  :d3-offset="d3Offset"
+                  :d3-des="d3Des"
+                  :d3-translate="d3Translate"
+                  :d3-translate-hor="d3TranslateHor"
+                  :chartid="chartid"
+                  :chart-width="chartWidth"
+                  :chart-height="chartHeight"
+                  :tooltip-left-margin="tooltipLeftMargin"
+                  :tooltip-top-margin="tooltipTopMargin"
+                  :tooltip-width="tooltipWidth"
+                  :tooltip-height="tooltipHeight"
+                  :d3-color="d3Color">
+                </bar-chart>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+              <h3 class="section-heading" id="ca-title">Caution Areas</h3>
+              <h3 class="elab text-muted">Caution Areas refer to students’ natural outgrowths of strengths and tendencies that need to be worked on to increase the effectiveness of the individual.</h3>
+              <div class="row" id="ca">
+                <bar-chart
+                  :d3-data="d3Data"
+                  :d3-offset="d3Offset"
+                  :d3-des="d3Des"
+                  :d3-translate="d3Translate"
+                  :d3-translate-hor="d3TranslateHor"
+                  :chartid="chartid"
+                  :chart-width="chartWidth"
+                  :chart-height="chartHeight"
+                  :tooltip-left-margin="tooltipLeftMargin"
+                  :tooltip-top-margin="tooltipTopMargin"
+                  :tooltip-width="tooltipWidth"
+                  :tooltip-height="tooltipHeight"
+                  :d3-color="d3Color">
+                </bar-chart>
+              </div>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+              <div id="ca-box">
+                <img id="ca-tooltip" src="img/cautionareas.png">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="col-lg-10 col-md-10 col-sm-10">
-      <h3 class="section-heading" id="ks-title">Key Strengths</h3>
-      <h3 class="elab text-muted">Key Strengths refer to students’ unique style and pattern of behavior. Students should capitalize on these Key Strengths to increase effectiveness.</h3>
-    </div>
-    <div class="row" id="ks">
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :d3-translate="d3Translate"
-        :d3-translate-hor="d3TranslateHor"
-        :chartid="chartid"
-        :chart-width="chartWidth"
-        :chart-height="chartHeight"
-        :tooltip-left-margin="tooltipLeftMargin"
-        :tooltip-top-margin="tooltipTopMargin"
-        :tooltip-width="tooltipWidth"
-        :tooltip-height="tooltipHeight"
-        :d3-color="d3Color"
-        :tooltipid="tooltipid"
-        :tooltipsrc="tooltipsrc"
-        :boxid="boxid">
-      </bar-chart>
-    </div>
-
-    <div class="col-lg-10 col-md-10 col-sm-10">
-      <h3 class="section-heading" id="ca-title">Caution Areas</h3>
-      <h3 class="elab text-muted">Caution Areas refer to students’ natural outgrowths of strengths and tendencies that need to be worked on to increase the effectiveness of the individual.</h3>
-    </div>
-    <div class="row" id="ca">
-      <bar-chart
-        :d3-data="d3Data"
-        :d3-offset="d3Offset"
-        :d3-des="d3Des"
-        :d3-translate="d3Translate"
-        :d3-translate-hor="d3TranslateHor"
-        :chartid="chartid"
-        :chart-width="chartWidth"
-        :chart-height="chartHeight"
-        :tooltip-left-margin="tooltipLeftMargin"
-        :tooltip-top-margin="tooltipTopMargin"
-        :tooltip-width="tooltipWidth"
-        :tooltip-height="tooltipHeight"
-        :d3-color="d3Color"
-        :tooltipid="tooltipid"
-        :tooltipsrc="tooltipsrc"
-        :boxid="boxid">
-      </bar-chart>
-    </div>
   </div>
-</div>
 </section>
 
     
@@ -288,46 +295,57 @@
   <div class="container">
   <div class="main">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">3. Roles & Companies</h2>
-        
+      <div class="col-3 col-sm-3 col-md-3 col-lg-3"></div>
+      <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+            <h2 class="section-heading">3. Roles & Companies</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="mr">
+              <h3 class="section-heading" id="mr-title">Model Roles</h3>
+              <h3 class="elab text-muted">Model Roles refer to inclusive roles that motivate students.</h3>
+              <picture-chart
+                :d3-data="d3Data">
+              </picture-chart>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="jf">
+              <h3 class="section-heading" id="jf-title">Job Functions</h3>
+              <h3 class="elab text-muted">Job Functions refer to areas of work in which your students excel.</h3>
+              <donut-chart
+                :d3-data="d3Data"
+                :d3-des="d3Des"
+                :chartid="chartid"
+                :inner-radius="innerRadius"
+                :outer-radius="outerRadius"
+                :move="move"
+                :d3-color="d3Color">
+              </donut-chart>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="row" id="oc">
+              <h3 class="section-heading" id="oc-title">Cultural Preferences</h3>
+              <h3 class="elab text-muted">Cultural Preferences are organizational cultures in which students are most able to flourish.</h3>
+              <donut-chart
+                :d3-data="d3Data"
+                :d3-des="d3Des"
+                :chartid="chartid"
+                :inner-radius="innerRadius"
+                :outer-radius="outerRadius"
+                :move="move"
+                :d3-color="d3Color">
+              </donut-chart>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="row" id="mr">
-      <h3 class="section-heading" id="mr-title">Model Roles</h3>
-      <h3 class="elab text-muted">Model Roles refer to inclusive roles that motivate students.</h3>
-      <picture-chart
-        :d3-data="d3Data">
-      </picture-chart>
-    </div>
-
-    <div class="row" id="jf">
-      <h3 class="section-heading" id="jf-title">Job Functions</h3>
-      <h3 class="elab text-muted">Job Functions refer to areas of work in which your students excel.</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid"
-        :inner-radius="innerRadius"
-        :outer-radius="outerRadius"
-        :move="move"
-        :d3-color="d3Color">
-      </donut-chart>
-    </div>
-
-    <div class="row" id="oc">
-      <h3 class="section-heading" id="oc-title">Cultural Preferences</h3>
-      <h3 class="elab text-muted">Cultural Preferences are organizational cultures in which students are most able to flourish.</h3>
-      <donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid"
-        :inner-radius="innerRadius"
-        :outer-radius="outerRadius"
-        :move="move"
-        :d3-color="d3Color">
-      </donut-chart>
     </div>
   </div>
 </div>
@@ -341,44 +359,50 @@
   <div class="container">
   <div class="main">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">4. Personal Growth</h2>
-        
+      <div class="col-3 col-sm-3 col-md-3 col-lg-3"></div>
+      <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+            <h2 class="section-heading">4. Personal Growth</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="la">
+              <h3 class="section-heading" id="la-title">Leadership Anchors</h3>
+              <h3 class="elab text-muted">Leadership Anchors serve as a pathfinder for students’ satisfaction, joy, and ongoing success.</h3>
+              <filled-donut-chart
+                :d3-data="d3Data"
+                :d3-des="d3Des"
+                :chartid="chartid"
+                :inner-radius="innerRadius"
+                :outer-radius="outerRadius"
+                :move="move"
+                :d3-color="d3Color"
+                :d3-offset="d3Offset"
+                :d3-offset-hor="d3OffsetHor">
+              </filled-donut-chart>
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="sk">
+              <h3 class="section-heading" id="sk-title">Success Keys</h3>
+              <h3 class="elab text-muted">Success Keys are typical areas that can prevent students from unlocking their full potential.</h3>
+              <filled-donut-chart
+                :d3-data="d3Data"
+                :d3-des="d3Des"
+                :chartid="chartid"
+                :inner-radius="innerRadius"
+                :outer-radius="outerRadius"
+                :move="move"
+                :d3-color="d3Color"
+                :d3-offset="d3Offset"
+                :d3-offset-hor="d3OffsetHor">
+              </filled-donut-chart>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    
-
-    <div class="row" id="la">
-      <h3 class="section-heading" id="la-title">Leadership Anchors</h3>
-      <h3 class="elab text-muted">Leadership Anchors serve as a pathfinder for students’ satisfaction, joy, and ongoing success.</h3>
-      <filled-donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid"
-        :inner-radius="innerRadius"
-        :outer-radius="outerRadius"
-        :move="move"
-        :d3-color="d3Color"
-        :d3-offset="d3Offset"
-        :d3-offset-hor="d3OffsetHor">
-      </filled-donut-chart>
-    </div>
-
-    <div class="row" id="sk">
-      <h3 class="section-heading" id="sk-title">Success Keys</h3>
-      <h3 class="elab text-muted">Success Keys are typical areas that can prevent students from unlocking their full potential.</h3>
-      <filled-donut-chart
-        :d3-data="d3Data"
-        :d3-des="d3Des"
-        :chartid="chartid"
-        :inner-radius="innerRadius"
-        :outer-radius="outerRadius"
-        :move="move"
-        :d3-color="d3Color"
-        :d3-offset="d3Offset"
-        :d3-offset-hor="d3OffsetHor">
-      </filled-donut-chart>
     </div>
   </div>
 </div>

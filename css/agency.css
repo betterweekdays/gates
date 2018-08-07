@@ -18,7 +18,7 @@
  }
 
  #dv {
-   position:realtive;
+   /* position:realtive; */
    margin-left: -10%;
  }
 
@@ -190,7 +190,8 @@ a.sidebar-nav-item:focus {
    fill:#66ccff;
  }
  #tooltip{
-   position:relative;
+   position:absolute;
+   /* display:inline; */
    padding:10px;
    -webkit-border-radius:10px;
    -moz-border-radius:10px;
@@ -212,6 +213,7 @@ a.sidebar-nav-item:focus {
    color: #fff;
  }
 
+/* tooltip for pie chart */
  #dooldip{
    position:absolute;
    padding:15px;
@@ -257,6 +259,7 @@ a.sidebar-nav-item:focus {
  }
  #dv-tooltip{
    position:relative;
+   /* display:inline; */
    margin-left:5%;
    margin-top:25%;
    width:200px;
@@ -264,7 +267,7 @@ a.sidebar-nav-item:focus {
  }
 
  #ks-box{
-   position:absolute;
+   position:relative;
    padding:10px;
    background-color: white;
    -webkit-border-radius:10px;
@@ -275,20 +278,20 @@ a.sidebar-nav-item:focus {
    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
    pointer-events: none;
    z-index:1;
-   width:300px;
+   width:250px;
    height:275px;
-   margin-left:330px;
-   margin-top:-342px;
+   /* margin-left:0; */
+   margin-top:50%;
  }
  #ks-tooltip{
-   position:absolute;
-   margin-left:-125px;
-   margin-top:20px;
-   width:250px; /*height auto adjusts*/
+   position:relative;
+   /* margin-left:-125px; */
+   margin-top:15%;
+   width:200px; /*height auto adjusts*/
  }
 
  #ca-box{
-   position:absolute;
+   position:relative;
    padding:10px;
    background-color: white;
    -webkit-border-radius:10px;
@@ -301,13 +304,13 @@ a.sidebar-nav-item:focus {
    z-index:2;
    width:220px;
    height:275px;
-   margin-left:1155px;
-   margin-top:-347px;
+   margin-left:40%;
+   margin-top:75%;
  }
  #ca-tooltip{
-   position:absolute;
-   margin-left:-100px;
-   margin-top:30px;
+   position:relative;
+   /* margin-left:-100px;*/
+   margin-top:15%;
    width:200px;
  }
 
@@ -315,13 +318,13 @@ a.sidebar-nav-item:focus {
    /* margin-left:150px; */
  }
  #ks-title{
-   margin-left:600px;
+   /* margin-left:600px; */
  }
  #ca-title{
-   margin-left:100px;
+   /* margin-left:100px; */
  }
  #mr-title{
-   margin-left:250px;
+   /* margin-left:250px; */
  }
 
 /*for donut chart*/
@@ -361,7 +364,11 @@ fill: #888;
 }
 
 #jf-title{
-  margin-left:-300px;
+  /* margin-left:-300px; */
+}
+
+.pie {
+  /* position: absolute */
 }
 
 /* #oc-title{
@@ -385,96 +392,106 @@ fill: #888;
 
 /*for model role section*/
 .mr1 img{
-  margin-left:350px;
+  margin-left:-5%;
 }
 .mr1 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:-650px;
+  /* margin-top:-10px; */
+  margin-left:-5%;
 }
 
+
 .mr2 img{
-  margin-top:-100px;
-  margin-left:460px;
+  /* margin-top:100px; */
+  margin-left:7%;
 }
 .mr2 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:-430px;
+  /* margin-top:-10px; */
+  margin-left:6%;
 }
 
 .mr3 img{
-  margin-top:-250px;
-  margin-left:570px;
+  margin-top:-235px;
+  margin-left:18%;
 }
 .mr3 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:-210px;
+  /* margin-top:-10px; */
+  margin-left:17%;
 }
 
 .mr4 img{
-  margin-top:-100px;
-  margin-left:680px;
+  /* margin-top:0px; */
+  margin-left:30%;
 }
 .mr4 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:10px;
+  /* margin-top:0px; */
+  margin-left:29%;
 }
 
 .mr5 img{
-  margin-top:-250px;
-  margin-left:790px;
+  margin-top:-240px;
+  margin-left:41%;
 }
 .mr5 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:230px;
+  /* margin-top:-10px; */
+  margin-left:39%;
 }
 
 .mr6 img{
-  margin-top:-110px;
-  margin-left:900px;
+  /* margin-top:-110px; */
+  margin-left:53%;
 }
 .mr6 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:450px;
+  /* margin-top:-10px; */
+  margin-left:52%;
 }
 
 .mr7 img{
   margin-top:-240px;
-  margin-left:1010px;
+  margin-left:65%;
 }
 .mr7 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:670px;
+  /* margin-top:-10px; */
+  margin-left:62%;
 }
 
 .mr8 img{
-  margin-top:-110px;
-  margin-left:1120px;
+  /* margin-top:-110px; */
+  margin-left:78%;
 }
 .mr8 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:890px;
+  /* margin-top:-10px; */
+  margin-left:75%;
 }
 
 .mr9 img{
   margin-top:-250px;
-  margin-left:1230px;
+  margin-left:90%;
 }
 .mr9 p{
+  position: absolute;
   font-size: 16px;
-  margin-top:-10px;
-  margin-left:1100px;
+  /* margin-top:-10px; */
+  margin-left:85%;
 }
 
-#jf{
-  margin-top:100px;
+#mr{
+  margin-bottom:180px;
 }
 
 /*for as-list*/

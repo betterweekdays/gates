@@ -110,7 +110,7 @@ var barcpo = Vue.component('bar-chart', {
                             .style("height", that.tooltipHeight+"px")
                             .style("left", that.tooltipLeftMargin+"%")
                             // .style("left", getScales.xScale(d.percent)+400+"px")
-                            .style("top", that.tooltipTopMargin+"%")
+                            .style("top", that.tooltipTopMargin+"px")
                             // .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
                             .style("background-color", that.d3Color[i]);
                   // console.log("that.d3Color[i]: "+that.d3Color[i])
@@ -425,8 +425,8 @@ var piecpo = Vue.component('filled-donut-chart', {
             var tooltip = d3.select("#dooldip")
                             .style("width", "280px")
                             .style("height", "90px")
-                            .style("left", 410+that.d3OffsetHor+"px")
-                            .style("top", 4435+that.d3Offset+"px")
+                            .style("left", that.d3OffsetHor+"%")
+                            .style("top", that.d3Offset+"%")
                             .style("background-color", that.d3Color[i]);
             // console.log(d)
             tooltip.select("#dooldipname")
@@ -452,57 +452,116 @@ var piccpo = Vue.component('picture-chart', {
     <div>
       <span class="mr1">
         <img src="img/mr/1.png" class="img-responsive" width="100" height="200"></svg>
-        <p>1. <% d3Data["0"]["name"] %></p>
-        <p><% d3Data["0"]["percent"] %>%</p>
+        <p>1. <% d3Data["0"]["name"] %> <strong><% d3Data["0"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr2">
         <img src="img/mr/2.png" class="img-responsive" width="100" height="200"></svg>
-        <p>2. <% d3Data["1"]["name"] %></p>
-        <p><% d3Data["1"]["percent"] %>%</p>
+        <p>2. <% d3Data["1"]["name"] %> <strong><% d3Data["1"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr3">
         <img src="img/mr/3.png" class="img-responsive" width="100" height="200"></svg>
-        <p>3. <% d3Data["2"]["name"] %></p>
-        <p><% d3Data["2"]["percent"] %>%</p>
+        <p>3. <% d3Data["2"]["name"] %> <strong><% d3Data["2"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr4">
         <img src="img/mr/4.png" class="img-responsive" width="100" height="200"></svg>
-        <p>4. <% d3Data["3"]["name"] %></p>
-        <p><% d3Data["3"]["percent"] %>%</p>
+        <p>4. <% d3Data["3"]["name"] %> <strong><% d3Data["3"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr5">
         <img src="img/mr/5.png" class="img-responsive" width="100" height="200"></svg>
-        <p>5. <% d3Data["4"]["name"] %></p>
-        <p><% d3Data["4"]["percent"] %>%</p>
+        <p>5. <% d3Data["4"]["name"] %> <strong><% d3Data["4"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr6">
         <img src="img/mr/6.png" class="img-responsive" width="100" height="200"></svg>
-        <p>6. <% d3Data["5"]["name"] %></p>
-        <p><% d3Data["5"]["percent"] %>%</p>
+        <p>6. <% d3Data["5"]["name"] %> <strong><% d3Data["5"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr7">
         <img src="img/mr/7.png" class="img-responsive" width="100" height="200"></svg>
-        <p>7. <% d3Data["6"]["name"] %></p>
-        <p><% d3Data["6"]["percent"] %>%</p>
+        <p>7. <% d3Data["6"]["name"] %> <strong><% d3Data["6"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr8">
         <img src="img/mr/8.png" class="img-responsive" width="100" height="200"></svg>
-        <p>8. <% d3Data["7"]["name"] %></p>
-        <p><% d3Data["7"]["percent"] %>%</p>
+        <p>8. <% d3Data["7"]["name"] %> <strong><% d3Data["7"]["percent"] %>%</strong></p>
       </span>
 
       <span class="mr9">
         <img src="img/mr/9.png" class="img-responsive" width="100" height="200"></svg>
-        <p>9. <% d3Data["8"]["name"] %></p>
-        <p><% d3Data["8"]["percent"] %>%</p>
+        <p>9. <% d3Data["8"]["name"] %> <strong><% d3Data["8"]["percent"] %>%</strong></p>
       </span>
     </div>
   `
 })
+
+//The list chart component is not used
+Vue.component('list-chart',{
+  props:['d3Data'],
+  delimiters:["<%","%>"],
+  template:`
+    <div>
+      <ol>
+        <li><% d3Data["0"]["name"] %> <% d3Data["0"]["percent"] %>%</li>
+        <li><% d3Data["1"]["name"] %> <% d3Data["1"]["percent"] %>%</li>
+        <li><% d3Data["2"]["name"] %> <% d3Data["2"]["percent"] %>%</li>
+        <li><% d3Data["3"]["name"] %> <% d3Data["3"]["percent"] %>%</li>
+        <li><% d3Data["4"]["name"] %> <% d3Data["4"]["percent"] %>%</li>
+        <li><% d3Data["5"]["name"] %> <% d3Data["5"]["percent"] %>%</li>
+        <li><% d3Data["6"]["name"] %> <% d3Data["6"]["percent"] %>%</li>
+        <li><% d3Data["7"]["name"] %> <% d3Data["7"]["percent"] %>%</li>
+        <li><% d3Data["8"]["name"] %> <% d3Data["8"]["percent"] %>%</li>
+      </ol>
+      <img id="as-img" src="img/areasofstudy.png">
+    </div>
+  `
+})
+
+// var asVue = new Vue({
+//   el: '#as',
+//   data(){
+//     return{
+//       d3Data: {},
+//       vueInstitution:"",
+//       vueSchool:"",
+//       vueProgram:"",
+//       vueRace:"",
+//       vueGender:"",
+//       vueIncome:"",
+//       vueFirst:"",
+//       vueAttendance:""
+//     }
+//   },
+//   computed:{
+//     isChanged(){
+//       return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
+//     }
+//   },
+//   watch: {
+//     isChanged() {
+//       // console.log("asVue watch")
+//       this.fetchData();
+//     }
+//   },
+//   created: function(){
+//     // console.log("asVue created")
+//     this.fetchData();
+//   },
+//   // mounted: function(){
+//     // console.log("asVue mounted")
+//   // },
+//   methods: {
+//     fetchData: function(){
+//       // console.log("asVue methods fetchData")
+//       var link = window.produceLink(this);
+//       fetch(link)
+//           .then(response => response.json())
+//           .then(json => {
+//             this.d3Data = json.data["0"]["Areas of Study"]
+//           })
+//     }
+//   }
+// })
