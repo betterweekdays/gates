@@ -1,6 +1,6 @@
 //reusable vue component for bar chart
 var barcpo = Vue.component('bar-chart', {
-  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color'],
+  props: ['d3Data','d3Offset', 'd3Des', 'chartid', 'chartWidth', 'chartHeight', 'd3Translate','d3TranslateHor','tooltipTopMargin','tooltipLeftMargin','tooltipWidth','tooltipHeight','d3Color', 'tooltipFontSize'],
   template:`
     <div>
       <svg :id="chartid" :width="chartWidth" :height="chartHeight"></svg>
@@ -128,6 +128,16 @@ var barcpo = Vue.component('bar-chart', {
                             return "No pre-set description found"; });
 
                   d3.select("#tooltip").classed("hidden", false);
+
+                  var title = d3.select("#title")
+                                .style("font-size", that.tooltipFontSize+"px")
+                                .style("line-height", that.tooltipFontSize*1.5+"px")
+                  var value = d3.select("#value")
+                                .style("font-size", that.tooltipFontSize+"px")
+                                .style("line-height", that.tooltipFontSize*1.5+"px")
+                  var text = d3.select("#text")
+                                .style("font-size", that.tooltipFontSize+"px")
+                                .style("line-height", that.tooltipFontSize*1.5+"px")
           })
           .on("mouseout", function(){
                   d3.select("#tooltip").classed("hidden", true);
