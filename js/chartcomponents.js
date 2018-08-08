@@ -170,7 +170,7 @@ var barcpo = Vue.component('bar-chart', {
 
 //reusable vue compoenent for donut chart
 var donutcpo = Vue.component('donut-chart', {
-  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move','d3Color'],
+  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move','d3Color','fontSize'],
   template:`
     <div>
       <svg class="pie" width="400" height="400" :transform="move">
@@ -226,34 +226,55 @@ var donutcpo = Vue.component('donut-chart', {
                                   .append("g")
                                   .attr("class", "text-group");
 
-                        g.append("text")
-                          .attr("class", "name-text")
-                          .text(d.data.name)
-                          .attr('text-anchor', 'middle')
-                          .attr('dy', '-1.2em');
+                        var circletextarray = [];
+                        if (d.data.name.includes('/')||d.data.name.includes('&')){
+                          circletextarray = d.data.name.split(/[\s/&]+/);
+                          // circletextarray = d.data.name.split(" ");
+                        } else {
+                          circletextarray.push(d.data.name);
+                        }
+                        // console.log(circletextarray)
+                        var positionForValueText = 0;
+                        for (j=0; j<circletextarray.length; j++){
+                          g.append("text")
+                            .attr("class", "name-text")
+                            .attr("font-size", that.fontSize*1.5+"em")
+                            .text(circletextarray[j])
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', -1.2+j*1.2+'em')
+                          positionForValueText = -1.2+j*1.2;
+                        }
+
+                        // g.append("text")
+                        //   .attr("class", "name-text")
+                        //   .attr("font-size", that.fontSize*1.5+"em")
+                        //   .text(d.data.name)
+                        //   .attr('text-anchor', 'middle')
+                        //   .attr('dy', '-1.2em');
 
                         g.append("text")
                           .attr("class", "value-text")
+                          .attr("font-size", that.fontSize+"em")
                           .text(d.data.percent+"%")
                           .attr('text-anchor', 'middle')
-                          .attr('dy', '.6em');
+                          .attr('dy', positionForValueText+2+'em');
 
-                        g.append("text")
-                          .attr("class", "description-text")
-                          .text(function() {
-                                  for (a = 0; a < that.d3Des.length; a++) {
-                                    // console.log("a: "+a)
-                                    // console.log("that.d3Des[a].name: "+that.d3Des[a].name)
-                                    // if (a==0){console.log(d.data.name);}
-                                    // console.log("d.name: "+d.name)
-                                    // console.log("that.d3Des[a].dx: "+that.d3Des[a].dx)
-                                    if (that.d3Des[a].name == d.data.name){
-                                      return that.d3Des[a].dx;
-                                    }
-                                  }
-                                  return "No pre-set description found"; })
-                          .attr('text-anchor', 'middle')
-                          .attr('dy', '1.8em');
+                        // g.append("text")
+                        //   .attr("class", "description-text")
+                        //   .text(function() {
+                        //           for (a = 0; a < that.d3Des.length; a++) {
+                        //             // console.log("a: "+a)
+                        //             // console.log("that.d3Des[a].name: "+that.d3Des[a].name)
+                        //             // if (a==0){console.log(d.data.name);}
+                        //             // console.log("d.name: "+d.name)
+                        //             // console.log("that.d3Des[a].dx: "+that.d3Des[a].dx)
+                        //             if (that.d3Des[a].name == d.data.name){
+                        //               return that.d3Des[a].dx;
+                        //             }
+                        //           }
+                        //           return "No pre-set description found"; })
+                        //   .attr('text-anchor', 'middle')
+                        //   .attr('dy', '1.8em');
                     })
               .on("mouseout", function(d) {
                                   d3.select(this)

@@ -344,13 +344,13 @@ fill: #fff;
 }
 
 .pie .name-text{
-font-size: 1.5em;
+/* font-size: 1.5em; */
 font-weight: bold;
 fill: #888;
 }
 
 .pie .value-text{
-font-size: 1em;
+/* font-size: 1em; */
 fill: #888;
 }
 

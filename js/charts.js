@@ -241,6 +241,7 @@ var jfVue = new Vue({
       innerRadius:110,
       outerRadius:150,
       move:"translate(0,-50)",
+      fontSize:1,
       d3Color:["#afbf7c","#f4cc70","#e9a349","#de7a22","#7f8757","#209488","#399e8a","#51a788","#6ab187"]
     }
   }
@@ -384,6 +385,7 @@ var ocVue = new Vue({
         innerRadius:110,
         outerRadius:150,
         move:"translate(0,-50)",
+        fontSize:1,
         d3Color:["#afbf7c","#f4cc70","#e9a349","#de7a22","#7f8757","#209488","#399e8a","#51a788","#6ab187"]
       }
     }
