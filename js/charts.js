@@ -104,7 +104,7 @@ var ksVue = new Vue({
       tooltipWidth:250,
       tooltipHeight:275,
       tooltipTopMargin:931, /*1850,*/
-      tooltipLeftMargin:3, /*375,*/
+      tooltipLeftMargin:2.4, /*375,*/
       tooltipFontSize:15,
       d3Color: ["#003B46","#044951","#07575B","#176469","#377E84","#56989F","#66A5AD","#95C2CA","#C4DFE6"]
     }
@@ -175,7 +175,7 @@ var caVue = new Vue({
       tooltipWidth:220,
       tooltipHeight:275,
       tooltipTopMargin:1422, /*2255,*/
-      tooltipLeftMargin:114, /*1200,*/
+      tooltipLeftMargin:113.7, /*1200,*/
       tooltipFontSize:14,
       d3Color: ["#1995ad","#46abbf","#74c0d0","#a1d6e2","#aacdd6","#b3c3ca","#b8bfc4","#bcbabe","#d7d6d8"]
     }
