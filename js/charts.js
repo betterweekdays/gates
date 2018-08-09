@@ -1,4 +1,4 @@
-//customized info for dominant value (dv) dvDescription taken from JobScript sample report
+//customized info for professional/dominant value (pv/dv) dvDescription taken from JobScript sample report
 var dvDescription = [
       {"name":"Helping People","dx":"Students areasofstudy compassionate, service oriented and respond to the developmental needs of those around them."},
       {"name":"Constantly Being Curious","dx":"Students seek out underlying reasons why things happen and investigate complex problems."},
@@ -20,53 +20,16 @@ var dvVue = new Vue({
       d3Translate:170,
       d3TranslateHor:390,
       d3Data: {},
-      // vueInstitution:"",
-      // vueSchool:[],
-      // vueProgram:[],
-      // vueRace:[],
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      vueAttendance:"",
       d3Offset:0,
       d3Des: dvDescription,
-      tooltipLeftMargin:114, /*115, 1170,*/
-      tooltipTopMargin:150, /*-445, 1025,*/
+      tooltipLeftMargin:114,
+      tooltipTopMargin:150,
       tooltipWidth:225,
       tooltipHeight:350,
       tooltipFontSize:20,
       d3Color: ["#505160","#5c6a7f","#68829e","#7a9185","#8ba06b","#9daf52","#aebd38","#84a036","#598234"]
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("dvVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("dvVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  // //   console.log("dvVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("dvVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Dominant Values"]
-  //         })
-  //   }
-  // }
 })
 
 //customized vue instance for key strength (ks)
@@ -88,14 +51,6 @@ var ksVue = new Vue({
       chartid:"ks-chart",
       chartWidth:700,
       chartHeight:350,
-      // vueInstitution:"",
-      // vueSchool:"",
-      // vueProgram:"",
-      // vueRace:"",
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      // vueAttendance:"",
       d3Data: {},
       d3Offset:0,
       d3Des: ksDescription,
@@ -103,41 +58,12 @@ var ksVue = new Vue({
       d3TranslateHor:305,
       tooltipWidth:250,
       tooltipHeight:275,
-      tooltipTopMargin:931, /*1850,*/
-      tooltipLeftMargin:2.4, /*375,*/
+      tooltipTopMargin:931,
+      tooltipLeftMargin:2.4,
       tooltipFontSize:15,
       d3Color: ["#003B46","#044951","#07575B","#176469","#377E84","#56989F","#66A5AD","#95C2CA","#C4DFE6"]
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("ksVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("ksVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  //   // console.log("ksVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("ksVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Key Strengths"]
-  //         })
-  //   }
-  // }
 })
 
 //customized vue instance for caution areas (ca)
@@ -160,55 +86,18 @@ var caVue = new Vue({
       chartWidth:700,
       chartHeight:350,
       d3Data: {},
-      // vueInstitution:"",
-      // vueSchool:"",
-      // vueProgram:"",
-      // vueRace:"",
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      // vueAttendance:"",
       d3Offset:50,
       d3Des: caDescription,
       d3Translate:240,
       d3TranslateHor:305,
       tooltipWidth:220,
       tooltipHeight:275,
-      tooltipTopMargin:1422, /*2255,*/
-      tooltipLeftMargin:113.7, /*1200,*/
+      tooltipTopMargin:1422,
+      tooltipLeftMargin:113.7,
       tooltipFontSize:14,
       d3Color: ["#1995ad","#46abbf","#74c0d0","#a1d6e2","#aacdd6","#b3c3ca","#b8bfc4","#bcbabe","#d7d6d8"]
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("caVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("caVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  //   // console.log("caVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("caVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Caution Areas"]
-  //         })
-  //   }
-  // }
 })
 
 //customized vue instance for job functions (jf)
@@ -229,14 +118,6 @@ var jfVue = new Vue({
     return{
       d3Data: {},
       d3Des: jfdescription,
-      // vueInstitution:"",
-      // vueSchool:"",
-      // vueProgram:"",
-      // vueRace:"",
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      // vueAttendance:"",
       chartid: "jf-chart",
       innerRadius:110,
       outerRadius:150,
@@ -245,117 +126,9 @@ var jfVue = new Vue({
       d3Color:["#afbf7c","#f4cc70","#e9a349","#de7a22","#7f8757","#209488","#399e8a","#51a788","#6ab187"]
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("jfVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("jfVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  //   // console.log("jfVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("jfVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Job Functions"]
-  //         })
-  //   }
-  // }
 })
 
-//customized vue instance for model role (mr)
-// var mrDescription = [
-//   {"name":"Alice","dx":"Description for Alice"},
-//   {"name":"Ben","dx":"Description for Ben"},
-//   {"name":"Cici","dx":"Description for Cici"},
-//   {"name":"Dave","dx":"Description for Dave"},
-//   {"name":"Eva","dx":"Description for Eva"},
-//   {"name":"Frank","dx":"Description for Frank"},
-//   {"name":"Gigi","dx":"Description for Gigi"},
-//   {"name":"Helen","dx":"Description for Helen"},
-//   {"name":"Iris","dx":"Description for Iris"}];
-//
-// var mrVue = new Vue({
-//   el: '#mr',
-//   data(){
-//     return{
-//       chartid:"mr-chart",
-//       chartWidth:900,
-//       chartHeight:550,
-//       d3Data: {},
-//       d3Offset:3250,
-//       vueSchool:"",
-//       vueProgram:"",
-//       vueRace:"",
-//       vueGender:"",
-//       vueIncome:"",
-//       vueFirst:"",
-//       vueAttendance:"",
-//       d3Des: mrDescription,
-//       d3Translate:150,
-//       d3TranslateHor:480,
-//       tooltipWidth:350,
-//       tooltipHeight:400,
-//       tooltipTopMargin:2525,
-//       tooltipLeftMargin:400
-//     }
-//   },
-//   computed:{
-//     isChanged(){
-//       return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-//     }
-//   },
-//   watch: {
-//     isChanged() {
-//       // console.log("mrVue watch")
-//       this.fetchData();
-//     }
-//   },
-//   created: function(){
-//     // console.log("mrVue created")
-//     this.fetchData();
-//   },
-//   // mounted: function(){
-//     // console.log("mrVue mounted")
-//   // },
-//   methods: {
-//     fetchData: function(){
-//       // console.log("mrVue methods fetchData")
-//       var link = window.produceLink(this);
-//       fetch(link)
-//           .then(response => response.json())
-//           .then(json => {
-//             this.d3Data = json.data["0"]["Model Roles"]
-//           })
-//     }
-//   }
-// })
-
-//customized vue instance for job functions (jf)
-// var rpdescription = [
-//   {"name":"Accomplishment-oriented","dx":"roles & positions"},
-//   {"name":"Kind-hearted","dx":"roles & positions"},
-//   {"name":"Change-oriented","dx":"roles & positions"},
-//   {"name":"test1","dx":"des"},
-//   {"name":"test2","dx":"des"},
-//   {"name":"test3","dx":"des"},
-//   {"name":"test4","dx":"des"},
-//   {"name":"test5","dx":"des"},
-//   {"name":"test6","dx":"des"}];
-
+//customized info for cultural preference/organizational culture(oc)
 var ocdescription = [
   {"name":"Professional/Strategic","dx":""},
   {"name":"Technical/Scientific","dx":""},
@@ -373,14 +146,6 @@ var ocVue = new Vue({
       return{
         d3Data: {},
         d3Des: ocdescription,
-        // vueInstitution:"",
-        // vueSchool:"",
-        // vueProgram:"",
-        // vueRace:"",
-        // vueGender:"",
-        // vueIncome:"",
-        // vueFirst:"",
-        // vueAttendance:"",
         chartid: "oc-chart",
         innerRadius:110,
         outerRadius:150,
@@ -389,129 +154,14 @@ var ocVue = new Vue({
         d3Color:["#afbf7c","#f4cc70","#e9a349","#de7a22","#7f8757","#209488","#399e8a","#51a788","#6ab187"]
       }
     }
-    // computed:{
-    //   isChanged(){
-    //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-    //   }
-    // },
-    // watch: {
-    //   isChanged() {
-    //     // console.log("rpVue watch")
-    //     this.fetchData();
-    //   }
-    // },
-    // // created: function(){
-    // //   // console.log("rpVue created")
-    // //   this.fetchData();
-    // // },
-    // // mounted: function(){
-    //   // console.log("rpVue mounted")
-    // // },
-    // methods: {
-    //   fetchData: function(){
-    //     // console.log("rpVue methods fetchData")
-    //     var link = window.produceLink(this);
-    //     fetch(link)
-    //         .then(response => response.json())
-    //         .then(json => {
-    //           this.d3Data = json.data["0"]["Organization Culture"]
-    //         })
-    //   }
-    // }
   })
 
-//customized vue instance for Organization Culture (oc)
-// var ocdescription = [
-//   {"name":"Accomplishment-oriented","dx":"OC"},
-//   {"name":"Kind-hearted","dx":"OCC"},
-//   {"name":"Change-oriented","dx":"OCCC"},
-//   {"name":"test1","dx":"des"},
-//   {"name":"test2","dx":"des"},
-//   {"name":"test3","dx":"des"},
-//   {"name":"test4","dx":"des"},
-//   {"name":"test5","dx":"des"},
-//   {"name":"test6","dx":"des"}];
-//
-// var ocVue = new Vue({
-//   el: '#oc',
-//   data(){
-//     return{
-//       d3Data: {},
-//       d3Des: ocdescription,
-//       vueInstitution:"",
-//       vueSchool:"",
-//       vueProgram:"",
-//       vueRace:"",
-//       vueGender:"",
-//       vueIncome:"",
-//       vueFirst:"",
-//       vueAttendance:"",
-//       chartid: "oc-chart",
-//       innerRadius:0,
-//       outerRadius:140,
-//       move:"translate(-225,-10)",
-//       d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
-//       d3Offset:0,
-//       d3OffsetHor:0
-//     }
-//   },
-//   computed:{
-//     isChanged(){
-//       return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-//     }
-//   },
-//   watch: {
-//     isChanged() {
-//       // console.log("ocVue watch")
-//       this.fetchData();
-//     }
-//   },
-//   created: function(){
-//     // console.log("ocVue created")
-//     this.fetchData();
-//   },
-//   // mounted: function(){
-//     // console.log("ocVue mounted")
-//   // },
-//   methods: {
-//     fetchData: function(){
-//       // console.log("ocVue methods fetchData")
-//       var link = window.produceLink(this);
-//       fetch(link)
-//           .then(response => response.json())
-//           .then(json => {
-//             this.d3Data = json.data["0"]["Organization Culture"]
-//           })
-//     }
-//   }
-// })
-
-//customized vue instance for industries (in)
-var ladescription = [
-  {"name":"Accomplishment-oriented","dx":"IN"},
-  {"name":"Kind-hearted","dx":"INN"},
-  {"name":"Change-oriented","dx":"INNN"},
-  {"name":"test1","dx":"des"},
-  {"name":"test2","dx":"des"},
-  {"name":"test3","dx":"des"},
-  {"name":"test4","dx":"des"},
-  {"name":"test5","dx":"des"},
-  {"name":"test6","dx":"des"}];
-
+//customized vue instance for leadership anchors (la)
 var laVue = new Vue({
   el: '#la',
   data(){
     return{
       d3Data: {},
-      d3Des: ladescription,
-      // vueInstitution:"",
-      // vueSchool:"",
-      // vueProgram:"",
-      // vueRace:"",
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      // vueAttendance:"",
       chartid: "la-chart",
       innerRadius:0,
       outerRadius:140,
@@ -521,204 +171,31 @@ var laVue = new Vue({
       d3OffsetHor:20 //tooltip left margin
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("inVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("inVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  //   // console.log("inVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("inVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Leadership Anchors"]
-  //         })
-  //   }
-  // }
 })
 
-//customized vue instance for organizations (og)
-var skdescription = [
-  {"name":"Accomplishment-oriented","dx":"OG"},
-  {"name":"Kind-hearted","dx":"OGG"},
-  {"name":"Change-oriented","dx":"OGGG"},
-  {"name":"test1","dx":"des"},
-  {"name":"test2","dx":"des"},
-  {"name":"test3","dx":"des"},
-  {"name":"test4","dx":"des"},
-  {"name":"test5","dx":"des"},
-  {"name":"test6","dx":"des"}];
-
+//customized vue instance for success keys (sk)
 var skVue = new Vue({
   el: '#sk',
   data(){
     return{
       d3Data: {},
-      d3Des: skdescription,
-      // vueInstitution:"",
-      // vueSchool:"",
-      // vueProgram:"",
-      // vueRace:"",
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      // vueAttendance:"",
       chartid: "sk-chart",
       innerRadius:0,
       outerRadius:140,
       move:"translate(0,-10)",
       d3Color:["#bdc089","#9a9eab","#7c7985","#5d535e","#8d6975","#bc808d","#ec96a4","#e6bc85","#dfe166"],
-      d3Offset:93,
-      d3OffsetHor:120
+      d3Offset:93, //tooltip top margin
+      d3OffsetHor:120 //tooltip left margin
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("ogVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("ogVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  //   // console.log("ogVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("ogVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Success Keys"]
-  //         })
-  //   }
-  // }
 })
 
-//customized vue instance for areas of study (as)
-// var asdescription = [
-//   {"name":"Accomplishment-oriented","dx":"areas of study"},
-//   {"name":"Kind-hearted","dx":"areas of study"},
-//   {"name":"Change-oriented","dx":"areas of study"},
-//   {"name":"test1","dx":"des"},
-//   {"name":"test2","dx":"des"},
-//   {"name":"test3","dx":"des"},
-//   {"name":"test4","dx":"des"},
-//   {"name":"test5","dx":"des"},
-//   {"name":"test6","dx":"des"}];
-//
-// var asVue = new Vue({
-//   el: '#as',
-//   data(){
-//     return{
-//       d3Data: {},
-//       d3Des: asdescription,
-//       vueSchool:"",
-//       vueProgram:"",
-//       vueRace:"",
-//       vueGender:"",
-//       vueIncome:"",
-//       vueFirst:"",
-//       vueAttendance:"",
-//       chartid: "as-chart"
-//     }
-//   },
-//   computed:{
-//     isChanged(){
-//       return [this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-//     }
-//   },
-//   watch: {
-//     isChanged() {
-//       // console.log("asVue watch")
-//       this.fetchData();
-//     }
-//   },
-//   created: function(){
-//     // console.log("asVue created")
-//     this.fetchData();
-//   },
-//   // mounted: function(){
-//     // console.log("asVue mounted")
-//   // },
-//   methods: {
-//     fetchData: function(){
-//       // console.log("asVue methods fetchData")
-//       var link = window.produceLink(this);
-//       fetch(link)
-//           .then(response => response.json())
-//           .then(json => {
-//             this.d3Data = json.data["0"]["Areas of Study"]
-//           })
-//     }
-//   }
-// })
-
+//customized vue instance for model roles (mr)
 var mrVue = new Vue({
   el: '#mr',
   data(){
     return{
       d3Data: {},
-      // vueInstitution:"",
-      // vueSchool:"",
-      // vueProgram:"",
-      // vueRace:"",
-      // vueGender:"",
-      // vueIncome:"",
-      // vueFirst:"",
-      // vueAttendance:""
     }
   }
-  // computed:{
-  //   isChanged(){
-  //     return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-  //   }
-  // },
-  // watch: {
-  //   isChanged() {
-  //     // console.log("mrVue watch")
-  //     this.fetchData();
-  //   }
-  // },
-  // // created: function(){
-  // //   // console.log("mrVue created")
-  // //   this.fetchData();
-  // // },
-  // // mounted: function(){
-  //   // console.log("mrVue mounted")
-  // // },
-  // methods: {
-  //   fetchData: function(){
-  //     // console.log("mrVue methods fetchData")
-  //     var link = window.produceLink(this);
-  //     fetch(link)
-  //         .then(response => response.json())
-  //         .then(json => {
-  //           this.d3Data = json.data["0"]["Model Roles"]
-  //         })
-  //   }
-  // }
 })

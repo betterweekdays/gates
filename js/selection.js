@@ -1,5 +1,7 @@
+// A Vue.js select component from http://sagalbot.github.io/vue-select/docs/
 var selectcpo = Vue.component('v-select', VueSelect.VueSelect)
 
+//the main component for the filters
 var maincpo = Vue.component('main-cpo',{
   props:{
     institution:{
@@ -34,8 +36,7 @@ var maincpo = Vue.component('main-cpo',{
     }
   },
   created:function(){
-    // console.log("maincpo created")
-    //for disabling other selections upon attendance
+    //for disabling other selections upon slecting C (or part-time) for attendance intensity
     this.school_selected = this.schoolarr
     this.program_selected = this.programarr
     this.race_selected = this.racearr
@@ -44,14 +45,12 @@ var maincpo = Vue.component('main-cpo',{
     }
 
     //for fetching data for options
-    // console.log("inside maincpo")
-    // console.log(this)
     var that = this;
     fetch ("https://betterweekdays.github.io/gates/data/school.json")
       .then (response => response.json())
       .then (data =>{
-        // console.log("inside maincpo data fetching")
         that.schooloptions = data
+        //manually add in the option of A (or Any)
         that.schooloptions.unshift("A")
       })
   },
@@ -75,7 +74,7 @@ var maincpo = Vue.component('main-cpo',{
       first_selected:this.first,
       attendance_selected:this.attendance,
       institutionoptions:['RBC','HSSU','Skandalaris','InsightSTL','Benedict'],
-      schooloptions:[],
+      schooloptions:[], //since school options are fetched from data files
       programoptions:['A','B','C'],
       genderoptions:['A','B','C'],
       raceoptions:['A','B','C'],
@@ -90,19 +89,12 @@ var maincpo = Vue.component('main-cpo',{
       incomenodrop: false,
       attendancenodrop: false,
       institutionnodrop: false
-      // schoolnodrop: true,
-      // programnodrop: true,
-      // racenodrop: true,
-      // gendernodrop: true,
-      // firstnodrop: true,
-      // incomenodrop: true,
-      // attendancenodrop: true
     }
   },
   components:{
     selectcpo
   },
-  delimiters:["<%","%>"],
+  delimiters:["<%","%>"], //<% %> serves the function of {{ }}, but not used here
   template:`
     <div>
       <h4> Institution: </h4>
@@ -131,6 +123,10 @@ var maincpo = Vue.component('main-cpo',{
     </div>
   `,
   computed:{
+    //school, program, race are multiple selections
+    //schoolarr, programarr, racearr are for the case when only 1 parameter is passed in (e.g. /foo?users=Tom)
+    //and this parameter would be taken as a String instead of an Array with only 1 entry
+    //Reference: https://vuejs.org/v2/guide/migration-vue-router.html#Syntax-for-Arrays-in-Queries-removed
     schoolarr(){
       var scharr = this.$route.query.school
       if (typeof scharr !== 'undefined') {
@@ -157,6 +153,9 @@ var maincpo = Vue.component('main-cpo',{
     }
   },
   methods:{
+    //this handles an ambiguous case of multiple selection when A (or Any) is selected concurrently with other options
+    //and also the ambiguous case of multiple selection when no option is selected
+    //for both, we select A only
     checkIfContainsAny(arr){
       if (arr.includes("A")) {
         return ["A"]
@@ -166,6 +165,7 @@ var maincpo = Vue.component('main-cpo',{
         return arr
       }
     },
+    //this handles the ambiguous case of single selection when nothing is selected
     checkIfNull(str){
       if(str===null){
         return "A"
@@ -183,17 +183,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueInstitution=target;
-      // fetchapp.vueInstitution=target;
-      // dvVue.vueInstitution=target;
-      // ksVue.vueInstitution=target;
-      // caVue.vueInstitution=target;
-      // jfVue.vueInstitution=target;
-      // mrVue.vueInstitution=target;
-      // // rpVue.vueInstitution=target;
-      // ocVue.vueInstitution=target;
-      // laVue.vueInstitution=target;
-      // skVue.vueInstitution=target;
-      // asVue.vueInstitution=target;
     },
     updateSchool(target){
       // console.log("*******updateSchool*******")
@@ -205,17 +194,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueSchool=target;
-      // fetchapp.vueSchool=target;
-      // dvVue.vueSchool=target;
-      // ksVue.vueSchool=target;
-      // caVue.vueSchool=target;
-      // jfVue.vueSchool=target;
-      // mrVue.vueSchool=target;
-      // // rpVue.vueSchool=target;
-      // ocVue.vueSchool=target;
-      // laVue.vueSchool=target;
-      // skVue.vueSchool=target;
-      // asVue.vueSchool=target;
     },
     updateProgram(target){
       // console.log("*******updateProgram*******")
@@ -227,17 +205,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueProgram=target;
-      // fetchapp.vueProgram=target;
-      // dvVue.vueProgram=target;
-      // ksVue.vueProgram=target;
-      // caVue.vueProgram=target;
-      // jfVue.vueProgram=target;
-      // mrVue.vueProgram=target;
-      // // rpVue.vueProgram=target;
-      // ocVue.vueProgram=target;
-      // laVue.vueProgram=target;
-      // skVue.vueProgram=target;
-      // asVue.vueProgram=target;
     },
     updateRace(target){
       // console.log("*******updateRace*******")
@@ -249,17 +216,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueRace=target;
-      // fetchapp.vueRace=target;
-      // dvVue.vueRace=target;
-      // ksVue.vueRace=target;
-      // caVue.vueRace=target;
-      // jfVue.vueRace=target;
-      // mrVue.vueRace=target;
-      // // rpVue.vueRace=target;
-      // ocVue.vueRace=target;
-      // laVue.vueRace=target;
-      // skVue.vueRace=target;
-      // asVue.vueRace=target;
     },
     updateGender(target){
       // console.log("*******updateGender*******")
@@ -271,17 +227,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueGender=target;
-      // fetchapp.vueGender=target;
-      // dvVue.vueGender=target;
-      // ksVue.vueGender=target;
-      // caVue.vueGender=target;
-      // jfVue.vueGender=target;
-      // mrVue.vueGender=target;
-      // // rpVue.vueGender=target;
-      // ocVue.vueGender=target;
-      // laVue.vueGender=target;
-      // skVue.vueGender=target;
-      // asVue.vueGender=target;
     },
     updateIncome(target){
       // console.log("*******updateIncome*******")
@@ -293,17 +238,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueIncome=target;
-      // fetchapp.vueIncome=target;
-      // dvVue.vueIncome=target;
-      // ksVue.vueIncome=target;
-      // caVue.vueIncome=target;
-      // jfVue.vueIncome=target;
-      // mrVue.vueIncome=target;
-      // // rpVue.vueIncome=target;
-      // ocVue.vueIncome=target;
-      // laVue.vueIncome=target;
-      // skVue.vueIncome=target;
-      // asVue.vueIncome=target;
     },
     updateFirst(target){
       // console.log("*******updateFirst*******")
@@ -315,17 +249,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueFirst=target;
-      // fetchapp.vueFirst=target;
-      // dvVue.vueFirst=target;
-      // ksVue.vueFirst=target;
-      // caVue.vueFirst=target;
-      // jfVue.vueFirst=target;
-      // mrVue.vueFirst=target;
-      // // rpVue.vueFirst=target;
-      // ocVue.vueFirst=target;
-      // laVue.vueFirst=target;
-      // skVue.vueFirst=target;
-      // asVue.vueFirst=target;
     },
     updateAttendance(target){
       // console.log("*******updateAttendance*******")
@@ -337,17 +260,6 @@ var maincpo = Vue.component('main-cpo',{
         }
       })
       sumapp.vueAttendance=target;
-      // fetchapp.vueAttendance=target;
-      // dvVue.vueAttendance=target;
-      // ksVue.vueAttendance=target;
-      // caVue.vueAttendance=target;
-      // jfVue.vueAttendance=target;
-      // mrVue.vueAttendance=target;
-      // // rpVue.vueAttendance=target;
-      // ocVue.vueAttendance=target;
-      // laVue.vueAttendance=target;
-      // skVue.vueAttendance=target;
-      // asVue.vueAttendance=target;
     },
     disableUponAttendance(){
       this.school_selected = ["A"]

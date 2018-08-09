@@ -1,3 +1,5 @@
+//a (kind of hard coded) component for Assessment Result Summary in the hero section
+//this component is also responsible for data fetching
 var sum = Vue.component('sum',{
   props:['pv','ks','ca','jf','mr','oc','la','sk',"total"],
   delimiters:["<%", "%>"],
@@ -66,37 +68,20 @@ var sumapp = new Vue({
   },
   watch: {
     isChanged() {
-      // console.log("sumapp isChanged")
       this.fetchData();
-      // console.log("sumapp isChanged after fetchData")
-      // console.log(this.pv)
-      // console.log(dvVue.d3Data)
-      // dvVue.d3Data = this.pv;
-      // console.log(this.pv)
-      // console.log(dvVue.d3Data)
     }
   },
   // created: function(){
-  // //   this.fetchData();
-  //   console.log("fetchapp created")
+  //   this.fetchData();
   // },
   methods:{
     fetchData:function(){
-      var link = window.produceLink(this);
-      // console.log("sumapp link")
-      // console.log(link)
-      // console.log("vueInstitution")
-      // console.log(vueInstitution)
+      var link = window.produceLink(this); //the produceLink function is in link.js
       fetch(link)
         .then(response=>response.json())
         .then(json=>{
-          console.log("sumapp fetchData method")
           this.pv = json.data["0"]["Dominant Values"]
-          // console.log(this.pv)
-          // console.log(dvVue.d3Data)
           dvVue.d3Data = this.pv
-          // console.log(this.pv)
-          // console.log(dvVue.d3Data)
           this.ks = json.data["0"]["Key Strengths"]
           ksVue.d3Data = this.ks
           this.ca = json.data["0"]["Caution Areas"]

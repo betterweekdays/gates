@@ -76,10 +76,6 @@ var barcpo = Vue.component('bar-chart', {
     },
     appendBars: function(){
       var that = this;
-      // var color = ["#b50804","#eaa612","#85860f","#83bcc3","#3e4079"];
-      // var colorFunction = d3.scaleOrdinal(color);
-      // console.log(that.d3Color[3])
-      // console.log(that.d3Color)
       var getScales = that.prepareScales();
       var svg = d3.select("#"+that.chartid);
       var bars = svg.append("g")
@@ -104,7 +100,6 @@ var barcpo = Vue.component('bar-chart', {
       var that = this;
       var getScales = that.prepareScales();
       bars.on("mouseover", function(d,i){
-                  // console.log("i: "+i)
                   var tt = d3.select("#tooltip")
                             .style("width", that.tooltipWidth+"px")
                             .style("height", that.tooltipHeight+"px")
@@ -113,7 +108,6 @@ var barcpo = Vue.component('bar-chart', {
                             .style("top", that.tooltipTopMargin+"px")
                             // .style("top", that.d3Offset+1800+getScales.yScale(i)+"px");
                             .style("background-color", that.d3Color[i]);
-                  // console.log("that.d3Color[i]: "+that.d3Color[i])
                   tt.select("#value")
                     .text(d.percent);
                   tt.select("#title")
@@ -187,18 +181,15 @@ var donutcpo = Vue.component('donut-chart', {
   methods:{
     prepareElements: function(){
       var that = this;
-      // var color = d3.scaleOrdinal(d3.schemeBlues[9]);
-      // console.log(color)
 
       var arc = d3.arc()
-                  .innerRadius(that.innerRadius) //radius-thickness
-                  .outerRadius(that.outerRadius); //radius
+                  .innerRadius(that.innerRadius)
+                  .outerRadius(that.outerRadius);
 
       var pie = d3.pie()
                   .value(function(d) { return d.percent; })
                   .sort(null);
 
-      // return {color, arc, pie};
       return {arc, pie}
     },
     checkDup: function(element){
@@ -210,7 +201,6 @@ var donutcpo = Vue.component('donut-chart', {
       var that = this;
       var elements = that.prepareElements();
       var pie = elements.pie;
-      // var color = elements.color;
       var arc = elements.arc;
       var gout = d3.select("#"+that.chartid);
       that.checkDup(gout);
@@ -226,16 +216,18 @@ var donutcpo = Vue.component('donut-chart', {
                                   .append("g")
                                   .attr("class", "text-group");
 
+                        //the part below splits an entry like "Educational/Service-oriented" into 2 lines
+                        //so that it does not get too long and can fit into the donut chart
                         var circletextarray = [];
                         if (d.data.name.includes('/')||d.data.name.includes('&')){
                           circletextarray = d.data.name.split(/[\s/&]+/);
-                          // circletextarray = d.data.name.split(" ");
                         } else {
                           circletextarray.push(d.data.name);
                         }
-                        // console.log(circletextarray)
+
                         var positionForValueText = 0;
                         for (j=0; j<circletextarray.length; j++){
+                          //append name text
                           g.append("text")
                             .attr("class", "name-text")
                             .attr("font-size", that.fontSize*1.5+"em")
@@ -245,36 +237,13 @@ var donutcpo = Vue.component('donut-chart', {
                           positionForValueText = -1.2+j*1.2;
                         }
 
-                        // g.append("text")
-                        //   .attr("class", "name-text")
-                        //   .attr("font-size", that.fontSize*1.5+"em")
-                        //   .text(d.data.name)
-                        //   .attr('text-anchor', 'middle')
-                        //   .attr('dy', '-1.2em');
-
+                        //append value text
                         g.append("text")
                           .attr("class", "value-text")
                           .attr("font-size", that.fontSize+"em")
                           .text(d.data.percent+"%")
                           .attr('text-anchor', 'middle')
                           .attr('dy', positionForValueText+2+'em');
-
-                        // g.append("text")
-                        //   .attr("class", "description-text")
-                        //   .text(function() {
-                        //           for (a = 0; a < that.d3Des.length; a++) {
-                        //             // console.log("a: "+a)
-                        //             // console.log("that.d3Des[a].name: "+that.d3Des[a].name)
-                        //             // if (a==0){console.log(d.data.name);}
-                        //             // console.log("d.name: "+d.name)
-                        //             // console.log("that.d3Des[a].dx: "+that.d3Des[a].dx)
-                        //             if (that.d3Des[a].name == d.data.name){
-                        //               return that.d3Des[a].dx;
-                        //             }
-                        //           }
-                        //           return "No pre-set description found"; })
-                        //   .attr('text-anchor', 'middle')
-                        //   .attr('dy', '1.8em');
                     })
               .on("mouseout", function(d) {
                                   d3.select(this)
@@ -296,19 +265,13 @@ var donutcpo = Vue.component('donut-chart', {
                     .style("fill", that.d3Color[this._current]);
                 })
               .each(function(d, i) { this._current = i; });
-
-          var text = "";
-          gout.append('text')
-              .attr('text-anchor', 'middle')
-              .attr('dy', '.35em')
-              .text(text);
     }
   }
 })
 
-//reusable vue compoenent for filled donut chart
+//reusable vue compoenent for filled donut chart, or pie chart
 var piecpo = Vue.component('filled-donut-chart', {
-  props: ['d3Data', 'd3Des', 'chartid','innerRadius', 'outerRadius', 'move','d3Color', 'd3Offset','d3OffsetHor'],
+  props: ['d3Data', 'chartid','innerRadius', 'outerRadius', 'move','d3Color', 'd3Offset','d3OffsetHor'],
   delimiters:["<%","%>"],
   template:`
     <div>
@@ -330,18 +293,15 @@ var piecpo = Vue.component('filled-donut-chart', {
   methods:{
     prepareElements: function(){
       var that = this;
-      // var color = d3.scaleOrdinal(d3.schemeBlues[9]);
-      // console.log(color)
 
       var arc = d3.arc()
-                  .innerRadius(that.innerRadius) //radius-thickness
-                  .outerRadius(that.outerRadius); //radius
+                  .innerRadius(that.innerRadius)
+                  .outerRadius(that.outerRadius);
 
       var pie = d3.pie()
                   .value(function(d) { return d.percent; })
                   .sort(null);
 
-      // return {color, arc, pie};
       return {arc, pie}
     },
     checkDup: function(element){
@@ -353,7 +313,6 @@ var piecpo = Vue.component('filled-donut-chart', {
       var that = this;
       var elements = that.prepareElements();
       var pie = elements.pie;
-      // var color = elements.color;
       var arc = elements.arc;
       var gout = d3.select("#"+that.chartid);
       that.checkDup(gout);
@@ -362,110 +321,39 @@ var piecpo = Vue.component('filled-donut-chart', {
                   .data(pie(that.d3Data))
                   .enter()
                   .append("g")
-                  // .on("mouseover", function(d,i) {
-                  //       let g = d3.select(this)
-                  //                 .style("cursor", "pointer")
-                  //                 // .style("fill", "#66ccff")
-                  //                 .append("g")
-                  //                 .attr("class", "text-group");
-                  //
-                  //       // var textbox = g.append("div")
-                  //       //                 .attr("id","test")
-                  //       //                 .attr("width", 200)
-                  //       //                 .attr("height", 200)
-                  //
-                  //       // g.append("circle")
-                  //       //   .attr("class","donut-circle")
-                  //       //   .attr("r",100)
-                  //       //   .attr("fill",that.d3Color[i])
-                  //       //
-                  //       // var circletextarray = [];
-                  //       // if (d.data.name.includes('/')||d.data.name.includes('&')||d.data.name.includes(' ')){
-                  //       //   circletextarray = d.data.name.split(/[\s/&]+/);
-                  //       //   // circletextarray = d.data.name.split(" ");
-                  //       // } else {
-                  //       //   circletextarray.push(d.data.name);
-                  //       // }
-                  //       // // console.log(circletextarray)
-                  //       //
-                  //       // for (i=0; i<circletextarray.length; i++){
-                  //       //   g.append("text")
-                  //       //     .attr("class", "filled-name-text")
-                  //       //     .text(circletextarray[i])
-                  //       //     .attr('text-anchor', 'middle')
-                  //       //     .attr('dy', -1+1.3*i+'em')
-                  //       // }
-                  //
-                  //       // g.append("text")
-                  //       //   .attr("class", "value-text")
-                  //       //   .text(d.data.percent+"%")
-                  //       //   .attr('text-anchor', 'middle')
-                  //       //   .attr('dy', '.6em');
-                  //       //
-                  //       // g.append("text")
-                  //       //   .attr("class", "description-text")
-                  //       //   .text(function() {
-                  //       //           for (a = 0; a < that.d3Des.length; a++) {
-                  //       //             if (that.d3Des[a].name == d.data.name){
-                  //       //               return that.d3Des[a].dx;
-                  //       //             }
-                  //       //           }
-                  //       //           return "No pre-set description found"; })
-                  //       //   .attr('text-anchor', 'middle')
-                  //       //   .attr('dy', '1.8em');
-                  //
-                  //       // d3.select("#donut-tooltip").classed("hidden", false);
-                  //   })
-              // .on("mouseout", function(d) {
-              //                     d3.select(this)
-              //                       .style("cursor", "none")
-              //                       .style("fill", that.d3Color[this._current])
-              //                       .select(".text-group").remove();
-              //
-              //                     // d3.select("#donut-tooltip").classed("hidden", true);
-              //                 })
-              .append('path')
-              .attr('d', arc)
-              .attr('fill', (d,i) => that.d3Color[i])
-              .on("mouseover", function(d) {
-                  d3.select(this)
-                    .style("cursor", "pointer");
-                    // .style("fill", "#66ccff");
-                })
-              .on("mouseout", function(d) {
-                  d3.select(this)
-                    .style("cursor", "none")
-                    .style("fill", that.d3Color[this._current]);
-                })
-              .each(function(d, i) { this._current = i; });
+                  .append('path')
+                  .attr('d', arc)
+                  .attr('fill', (d,i) => that.d3Color[i])
+                  .on("mouseover", function(d) {
+                      d3.select(this)
+                        .style("cursor", "pointer");
+                        // .style("fill", "#66ccff");
+                    })
+                  .on("mouseout", function(d) {
+                      d3.select(this)
+                        .style("cursor", "none")
+                        .style("fill", that.d3Color[this._current]);
+                    })
+                  .each(function(d, i) { this._current = i; });
 
-          // var text = "";
-          // gout.append('text')
-          //     .attr('text-anchor', 'middle')
-          //     .attr('dy', '.35em')
-          //     .text(text);
       return path;
-    // }
     },
     appendTooltip:function(path){
       var that = this;
       path.on("mouseover", function(d,i){
             var coordinates = d3.mouse(d3.event.currentTarget);
-            // console.log(coordinates);
-            // console.log(d3.select("#dooldip"))
             var tooltip = d3.select("#dooldip")
                             .style("width", "280px")
                             .style("height", "90px")
                             .style("left", that.d3OffsetHor+"%")
                             .style("top", that.d3Offset+"%")
                             .style("background-color", that.d3Color[i]);
-            // console.log(d)
+
             tooltip.select("#dooldipname")
                   .text(d.data.name);
-            // console.log(tooltip.select("#dooldipname"));
-            // console.log(text(d.name));
             tooltip.select("#dooldippercent")
                   .text(d.data.percent+"%");
+
             d3.select("#dooldip").classed("hidden", false);
           })
           .on("mouseout", function(){
@@ -550,49 +438,3 @@ Vue.component('list-chart',{
     </div>
   `
 })
-
-// var asVue = new Vue({
-//   el: '#as',
-//   data(){
-//     return{
-//       d3Data: {},
-//       vueInstitution:"",
-//       vueSchool:"",
-//       vueProgram:"",
-//       vueRace:"",
-//       vueGender:"",
-//       vueIncome:"",
-//       vueFirst:"",
-//       vueAttendance:""
-//     }
-//   },
-//   computed:{
-//     isChanged(){
-//       return [this.vueInstitution, this.vueSchool, this.vueProgram, this.vueGender,this.vueRace,this.vueFirst,this.vueIncome,this.vueAttendance].join();
-//     }
-//   },
-//   watch: {
-//     isChanged() {
-//       // console.log("asVue watch")
-//       this.fetchData();
-//     }
-//   },
-//   created: function(){
-//     // console.log("asVue created")
-//     this.fetchData();
-//   },
-//   // mounted: function(){
-//     // console.log("asVue mounted")
-//   // },
-//   methods: {
-//     fetchData: function(){
-//       // console.log("asVue methods fetchData")
-//       var link = window.produceLink(this);
-//       fetch(link)
-//           .then(response => response.json())
-//           .then(json => {
-//             this.d3Data = json.data["0"]["Areas of Study"]
-//           })
-//     }
-//   }
-// })
