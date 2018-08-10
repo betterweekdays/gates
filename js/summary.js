@@ -20,20 +20,6 @@ var sum = Vue.component('sum',{
           <p><% pv["6"]["name"] %> <strong><% pv["6"]["percent"] %>%</strong></p>
         </div>
       </div>
-      <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 text-center">
-        <label class="pos-label">Key Strengths</label></br>
-        <p><% ks["0"]["name"] %> <strong><% ks["0"]["percent"] %>%</strong></p>
-        <p><% ks["1"]["name"] %> <strong><% ks["1"]["percent"] %>%</strong></p>
-        <p><% ks["2"]["name"] %> <strong><% ks["2"]["percent"] %>%</strong></p>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 text-center">
-        <label class="neg-label">Caution Areas</label></br>
-        <p><% ca["0"]["name"] %> <strong><% ca["0"]["percent"] %>%</strong></p>
-        <p><% ca["1"]["name"] %> <strong><% ca["1"]["percent"] %>%</strong></p>
-        <p><% ca["2"]["name"] %> <strong><% ca["2"]["percent"] %>%</strong></p>
-      </div>
-      </div>
     </div>
   `
 })
