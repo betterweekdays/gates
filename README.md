@@ -1,6 +1,6 @@
 # gates
-Overview and data visualization website for the Gates project
-Config repo here: https://github.com/betterweekdays/gatespage
+- Overview and data visualization website for the Gates project
+- Config repo here: https://github.com/betterweekdays/gatespage
 
 ## local installation
 
